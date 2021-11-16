@@ -2,7 +2,6 @@ package hu.fonixit.buildfolio.autotest.base;
 
 import hu.fonixit.buildfolio.autotest.drivermanager.DriverManagerOriginal;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -15,6 +14,8 @@ import static hu.fonixit.buildfolio.autotest.constants.DriverType.valueOf;
 public class BaseTest {
     //private final ThreadLocal<DriverManagerAbstract> driverManager = new ThreadLocal<>();
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+
 
     /*private void setDriverManager(DriverManagerAbstract driverManager) {
         this.driverManager.set(driverManager);

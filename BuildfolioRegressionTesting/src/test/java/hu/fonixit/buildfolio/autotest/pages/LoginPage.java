@@ -1,6 +1,7 @@
 package hu.fonixit.buildfolio.autotest.pages;
 
-import hu.fonixit.buildfolio.autotest.utils.WaitUtil;
+import hu.fonixit.buildfolio.autotest.objects.ADUser;
+import hu.fonixit.buildfolio.autotest.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,43 +26,49 @@ public class LoginPage extends BasePage {   //id, kigyűjteni ahol nincs id
     }
 
     public LoginPage enterTextInUsernameFld(String username){
-       wait.until(ExpectedConditions.visibilityOfElementLocated(usernameFld)).sendKeys(username);
-        //waitAndSendkeys(usernameFld, username);
-       // WaitUtil.waitAndSendkeys(usernameFld, username);
+        //WaitUtils.waitAndSendkeys(usernameFld, username);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameFld)).sendKeys(username);
         return this;
     }
 
     public LoginPage enterTextInPasswordFld(String password){
+        //waitUtil.waitAndSendkeys(passwordFld, password);
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwordFld)).sendKeys(password);
         return this;
     }
 
     public String headerSuccessNotice(){
+        //return waitUtil.waitAndGetText(header);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(header)).getText();
     }
 
     public String errorMessageText(){
+        //return waitUtil.waitAndGetText(felugroAblakSzöveg);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(felugroAblakSzöveg)).getText();
     }
 
     public LoginPage clickOnErrorMessageOkBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(felugroAblakOkBtn)).click();
+        //waitUtil.waitAndClick(felugroAblakOkBtn);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(felugroAblakOkBtn)).click();
         return this;
     }
 
     public String alertMessageText(){
-        //return waitAndGetText(alertMessage);
+       // return waitUtil.waitAndGetText(alertMessage);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage)).getText();
-        //return WaitUtil.waitAndGetText(alertMessage);
     }
 
-
-
     public DashboardPage belepes(){ //explicit wait használata
-        wait.until((ExpectedConditions.elementToBeClickable(belepesBtn))).click();
-       // waitAndClick(belepesBtn);
+        //waitUtil.waitAndClick(belepesBtn);
+        wait.until(ExpectedConditions.elementToBeClickable(belepesBtn)).click();
         return new DashboardPage(driver);
     }
 
+   /* public DashboardPage doLogin(ADUser user) {
+        return this.load()
+                .enterTextInUsernameFld(user.getADUsername())
+                .enterTextInPasswordFld(user.getPassword())
+                .belepes();
+    }*/
 
 }

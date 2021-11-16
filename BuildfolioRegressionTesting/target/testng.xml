@@ -3,8 +3,12 @@
 <suite name="Suite1" verbose="1" thread-count="2" parallel="tests">
     <test name="Chrome" thread-count="6" parallel="methods">
         <parameter name="browser" value="CHROME"/>
-        <packages>
+        <!--<packages>
             <package name="hu.fonixit.buildfolio.autotest.tests"/>
-        </packages>
+        </packages>-->
+        <classes>
+            <class name="hu.fonixit.buildfolio.autotest.tests.AttekintesTest" />
+        </classes>
+
     </test>
 </suite>

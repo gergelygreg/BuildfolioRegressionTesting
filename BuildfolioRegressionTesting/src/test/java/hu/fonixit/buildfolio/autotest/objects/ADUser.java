@@ -20,7 +20,7 @@ public class ADUser {
 
     public ADUser setADUsername(String username) {
         this.username = username;
-        return  this;
+        return this;
     }
 
     public String getPassword() {

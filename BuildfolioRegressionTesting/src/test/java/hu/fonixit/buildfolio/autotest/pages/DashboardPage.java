@@ -50,153 +50,154 @@ public class DashboardPage extends BasePage {
     }
 
     public String attekintesSuccessNotice(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(attekintesHeader)).getText();
+        return waitUtil.waitAndGetText(attekintesHeader);
     }
 
     //Tovább gombra kattintás
 
     public DashboardPage clickOnTovabbSzamlakBtn(){
-        wait.until((ExpectedConditions.elementToBeClickable(tovabbSzamlakBtn))).click();
+        waitUtil.waitAndClick(tovabbSzamlakBtn);
         return this;
     }
 
 
     public DashboardPage clickOnTovabbSzerzodesekBtn(){
-        wait.until((ExpectedConditions.elementToBeClickable(tovabbSzerzodesekBtn))).click();
+        waitUtil.waitAndGetText(tovabbSzerzodesekBtn);
+
         return this;
     }
 
 
     //riport letöltése ablak
     public DashboardPage clickOnRiportLetolteseBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(riportLetolteseBtn)).click();
+        waitUtil.waitAndClick(riportLetolteseBtn);
         return this;
     }
 
     //riport futtatás ablak
     public boolean futtatasBtnKattinthato(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(futtatasBtn)).isEnabled();
+        return waitUtil.waitAndEnabled(futtatasBtn);
     }
 
     public DashboardPage clickOnFuttatasBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(futtatasBtn)).click();
+        waitUtil.waitAndClick(futtatasBtn);
         return this;
     }
 
     public DashboardPage clickOnMegsemBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 
     public DashboardPage clickOnfajlformatumDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(fajlformatumDropDown)).click();
+        waitUtil.waitAndClick(fajlformatumDropDown);
         return this;
     }
 
     public DashboardPage pdfFajlformRiportKivalasztasa(){
         clickOnfajlformatumDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(fajlformatumDropDownPDF)).click();
+        waitUtil.waitAndClick(fajlformatumDropDownPDF);
         return this;
     }
 
     public DashboardPage excelFajlformRiportKivalasztasa(){
         clickOnfajlformatumDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(fajlformatumDropDownExcel)).click();
+        waitUtil.waitAndClick(fajlformatumDropDownExcel);
         return this;
     }
 
     //szerepkor
     public String szerepkorEllenorzes(){
-        return  wait.until(ExpectedConditions.visibilityOfElementLocated(userDropDown)).getText();
+        return waitUtil.waitAndGetText(userDropDown);
     }
 
     public DashboardPage clickOnSzerepkorDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerepkorDropDown)).click();
+        waitUtil.waitAndClick(szerepkorDropDown);
         return this;
     }
 
     public DashboardPage selectSzerepkor(String szerepkor){
         clickOnSzerepkorDropDown();
-        WebElement szerepk = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'"+szerepkor+"')]")));
+        WebElement szerepk = waitUtil.waitWebElement(By.xpath("//span[contains(text(),'"+szerepkor+"')]"));
         szerepk.click();
         return this;
     }
 
     //panelek
     public DashboardPage ingatlanPortfolioPanelMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanPortfolioPanel));
+        waitUtil.waitForVisibility(ingatlanokErtekePanel);
         return this;
     }
 
     public DashboardPage ingatlanErtekePanelMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanokErtekePanel));
+        waitUtil.waitForVisibility(ingatlanokErtekePanel);
         return this;
     }
 
     public DashboardPage szamlakPanelMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szamlakPanel));
+        waitUtil.waitForVisibility(szamlakPanel);
         return this;
     }
 
     public DashboardPage legutobbErtekesitettIngatlanokPanelMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(legutobbErtekesitettIngatlanokPanel));
+        waitUtil.waitForVisibility(legutobbErtekesitettIngatlanokPanel);
         return this;
     }
 
     public DashboardPage szerzodesekPanelMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerzodesekPanel));
+        waitUtil.waitForVisibility(szerzodesekPanel);
         return this;
     }
 
     //riport gombok
     public DashboardPage clickOningatlanPortfolioRiportBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(ingatlanPortfolioRiportBtn)).click();
+        waitUtil.waitAndClick(ingatlanokErtekeRiportBtn);
         return this;
     }
 
     public DashboardPage clickOnSzamlakRiportBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(szamlakRiportBtn)).click();
+        waitUtil.waitAndClick(szamlakRiportBtn);
         return this;
     }
 
     public DashboardPage clickOnIngatlanokErtekeRiportBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(ingatlanokErtekeRiportBtn)).click();
+        waitUtil.waitAndClick(ingatlanokErtekeRiportBtn);
         return this;
     }
 
     public DashboardPage clickOnSzerzodesekRiportBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerzodesekRiportBtn)).click();
+        waitUtil.waitAndClick(szamlakRiportBtn);
         return this;
     }
 
     //ingatlan portfólio dobozok
     public DashboardPage osszesIngatlanDobozMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(osszesIngatlanDoboz));
+        waitUtil.waitForVisibility(osszesIngatlanDoboz);
         return this;
     }
 
     public DashboardPage berbeadottDobozMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(berbeadottDoboz));
+        waitUtil.waitForVisibility(berbeadottDoboz);
         return this;
     }
 
     public DashboardPage bereltDobozMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(bereltDoboz));
+        waitUtil.waitForVisibility(bereltDoboz);
         return this;
     }
 
     public DashboardPage kiadatlanDobozMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kiadatlanDoboz));
+        waitUtil.waitForVisibility(kiadatlanDoboz);
         return this;
     }
 
     public DashboardPage sajatHasznalatbanDobozMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(sajatHasznalatbanDoboz));
+        waitUtil.waitForVisibility(sajatHasznalatbanDoboz);
         return this;
     }
 
     public DashboardPage hasznositatlanDobozMegjelenik(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hasznositatlanDoboz));
+        waitUtil.waitForVisibility(hasznositatlanDoboz);
         return this;
     }
 }

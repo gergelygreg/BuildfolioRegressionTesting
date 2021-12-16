@@ -9,6 +9,7 @@ import hu.fonixit.buildfolio.autotest.pages.SzervezetekPage;
 import hu.fonixit.buildfolio.autotest.pages.components.SideMenu;
 import hu.fonixit.buildfolio.autotest.pages.components.Szurok;
 import hu.fonixit.buildfolio.autotest.utils.FakerUtils;
+import hu.fonixit.buildfolio.autotest.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,14 +18,7 @@ public class SzervezetekTest extends BaseTest {
     @Test
     public void Uj_szervezet_felvetele_csak_a_kotelezo_mezok_kitoltesevel() throws InterruptedException { //előtte fel kell venni egy partnert, mivel ELŐFELTÉTEL:
         // A Partnerek menüpontban van legalább egy olyan partner rögzítve, aki nincs szervezethez rendelve
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
         String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
@@ -47,21 +41,12 @@ public class SzervezetekTest extends BaseTest {
         szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
         Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.clickOnFelvetelBtn();
-        //VÉGÉN ELLENŐRIZNI HOGY A LISTÁBAN MEGJELNIK A FELVETT SZERVEZET*/     Parse Response JSON using JsonPath list gw/api/organisation
-        //Assert.assertTrue(szervezetekPage.felvettSzervezetMegjelenik(szervezetAzon));
-        //Assert.assertTrue(szervezetekPage.felvettKapcsolodoPartnerMegjelenik(partnerNeve));
+
     }
 
     @Test
     public void Uj_szervezet_felvetel_az_osszes_mezo_kitöltésével(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
         String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
@@ -94,14 +79,7 @@ public class SzervezetekTest extends BaseTest {
 
     @Test
     public void Uj_szervezet_felvetele_Kapcsolodo_partner_mezo_kitoltese_nelkul(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
 
@@ -118,14 +96,7 @@ public class SzervezetekTest extends BaseTest {
 
     @Test
     public void Uj_szervezet_felvetelenek_megszakitasa_Mégsem_gombbal(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
 
         SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
@@ -139,19 +110,12 @@ public class SzervezetekTest extends BaseTest {
                 selectKapcsolodoPartnerFromDropDown(kapcsPartner);
         Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.clickOnMegsemBtn();
-        szervezetekPage.szervezetekFeliratMegjelenik();
+        Assert.assertTrue(szervezetekPage.szervezetekFeliratMegjelenik());
     }
 
     @Test
     public void Szurok_mukodese(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
         String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
@@ -201,14 +165,7 @@ public class SzervezetekTest extends BaseTest {
 
     @Test
     public void Szervezet_szerkesztese(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
         String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
@@ -239,7 +196,7 @@ public class SzervezetekTest extends BaseTest {
         String adOrgUnit = "ADUnit";
         szervezetekPage.
                 clickOnSzerkesztesUtolsoMuveletekBtn();
-        Assert.assertFalse(szervezetekPage.szervezetAzonositoSzerkesztheto());  //MEGNÉZNI
+        Assert.assertTrue(szervezetekPage.szervezetAzonositoNemSzerkesztheto());  //MEGNÉZNI
         szervezetekPage.
                 clearKapcsolodoPartner().
                 selectKapcsolodoPartnerFromDropDown(partnerNeve).

@@ -15,6 +15,6 @@ public class SzamlakPage extends BasePage {
     }
 
     public boolean ujSzamlaFelveteleBtnKattinthato(){
-       return wait.until(ExpectedConditions.visibilityOfElementLocated(ujSzamlaFelveteleBtn)).isEnabled();
+       return waitUtil.elementIsDisplayed(ujSzamlaFelveteleBtn);
     }
 }

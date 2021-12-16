@@ -24,90 +24,103 @@ public class IngatlanokDetailsAlapadatok extends BasePage {
     private final By felelosVezTelSzamaFld = By.xpath("//app-text-input[@name='responsibleManagerPhone']//input[@placeholder='Nincs megadva']");
     private final By kulcsorzoFld = By.xpath("//app-text-input[@name='keyKeeperName']//input[@placeholder='Nincs megadva']");
     private final By kulcsorzoTelSzamaFld = By.xpath("//app-text-input[@name='keyKeeperPhone']//input[@placeholder='Nincs megadva']");
+    //button
+    private final By inaktivalasBtn = By.xpath("//button[.=' Inaktiválás ']");
+    //ingatlan inaktiválás
+    private final By okBtn = By.xpath("//button[.='Igen']");
 
     public IngatlanokDetailsAlapadatok(WebDriver driver){
         super(driver);
     }
 
     //click
+    public IngatlanokDetailsAlapadatok clickInIgenBtn(){
+        waitUtil.waitAndClick(okBtn);
+        return this;
+    }
+
     public IngatlanokDetailsAlapadatok clickOnAdatokSzerkeszteseBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(adatokSzerkeszteseBtn)).click();
+        waitUtil.waitAndClick(adatokSzerkeszteseBtn);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok clickOnMentesBtnBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(mentesBtn)).click();
+        waitUtil.waitAndClick(mentesBtn);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok clickOnMegsemBtnBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
+        return this;
+    }
+
+    public IngatlanokDetailsAlapadatok clickOnInaktivalasBtn(){
+        waitUtil.waitAndClick(inaktivalasBtn);
         return this;
     }
 
     //enter text to field
     public IngatlanokDetailsAlapadatok enterTextToKoltsegHelyAzonFld(String koltsegHelyAzon){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(koltsegHelyAzonFld)).sendKeys(koltsegHelyAzon);
+        waitUtil.waitAndSendkeys(koltsegHelyAzonFld, koltsegHelyAzon);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToTihaszIdFld(String tihaszId){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tihaszIdFld)).sendKeys(tihaszId);
+        waitUtil.waitAndSendkeys(tihaszIdFld, tihaszId);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToEmailFld(String email){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailFld)).sendKeys(email);
+        waitUtil.waitAndSendkeys(emailFld, email);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToTelefonszamFld(String telefonszam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(telefonszamFld)).sendKeys(telefonszam);
+        waitUtil.waitAndSendkeys(telefonszamFld, telefonszam);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToEpuletAlapterFld(String epuletAlapTer){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(epuletAlapteruleteFld)).sendKeys(epuletAlapTer);
+        waitUtil.waitAndSendkeys(epuletAlapteruleteFld, epuletAlapTer);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToEpuletHasznosTerFld(String epuletHasznosTer){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(epuletHasznosTeruleteFld)).sendKeys(epuletHasznosTer);
+        waitUtil.waitAndSendkeys(epuletHasznosTeruleteFld, epuletHasznosTer);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToTelekAlapTerFld(String telekAlapter){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(telekAlapteruleteFld)).sendKeys(telekAlapter);
+        waitUtil.waitAndSendkeys(tihaszIdFld, telekAlapter);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToUgyfelkiszAlapTerFld(String ugyfelkiszolgalAlapTer){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ugyfelszolgalatAlapteruleteFld)).sendKeys(ugyfelkiszolgalAlapTer);
+        waitUtil.waitAndSendkeys(ugyfelszolgalatAlapteruleteFld, ugyfelkiszolgalAlapTer);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToHasznositottBankuzemiTerFld(String hasznositottBankuzemTer){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hasznositottBankuzemiTeruletFld)).sendKeys(hasznositottBankuzemTer);
+        waitUtil.waitAndSendkeys(hasznositottBankuzemiTeruletFld, hasznositottBankuzemTer);
         return this;
     }
 
-    public IngatlanokDetailsAlapadatok enterTextToFelelosVezFld(String koltsegHelyAzon){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(felelosVezetoFld)).sendKeys(koltsegHelyAzon);
+    public IngatlanokDetailsAlapadatok enterTextToFelelosVezFld(String felelosVezeto){
+        waitUtil.waitAndSendkeys(felelosVezetoFld, felelosVezeto);
         return this;
     }
 
     public IngatlanokDetailsAlapadatok enterTextToFelelosVezTelSzamaFld(String felelosVezTelSzama){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(felelosVezTelSzamaFld)).sendKeys(felelosVezTelSzama);
+        waitUtil.waitAndSendkeys(felelosVezTelSzamaFld, felelosVezTelSzama);
         return this;
     }
 
-    public IngatlanokDetailsAlapadatok enterTextToKulcsorzoFld(String kulcsOrzo){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kulcsorzoFld)).sendKeys(kulcsOrzo);
+    public IngatlanokDetailsAlapadatok enterTextToKulcsorzoFld(String kulcsorzo){
+        waitUtil.waitAndSendkeys(tihaszIdFld, kulcsorzo);
         return this;
-
     }
     public IngatlanokDetailsAlapadatok enterTextToKulcsorzoTelSzamaFld(String kulcsorzoTelSzama){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kulcsorzoTelSzamaFld)).sendKeys(kulcsorzoTelSzama);
+        waitUtil.waitAndSendkeys(kulcsorzoTelSzamaFld, kulcsorzoTelSzama);
         return this;
     }
 
@@ -124,6 +137,22 @@ public class IngatlanokDetailsAlapadatok extends BasePage {
                 enterTextToFelelosVezTelSzamaFld(ujIngatlanAlapadatok.getFelelosVezetoTelefonszama()).
                 enterTextToKulcsorzoFld(ujIngatlanAlapadatok.getKulcsorzo()).
                 enterTextToKulcsorzoTelSzamaFld(ujIngatlanAlapadatok.getKulcsorzoTelefonszama());
+    }
+
+    //assert
+    public boolean ingatlanAdatlaponAllunk(String ingatlanNeve){
+        boolean ertek;
+        try {
+            waitUtil.waitForVisibility(By.xpath("//span[.=' "+ingatlanNeve+" ']"));
+            ertek = false;
+        }catch (Exception e){
+            ertek =true;
+        }
+        return ertek;
+    }
+
+    public boolean popupInaktivalasMegj(){
+        return waitUtil.popupWindMegjelenik("Sikeres inaktiválás");
     }
 
 }

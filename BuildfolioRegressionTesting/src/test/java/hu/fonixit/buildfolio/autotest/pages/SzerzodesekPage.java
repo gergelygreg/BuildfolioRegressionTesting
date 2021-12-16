@@ -19,68 +19,63 @@ public class SzerzodesekPage extends BasePage {
     }
 
     public boolean ujSzerzodesFelveteleBtnKattinthato(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(ujSzerzodesFelveteleBtn)).isEnabled();
+        return waitUtil.elementIsClickable(ujSzerzodesFelveteleBtn);
     }
 
     //click
     public SzerzodesekPage clickOnElsoElem(){
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//tr[1]"))).click();
-        return this;
-    }
-
-    public SzerzodesekPage clickOnFelvettSzerzodes(){
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//tr[1]"))).click();
+        waitUtil.waitAndClick(By.xpath("//tr[1]"));
         return this;
     }
 
     public SzerzodesekPage clickOnUjSzerzodesFelveteleBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(ujSzerzodesFelveteleBtn)).click();
+        waitUtil.waitAndClick(ujSzerzodesFelveteleBtn);
         return this;
     }
 
     public SzerzodesekPage clickOnFelvetelBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(felvetelBtn)).click();
+        waitUtil.waitAndClick(felvetelBtn);
         return this;
     }
 
     //enterText
     public SzerzodesekPage enterTextToSzerzodesszamFld(String szerzodesSzam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerzodesszamFld)).sendKeys(szerzodesSzam);
+        waitUtil.waitAndSendkeys(szerzodesszamFld, szerzodesSzam);
         return this;
     }
 
     //enterText to textarea
     public SzerzodesekPage clickOnSzerzodesekTargyaTextarea(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerzodesTargyaTArea)).click();
+        waitUtil.waitAndClick(szerzodesTargyaTArea);
         return this;
     }
 
-    public SzerzodesekPage enterTextToSzerzodesekTargyaTextarea(String szerzodesTargy){
+    public SzerzodesekPage enterTextToSzerzodesekTargyaTextarea(String szerzodesTargya){
         clickOnSzerzodesekTargyaTextarea();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@placeholder='Nincs megadva']"))).sendKeys(szerzodesTargy);
+        waitUtil.waitAndSendkeys(By.xpath("//textarea[@placeholder='Nincs megadva']"), szerzodesTargya);
         return this;
     }
 
     //select
     public SzerzodesekPage clickOnSzerzodesTipusaDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerzodesTipusaDropDown)).click();
+        waitUtil.waitAndClick(szerzodesTipusaDropDown);
         return this;
     }
 
     public SzerzodesekPage selectSzerzodesTipusa(String szerzodesTipusa){
         clickOnSzerzodesTipusaDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+szerzodesTipusa+"']"))).click();
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+szerzodesTipusa+"']"));
         return this;
     }
 
     public SzerzodesekPage clickOnLejaratiTipusaDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(lejaratiTipusDropDown)).click();
+        waitUtil.waitAndClick(lejaratiTipusDropDown);
         return this;
     }
 
     public SzerzodesekPage selectLejaratiTipus(String lejaratiTipus){
         clickOnLejaratiTipusaDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+lejaratiTipus+"']"))).click();
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+lejaratiTipus+"']"));
         return this;
     }
 
@@ -93,7 +88,7 @@ public class SzerzodesekPage extends BasePage {
 
     //ellenőrzés
     public String listaElsoElemeEll(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr[1]//td[1]"))).getText();
+        return waitUtil.waitAndGetText(By.xpath("//tr[1]//td[1]"));
     }
 }
 

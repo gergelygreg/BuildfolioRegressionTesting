@@ -12,7 +12,7 @@ public class SzervezetekPage extends BasePage {
     private final By szervezetekFelirat = By.cssSelector("h3[class='ng-tns-c156-1']");
     private final By muveletekUtolsoBtn = By.xpath("(//button[@type='button'])[last()]"); //a legutoljára felvett szervezethez tartozo műveletek gomg beazonosítása "last()" metódussal
     private final By szervezetekFromMuveletekDropDown = By.xpath("(//button[normalize-space()='Szerkesztés'])[1]");
-    private final By kapcsolodoPartnerTorles = By.xpath("//span[@title='Clear all']");
+    private final By kapcsolodoPartnerFld = By.xpath("(//input[@role='combobox'])[2]");
     //Új szervezet felvétele ablak
     private final By szervezetAzonositoFld = By.xpath("(//input[@placeholder='Nincs megadva'])[1]"); //webelem nem interaktálható
     private final By kapcsolodoPartnerDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[2]");
@@ -25,58 +25,57 @@ public class SzervezetekPage extends BasePage {
     }
 
     public SzervezetekPage clickOnUjSzervezetFelveteleBtn() {
-        wait.until(ExpectedConditions.elementToBeClickable(ujSzervezetFelveteleBtn)).click();
+        waitUtil.waitAndClick(ujSzervezetFelveteleBtn);
         return this;
     }
 
-    public SzervezetekPage szervezetekFeliratMegjelenik() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szervezetekFelirat));
-        return this;
+    public boolean szervezetekFeliratMegjelenik() {
+        return waitUtil.elementIsDisplayed(szervezetekFelirat);
     }
 
     ////Új szervezet felvétele ablak
     public SzervezetekPage clickOnFelvetelBtn() {
-        wait.until(ExpectedConditions.elementToBeClickable(felvetelBtn)).click();
+        waitUtil.waitAndClick(felvetelBtn);
         return this;
     }
 
     public SzervezetekPage clickOnMegsemBtn() {
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 
 
     public SzervezetekPage enterSzervezetAzonositoFld(String szervezAzon) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szervezetAzonositoFld)).sendKeys(szervezAzon);
+        waitUtil.waitAndSendkeys(szervezetAzonositoFld, szervezAzon);
         return this;
     }
 
     public SzervezetekPage clickOnKapcsolodoPartnerDropDown() {
-        wait.until(ExpectedConditions.elementToBeClickable(kapcsolodoPartnerDropDown)).click();
+        waitUtil.waitAndClick(kapcsolodoPartnerDropDown);
         return this;
     }
 
     public SzervezetekPage selectKapcsolodoPartnerFromDropDown(String kapcsolodoPartn) {
         clickOnKapcsolodoPartnerDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='" + kapcsolodoPartn + "']"))).click();
+        waitUtil.waitAndClick(By.xpath("//div[@title='" + kapcsolodoPartn + "']"));
         return this;
     }
 
     public SzervezetekPage enterADOrganisUnitFld(String ADOrganisUnit) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ADOrganisUnitFld)).sendKeys(ADOrganisUnit);
+        waitUtil.waitAndSendkeys(ADOrganisUnitFld, ADOrganisUnit);
         return this;
     }
 
     //ellenőrzések
 
-    public boolean felvettSzervezetMegjelenik(String felvettSzervezet)  {
+    public boolean felvettSzervezetMegjelenik(String felvettSzervezet)  { //tr[contains(td[1]/text(),'Mogul')]
         String szervezet;
         do{
-            szervezet = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr[last()]//td[1]"))).getText();
+            szervezet = waitUtil.waitAndGetText(By.xpath("//tr[last()]//td[1]")); //td[1]//td
             if (felvettSzervezet.equals(szervezet)) {
             }
             else {
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='btn next']"))).click();
+                waitUtil.waitAndClick(By.xpath("//button[@class='btn next']"));
             }
         }
         while (!felvettSzervezet.equals(szervezet));
@@ -90,11 +89,11 @@ public class SzervezetekPage extends BasePage {
     public boolean felvettKapcsolodoPartnerMegjelenik(String kapcsolodoPartner){
         String partner;
         do{
-            partner = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr[last()]//td[2]"))).getText();
+            partner = waitUtil.waitAndGetText(By.xpath("//tr[last()]//td[2]"));
             if (kapcsolodoPartner.equals(partner)) {
             }
             else {
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='btn next']"))).click();
+                waitUtil.waitAndClick(By.xpath("//button[@class='btn next']"));
             }
         }
         while (!kapcsolodoPartner.equals(partner));
@@ -103,39 +102,32 @@ public class SzervezetekPage extends BasePage {
 
 
     public boolean felvetelBtnKattinthato() {
-        boolean ertek;
-        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(felvetelBtn));
-        if (e.isEnabled()) {
-            ertek = true;
-        }else{
-            ertek = false;
-        }
-        return ertek;
+        return waitUtil.elementIsClickable(felvetelBtn);
     }
     //
 
     public SzervezetekPage clickOnUtolsoMuveletekBtn (){
-        wait.until(ExpectedConditions.elementToBeClickable(muveletekUtolsoBtn)).click();
+        waitUtil.waitAndClick(muveletekUtolsoBtn);
         return this;
     }
 
     public SzervezetekPage clickOnSzerkesztesUtolsoMuveletekBtn(){
         clickOnUtolsoMuveletekBtn();
-        wait.until(ExpectedConditions.elementToBeClickable(szervezetekFromMuveletekDropDown)).click();
+        waitUtil.waitAndClick(szervezetekFromMuveletekDropDown);
         return this;
     }
 
-    public boolean szervezetAzonositoSzerkesztheto(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(szervezetAzonositoFld)).isSelected();
+    public boolean szervezetAzonositoNemSzerkesztheto(){
+        return waitUtil.fldIsNotEditable(szervezetAzonositoFld, "disabled");
     }
 
     public SzervezetekPage clearKapcsolodoPartner(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kapcsolodoPartnerTorles)).click();
+        waitUtil.waitAndClearText(kapcsolodoPartnerFld);
         return this;
     }
 
     public SzervezetekPage clearADOrgUnitFld(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ADOrganisUnitFld)).clear();
+        waitUtil.waitAndClearText(ADOrganisUnitFld);
         return this;
     }
 }

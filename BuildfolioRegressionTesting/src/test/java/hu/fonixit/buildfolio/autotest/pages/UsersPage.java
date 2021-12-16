@@ -49,217 +49,223 @@ public class UsersPage extends BasePage {
 
     //user inaktiválás
     public UsersPage clickOnInaktivalasBtnInMuveletekDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(inaktivalasBtnInMuveletekDropDown)).click();
+        waitUtil.waitAndClick(inaktivalasBtnInMuveletekDropDown);
         return this;
     }
 
     public UsersPage felhasznaloInaktivalasa(){
+        clickOnMuveletekButton();
         clickOnInaktivalasBtnInMuveletekDropDown();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(okMegerBtn)).click();
+        waitUtil.waitAndClick(okMegerBtn);
         return this;
     }
 
     public UsersPage clickOnMegseMegerBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 
-    public UsersPage inaktivUser(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//tr[@class='default-cursor not-filled ng-star-inserted'])[1]")));
-        return this;
+    public boolean inaktivUserMegj(){  //táblázatban lévő első elemet inaktiváljuk
+        boolean ertek = false;
+        String elem;
+        try {
+            WebElement e = waitUtil.waitWebElement(By.xpath("(//tr[1]"));
+            elem = e.getAttribute("class");
+            if(elem == "not filled")
+            ertek = true;
+        }catch (Exception e){
+            ertek = false;
+        }
+        return ertek;
     }
 
     //jelszó módosítás
 
     public UsersPage clickOnmentesBtnJelszoModositas(){
-        //waitUtil.waitAndClick(mentesBtnJelszoModositas);
-        wait.until(ExpectedConditions.elementToBeClickable(mentesBtnJelszoModositas)).click();
+        waitUtil.waitAndClick(mentesBtnJelszoModositas);
         return this;
     }
 
     public UsersPage enterUjJelszoFld(String jelszo){
-        //waitUtil.waitAndSendkeys(ujJelszoFld, jelszo);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ujJelszoFld)).sendKeys(jelszo);
+        waitUtil.waitAndSendkeys(ujJelszoFld, jelszo);
         return this;
     }
 
     public UsersPage enterJelszoMegerositesFld(String jelszoMeger){
-        //waitUtil.waitAndSendkeys(jelszoMegerositesFld, jelszoMeger);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(jelszoMegerositesFld)).sendKeys(jelszoMeger);
+        waitUtil.waitAndSendkeys(jelszoMegerositesFld, jelszoMeger);
         return this;
     }
 
     public UsersPage clickOnJelszoModositasaBtnMuveletekDropDown(){
-        //waitUtil.waitAndClick(jelszoModositasaBtnInuveletekDropDown);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(jelszoModositasaBtnInuveletekDropDown)).click();
+        waitUtil.waitAndClick(jelszoModositasaBtnInuveletekDropDown);
         return this;
     }
 
     public boolean mentesBtnJelszoModositasKattinthato(){  //
-       return wait.until(ExpectedConditions.visibilityOfElementLocated(mentesBtnJelszoModositas)).isEnabled();
+       return waitUtil.elementIsClickable(mentesBtnJelszoModositas);
     }
 
     public UsersPage clickOnjelszoGeneralasCheckbox(){
-        wait.until(ExpectedConditions.elementToBeClickable(jelszoGeneralasCheckbox)).click();
+        waitUtil.waitAndClick(jelszoGeneralasCheckbox);
         return this;
     }
 
     public boolean ujJelszoFldSzerkesztheto(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(ujJelszoFld)).isEnabled();
+        return waitUtil.mezoSzerkesztheto(ujJelszoFld);
     }
 
     public boolean jelszoMegerositesFldSzerkesztheto(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(jelszoMegerositesFld)).isEnabled();
+        return waitUtil.mezoSzerkesztheto(jelszoMegerositesFld);
     }
 
     public boolean megsemBtnJelszoModositasKattinthato(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(megsemBtnJelszoModositas)).isEnabled();
+        return waitUtil.mezoSzerkesztheto(megsemBtnJelszoModositas);
     }
 
     public UsersPage clickOnMegsemBtnJelszoModositas(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtnJelszoModositas)).click();
+        waitUtil.waitAndClick(megsemBtnJelszoModositas);
         return this;
     }
 
     //felhasználó módosítás ablak
     public UsersPage enterPlusSzerepkorModositAblakon(String role){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[normalize-space()='+ Szerepkör'])[1]"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='row ng-star-inserted ng-touched ng-dirty ng-invalid']//input[1]"))).click();
-        WebElement e = wait.until((ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='"+role+"']"))));
+        waitUtil.waitAndClick(By.xpath("//button[normalize-space()='+ Szerepkör']"));
+        waitUtil.waitAndClick(By.xpath("(//input[@role='combobox'])[last()]"));
+        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='"+role+"']"));
         e.click();
         return this;
     }
 
     public UsersPage clickOnMentesBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(mentesBtn)).click();
+        waitUtil.waitAndClick(mentesBtn);
         return this;
     }
 
-    public UsersPage nevFldClearAndenterModositottNevToNevFld(String nev) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@placeholder='Teszt Név'])[1]"))).clear();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder='Teszt Név']"))).sendKeys(nev);
+    public UsersPage nevFldClearAndEnterModositottNevToNevFld(String nev) {
+        waitUtil.waitAndClearText(By.xpath("(//input[@placeholder='Teszt Név'])[1]"));
+        waitUtil.waitAndSendkeys(By.cssSelector("input[placeholder='Teszt Név']"), nev);
         return this;
     }
 
     public UsersPage emailFldClearAndEnterModositottEmailToEmailFld(String email){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@placeholder='email@gmail.com'])[1]"))).clear();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@placeholder='email@gmail.com'])[1]"))).sendKeys(email);
+        waitUtil.waitAndClearText(By.xpath("(//input[@placeholder='email@gmail.com'])[1]"));
+        waitUtil.waitAndSendkeys(By.cssSelector("(//input[@placeholder='email@gmail.com'])[1]"), email);
         return this;
     }
 
     public UsersPage szervezetDropDownClearAndEnterModositottSzervezetToSzervezetFld(String szervezet){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Clear all'])[1]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@role='combobox'])[3]"))).click();
-        WebElement e = wait.until((ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='"+szervezet+"']"))));
+        waitUtil.waitAndClick(By.xpath("(//span[@title='Clear all'])[1]"));
+        waitUtil.waitAndClick(By.xpath("(//input[@role='combobox'])[3]"));
+        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='" + szervezet + "']"));
         e.click();
         return this;
     }
 
     public UsersPage szerepkorDropDownClearAndEnterModositottSzerepkorToSzerepkorFld(String szerepkor){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@title='Clear all'])[2]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@role='combobox'])[4]"))).click();
-        WebElement e = wait.until((ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='"+szerepkor+"']"))));
+        waitUtil.waitAndClick(By.xpath("(//span[@title='Clear all'])[2]"));
+        waitUtil.waitAndClick(By.xpath("(//input[@role='combobox'])[4]"));
+        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='" + szerepkor + "']"));
         e.click();
         return this;
     }
 
     public UsersPage addUjSzerepkorToFelhasznaloModositasAblak(String szerepkor){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(plusSzerepkorBtn)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@role='combobox'])[7]"))).click();
-        WebElement e = wait.until((ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='"+szerepkor+"']"))));
+        waitUtil.waitAndClick(plusSzerepkorBtn);
+        waitUtil.waitAndClick(By.xpath("(//input[@role='combobox'])[7]"));
+        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='" + szerepkor + "']"));
         e.click();
         return this;
     }
 
     public UsersPage clickOnszerkesztesBtnInMuveletekDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerkesztesBtnInMuveletekDropDown)).click();
+        waitUtil.waitAndClick(szerkesztesBtnInMuveletekDropDown);
         return this;
     }
 
 
 
     public UsersPage clickOninaktivalasBtnInMuveletekDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(inaktivalasBtnInMuveletekDropDown)).click();
+        waitUtil.waitAndClick(inaktivalasBtnInMuveletekDropDown);
         return this;
     }
 
     //találati lista
     public UsersPage clickOnMuveletekButton(){
-        wait.until(ExpectedConditions.elementToBeClickable(muveletekBtn)).click();
+        waitUtil.waitAndClick(muveletekBtn);
         return this;
     }
 
     public UsersPage clickOnUjFelhasznaloFelveteleBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(ujFelhasznaloFelveteleBtn)).click();
+        waitUtil.waitAndClick(ujFelhasznaloFelveteleBtn);
         return this;
     }
 
     public UsersPage megjelenoNevAListaban(String nev){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[contains(text(),'"+nev+"')])")));
+        waitUtil.waitForVisibility(By.xpath("(//td[contains(text(),'"+nev+"')])"));
         return this;
     }
 
     public UsersPage megjelenoEmailAListaban(String email){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[contains(text(),'"+email+"')])")));
+       waitUtil.waitForVisibility(By.xpath("(//td[contains(text(),'"+email+"')])"));
         return this;
     }
 
     public UsersPage megjelenoSzervezetAListaban(String szervezet){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[contains(text(),'"+szervezet+"')])")));
+        waitUtil.waitForVisibility(By.xpath("(//td[contains(text(),'"+szervezet+"')])"));
         return this;
     }
 
     public UsersPage megjelenoSzerepkorAListaban(String szerepkor){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[@class='cell-row ng-star-inserted'][contains(text(),'"+szerepkor+"')])")));
+        waitUtil.waitForVisibility(By.xpath("(//span[@class='cell-row ng-star-inserted'][contains(text(),'"+szerepkor+"')])"));
         return this;
     }
 
     //új felhasználó felvétele
     public UsersPage enterFelhasznalonev(String username){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(felhasznaloNevFld)).sendKeys(username);
+        waitUtil.waitAndSendkeys(felhasznaloNevFld, username);
         return this;
     }
 
     public UsersPage enterNev(String name){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nevFld)).sendKeys(name);
+        waitUtil.waitAndSendkeys(nevFld, name);
         return this;
     }
 
     public UsersPage enterEmail(String email){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailFld)).sendKeys(email);
+        waitUtil.waitAndSendkeys(emailFld, email);
         return this;
     }
 
     public UsersPage selectSzervezet(String organisation){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szervezetDropDown)).click();
-        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+organisation+"']")));
+        waitUtil.waitAndClick(szervezetDropDown);
+        WebElement e = waitUtil.waitWebElement(By.xpath("//div[@title='" + organisation + "']"));
         e.click();
         return this;
     }
 
     public UsersPage selectSzerepkor(String role){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerepkorDropDown)).click();
-        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+role+"']")));
+        waitUtil.waitAndClick(szerepkorDropDown);
+        WebElement e = waitUtil.waitWebElement(By.xpath("//div[@title='" + role + "']"));
         e.click();
         return this;
     }
 
     public UsersPage selectPlusSzerepkor(String role){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(pluszSzerepkorDropDownBtn)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(pluszszerepkorDropDown)).click();
-        WebElement e = wait.until((ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='"+role+"']"))));
+        waitUtil.waitAndClick(pluszSzerepkorDropDownBtn);
+        waitUtil.waitAndClick(pluszszerepkorDropDown);
+        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='" + role + "']"));
         e.click();
         return this;
     }
 
 
     public UsersPage clickOnFelvetelBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(felvetelBtn)).click();
+        waitUtil.waitAndClick(felvetelBtn);
         return this;
     }
 
     public UsersPage clickOnMegseBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 

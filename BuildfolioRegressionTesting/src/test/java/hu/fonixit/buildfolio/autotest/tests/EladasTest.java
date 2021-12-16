@@ -11,6 +11,7 @@ import hu.fonixit.buildfolio.autotest.pages.components.IngatlanokDetailsPageTabs
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.SzerzodesekDetailsPages.SzerzodesekDetailsIngatlanokEsEladasiArak;
 import hu.fonixit.buildfolio.autotest.utils.FakerUtils;
 import hu.fonixit.buildfolio.autotest.utils.JacksonUtils;
+import hu.fonixit.buildfolio.autotest.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -22,14 +23,7 @@ public class EladasTest extends BaseTest {
 
     @Test
     public void Eladasi_folyamat_inditasa_0lepes_teljes_folyamat_a_0_7_feladat_vegeig_tart() throws IOException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
 
         //partnerek felvétele eladó-vevő
@@ -142,14 +136,7 @@ public class EladasTest extends BaseTest {
     @Test
     public void partner(){
 
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
 
         //partnerek felvétele eladó-vevő

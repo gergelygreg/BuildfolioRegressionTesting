@@ -27,77 +27,77 @@ public class SideMenu extends BasePage {
     }
 
     public SideMenu navigateToAttekintesPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(attekintesBtn)).click();
+        waitUtil.waitAndClick(attekintesBtn);
         return this;
     }
 
     public SideMenu navigateToRiportokPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(riportokBtn)).click();
+        waitUtil.waitAndClick(riportokBtn);
         return this;
     }
 
     public SideMenu navigateToIngatlanokPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(ingatlanokBtn)).click();
+        waitUtil.waitAndClick(ingatlanokBtn);
         return this;
     }
 
     public SideMenu navigateToParkolokPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(parkolokBtn)).click();
+        waitUtil.waitAndClick(parkolokBtn);
         return this;
     }
 
     public SideMenu navigateToPartnerekPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(partnerekBtn)).click();
+        waitUtil.waitAndClick(partnerekBtn);
         return this;
     }
 
     public SideMenu navigateToFeladatkezeloPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(feladatkezeloBtn)).click();
+        waitUtil.waitAndClick(feladatkezeloBtn);
         return this;
     }
 
     public SideMenu navigateToSzerzodesekPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerzodesekBtn)).click();
+        waitUtil.waitAndClick(szerzodesekBtn);
         return this;
     }
 
     public SideMenu navigateToSzamlakPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(szamlakBtn)).click();
+        waitUtil.waitAndClick(szamlakBtn);
         return this;
     }
 
     public SideMenu navigateToEszkozokPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(eszkozokBtn)).click();
+        waitUtil.waitAndClick(eszkozokBtn);
         return this;
     }
 
     public SideMenu navigateToIgenyekPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(igenyekBtn)).click();
+        waitUtil.waitAndClick(igenyekBtn);
         return this;
     }
 
     public SideMenu navigateToErtesitesekPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(ertesitesekBtn)).click();
+        waitUtil.waitAndClick(ertesitesekBtn);
         return this;
     }
 
     public SideMenu navigateToFelhasznalokPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(felhasznalokBtn)).click();
+        waitUtil.waitAndClick(felhasznalokBtn);
         return this;
     }
 
     public SideMenu navigateToSzervezetekPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(szervezetekBtn)).click();
+        waitUtil.waitAndClick(szervezetekBtn);
         return  this;
     }
 
     public SideMenu navigateToAdatfeltoltesPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(adatfeltoltesBtn)).click();
+        waitUtil.waitAndClick(adatfeltoltesBtn);
         return this;
     }
 
     public SideMenu navigateToAdatletoltesPanel(){
-        wait.until(ExpectedConditions.elementToBeClickable(adatletoltesBtn)).click();
+        waitUtil.waitAndClick(adatletoltesBtn);
         return this;
     }
 }

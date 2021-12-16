@@ -27,108 +27,210 @@ public class Szurok extends BasePage {
     private final By varosFld = By.xpath("//input[@placeholder='Város']");
     private final By koztNeveFld = By.xpath("//input[@placeholder='Közterület neve']");
     private final By hrszFld = By.xpath("//input[@placeholder='Helyrajzi szám']");
+    //Parkolók-parkolóhelyek
+    private final By azonositoFldParkolohely = By.xpath("//input[@placeholder='Azonosító']");
+    private final By parkolohelyTipusaDropDown = By.xpath("//div[.='Parkolóhely típusa']//input");
+    //Parkolok-ingatlanok
+    private final By megnevezesFld = By.xpath("//input[@placeholder='Megnevezés']");
+    private final By jellegDropDown = By.xpath("//app-buildfolio-select[@name='natureCode']//div//ng-select//div//div//div//input");
+    private final By iranyitoszamFldIng = By.xpath("//input[@placeholder='Irányítószám']");
+    private final By varosFldIng = By.xpath("//input[@placeholder='Város']");
+    private final By koztNeveFldIng = By.xpath("//input[@placeholder='Közterület neve']");
+    private final By hrszFldIng = By.xpath("//input[@placeholder='HRSZ']");
+    private final By hasznDropDown = By.xpath("//app-buildfolio-select[@name='utilizationCode']//div//ng-select//div//div//div//input");
+    private final By bankUzemCeluDropDown = By.xpath("//app-buildfolio-select[@name='usedAsBank']//div//ng-select//div//div//div//input");
+    //Partnerek
+    private final By nevFldPartn = By.xpath("//input[@placeholder='Név']");
+    private final By cegjegyzekSzamFldPartn = By.xpath("//input[@placeholder='Cégjegyzékszám']");
+    private final By iranyitoszamFldPartn = By.xpath("//input[@placeholder='Irányítószám']");
+    private final By varosFldPartn = By.xpath("//input[@placeholder='Város']");
+    private final By kozteruletneveFldPartn = By.xpath("//input[@placeholder='Közterület neve']");
 
 
     public Szurok(WebDriver driver){
         super(driver);
     }
 
+    //Parkolók adatlap - ingatlanok
+    public Szurok enterToMegnevezesFldIng(String ingatlanNeve){
+        waitUtil.waitAndSendkeys(megnevezesFld, ingatlanNeve);
+        return this;
+    }
+
+    public Szurok selectElemFromJellegDropDownIng(String jelleg){
+        waitUtil.waitAndClick(jellegDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+jelleg+"']"));
+        return this;
+    }
+
+    public Szurok enterToIranyitoszamFldIng(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldIng, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterToVarosFldIng(String varos){
+        waitUtil.waitAndSendkeys(varosFldIng, varos);
+        return this;
+    }
+
+    public Szurok enterToKozteruletNeveFldIng(String koztNeve){
+        waitUtil.waitAndSendkeys(koztNeveFldIng, koztNeve);
+        return this;
+    }
+
+    public Szurok hrszFldIng(String HRSZ){
+        waitUtil.waitAndSendkeys(hrszFldIng, HRSZ);
+        return this;
+    }
+
+    public Szurok selectElemFromHasznositasDropDownIng(String hasznositas){
+        waitUtil.waitAndClick(hasznDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+hasznositas+"']"));
+        return this;
+    }
+
+    public Szurok selectElemFromBankuzemiCeluDropDownIng(String bankuzemiCelu){
+        waitUtil.waitAndClick(bankUzemCeluDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+bankuzemiCelu+"']"));
+        return this;
+    }
+
+
     //szervezetek
-    public Szurok enterSzervezetAzonFld(String SzervezAzon){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szervezetAzonFld)).sendKeys(SzervezAzon);
+    public Szurok enterSzervezetAzonFld(String szervezetAzon){
+        waitUtil.waitAndSendkeys(szervezetAzonFld, szervezetAzon);
         return this;
     }
 
     public Szurok clickOnKapcsolodoPartnDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(kapcsolodoPartnDropDown)).click();
+        waitUtil.waitAndClick(kapcsolodoPartnDropDown);
         return this;
     }
 
     public Szurok kapcsolodoPartnerKivalasztasaFromKapcsolodoPartnDropDown(String kapcsolodoPartn){
         clickOnKapcsolodoPartnDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+kapcsolodoPartn+"']"))).click();
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+kapcsolodoPartn+"']"));
         return this;
     }
 
    //gombok
     public Szurok clickOnSzurokBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(szurokBtn)).click();
+        waitUtil.waitAndClick(szurokBtn);
         return this;
     }
 
     public Szurok clickOnKeresesBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(keresesBtn)).click();
+        waitUtil.waitAndClick(keresesBtn);
         return this;
     }
 
     public Szurok clickOnSzurokTorleseBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(szurokTorleseBtn)).click();
+        waitUtil.waitAndClick(szurokTorleseBtn);
         return this;
     }
 
     //felhasználók
     public Szurok enterNev(String nev){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nevFld)).sendKeys(nev);
+        waitUtil.waitAndSendkeys(nevFld, nev);
         return this;
     }
 
     public Szurok enterEmail(String email){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailFld)).sendKeys(email);
+        waitUtil.waitAndSendkeys(emailFld, email);
         return this;
     }
 
     public Szurok selectSzervezetFromSzervezetDropdDown(String szervezet){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szervezetDropDown)).click();
-        WebElement szerv = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@title='"+szervezet+"']")));
+        waitUtil.waitAndClick(szervezetDropDown);
+        WebElement szerv = waitUtil.waitWebElement(By.xpath("//div[@title='" + szervezet + "']"));
         szerv.click();
         return this;
     }
 
     public Szurok selectSzerepkorFromSzerepkorDropdDown(String szerepkor){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerepkorDropDown)).click();
-        WebElement szerepk = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[title='"+szerepkor+"']")));
+        waitUtil.waitAndClick(szerepkorDropDown);
+        WebElement szerepk = waitUtil.waitWebElement(By.cssSelector("div[title='" + szerepkor + "']"));
         szerepk.click();
         return this;
     }
 
     //parkolók
     public Szurok enterTextToAzonositoFld(String azonosito){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(azonositoFld)).sendKeys(azonosito);
+        waitUtil.waitAndSendkeys(azonositoFld, azonosito);
         return this;
     }
 
     public Szurok enterTextToParkoloMegnFld (String parkoloMegn){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(parkoloMegnFld)).sendKeys(parkoloMegn);
+        waitUtil.waitAndSendkeys(parkoloMegnFld, parkoloMegn);
         return this;
     }
 
     public Szurok selectTipusFromDropDown(String tipus){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@role='combobox'])[1]"))).sendKeys(tipus);
+        waitUtil.waitAndSendkeys(By.xpath("(//input[@role='combobox'])[1]"), tipus);
         return this;
     }
 
     public Szurok enterTextToIranyitoszamFld (String iranyitoszam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(iranyitoszamFld)).sendKeys(iranyitoszam);
+        waitUtil.waitAndSendkeys(iranyitoszamFld, iranyitoszam);
         return this;
     }
 
     public Szurok enterTextToVarosFld (String varos){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(varosFld)).sendKeys(varos);
+        waitUtil.waitAndSendkeys(varosFld, varos);
         return this;
     }
 
     public Szurok enterTextToKoztNeveFld (String kozterNeve){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(koztNeveFld)).sendKeys(kozterNeve);
+        waitUtil.waitAndSendkeys(koztNeveFld, kozterNeve);
         return this;
     }
 
     public Szurok enterTextToHrszFld (String hrsz){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hrszFld)).sendKeys(hrsz);
+        waitUtil.waitAndSendkeys(hrszFld, hrsz);
         return this;
     }
 
     public String felvettSzervezetMegjelenikSzures(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr[1]//td[1]"))).getText();
+        return waitUtil.waitAndGetText(By.xpath("//tr[1]//td[1]"));
+    }
+
+    //parkolók-parkolóhelyek
+    public Szurok selectFromParkolohelyTipusaDropDown(String tipus){
+        waitUtil.waitAndClick(parkolohelyTipusaDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+tipus+"']"));
+        return this;
+    }
+
+    public Szurok enterTextToAzonFldParkolohely(String azon){
+        waitUtil.waitAndSendkeys(azonositoFldParkolohely, azon);
+        return this;
+    }
+
+
+    //partnerek
+    public Szurok enterTextToNevFldPartn(String nev){
+        waitUtil.waitAndSendkeys(nevFldPartn, nev);
+        return this;
+    }
+
+    public Szurok enterTextToCegjegyzekszamFldPartn(String cegjegyzekszam){
+        waitUtil.waitAndSendkeys(cegjegyzekSzamFldPartn, cegjegyzekszam);
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldPartn(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldPartn, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToVarosFldPartn(String varos){
+        waitUtil.waitAndSendkeys(varosFldPartn, varos);
+        return this;
+    }
+
+    public Szurok enterTextToKoztNeveFldPartn(String koztNeve){
+        waitUtil.waitAndSendkeys(kozteruletneveFldPartn, koztNeve);
+        return this;
     }
 
 }

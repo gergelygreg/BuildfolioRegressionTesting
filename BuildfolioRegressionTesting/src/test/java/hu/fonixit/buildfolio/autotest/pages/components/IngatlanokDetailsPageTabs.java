@@ -28,72 +28,72 @@ public class IngatlanokDetailsPageTabs extends BasePage {
 
     //click
     public IngatlanokDetailsPageTabs clickOnAlapadatokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(alapadatokTab)).click();
+        waitUtil.waitAndClick(alapadatokTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnParkolasTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(parkolasTab)).click();
+        waitUtil.waitAndClick(parkolasTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnMuszakiAdatokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(muszakiAdatokTab)).click();
+        waitUtil.waitAndClick(muszakiAdatokTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnTulajdoniLapTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(tulajdoniLapTab)).click();
+        waitUtil.waitAndClick(tulajdoniLapTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnNyilvantartasTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(nyilvantartasTab)).click();
+        waitUtil.waitAndClick(nyilvantartasTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnErtekTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(ertekTab)).click();
+        waitUtil.waitAndClick(ertekTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnPartnerekTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(partnerekTab)).click();
+        waitUtil.waitAndClick(partnerekTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnSzerzodesekTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerzodesekTab)).click();
+        waitUtil.waitAndClick(szerzodesekTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnSzamlakTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(szamlakTab)).click();
+        waitUtil.waitAndClick(szamlakTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnAlingatlanokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(alingatlanokTab)).click();
+        waitUtil.waitAndClick(alingatlanokTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnEszkozokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(eszkozokTab)).click();
+        waitUtil.waitAndClick(eszkozokTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnDokumentumokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(dokumentumokTab)).click();
+        waitUtil.waitAndClick(dokumentumokTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnMunkafolyamatokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(munkafolyamatokTab)).click();
+        waitUtil.waitAndClick(munkafolyamatokTab);
         return this;
     }
 
     public IngatlanokDetailsPageTabs clickOnIgenyekTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(igenyekTab)).click();
+        waitUtil.waitAndClick(igenyekTab);
         return this;
     }
 

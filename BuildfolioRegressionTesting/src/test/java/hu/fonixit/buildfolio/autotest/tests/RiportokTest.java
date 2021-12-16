@@ -6,6 +6,7 @@ import hu.fonixit.buildfolio.autotest.pages.DashboardPage;
 import hu.fonixit.buildfolio.autotest.pages.LoginPage;
 import hu.fonixit.buildfolio.autotest.pages.RiportokPage;
 import hu.fonixit.buildfolio.autotest.pages.components.SideMenu;
+import hu.fonixit.buildfolio.autotest.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,14 +18,7 @@ public class RiportokTest extends BaseTest {
 
     @Test
     public void Megjeleno_Riportok_TULAJDONOSI_szerepkorrel_osszes_riport_futtatasa_pdf_es_excel_fajlformatumra() throws InterruptedException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToRiportokPanel();
         RiportokPage riportokPage = new RiportokPage(getDriver());
@@ -84,14 +78,7 @@ public class RiportokTest extends BaseTest {
 
     @Test
     public void Megjeleno_Riportok_BERLO_szerepkorrel_osszes_riport_futtatasa_pdf_es_excel_fajlformatumra() throws InterruptedException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToRiportokPanel();
         RiportokPage riportokPage = new RiportokPage(getDriver());
@@ -127,14 +114,7 @@ public class RiportokTest extends BaseTest {
 
     @Test
     public void Megjeleno_Riportok_UZEMELTETO_szerepkorrel_osszes_riport_futtatasa_pdf_es_excel_fajlformatumra() {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToRiportokPanel();
         RiportokPage riportokPage = new RiportokPage(getDriver());
@@ -178,14 +158,7 @@ public class RiportokTest extends BaseTest {
 
     @Test
     public void Megjeleno_Riportok_KEZELO_szerepkorrel_osszes_riport_futtatasa_pdf_es_excel_fajlformatumra() {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToRiportokPanel();
         RiportokPage riportokPage = new RiportokPage(getDriver());

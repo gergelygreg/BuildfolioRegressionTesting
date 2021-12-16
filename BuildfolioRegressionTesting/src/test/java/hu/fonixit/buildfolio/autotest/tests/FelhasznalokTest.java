@@ -26,9 +26,9 @@ public class FelhasznalokTest extends BaseTest {
     public void Uj_felhasznalo_felvetele_az_osszes_mezo_kitoltesevel() throws IOException {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
 
-       // DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
 
-        //Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
         UsersPage usersPage = new UsersPage(getDriver())
@@ -42,8 +42,8 @@ public class FelhasznalokTest extends BaseTest {
     @Test
     public void Uj_felhasznalo_felvetele_uresen_hagyott_mezokkel() throws IOException {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
-       // DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-       // Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
         String name = "Teszt Elek";
@@ -60,8 +60,8 @@ public class FelhasznalokTest extends BaseTest {
     @Test
     public void Uj_felhasznalo_felvetele_tobb_szerepkorrel() throws IOException {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
-     //   DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-     //   Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
         String role1 = "Bérlő";
@@ -78,8 +78,8 @@ public class FelhasznalokTest extends BaseTest {
     @Test
     public void Uj_felhasznalo_felvetele_az_osszes_szerepkorrel() throws IOException {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
-        //DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-        //Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
         String role1 = "Bérlő";
@@ -102,8 +102,8 @@ public class FelhasznalokTest extends BaseTest {
     @Test
     public void Uj_felhasznalo_felvetele_tobb_azonos_szerepkorrel() throws IOException {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
-       // DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-       // Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
         String role = "Tulajdonos";
@@ -118,8 +118,8 @@ public class FelhasznalokTest extends BaseTest {
     @Test
     public void Uj_felhasznalo_felvetelenek_megszakitasa_Megsem_gombbal() throws IOException {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
-       // DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-       // Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
         UsersPage usersPage = new UsersPage(getDriver()).
@@ -131,8 +131,8 @@ public class FelhasznalokTest extends BaseTest {
 
     @Test
     public void Szurok_mukodese() throws InterruptedException {
-       //DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-        //Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String nev = "Teszt Név";
         String email = "email@gmail.com";
@@ -178,15 +178,7 @@ public class FelhasznalokTest extends BaseTest {
 
    @Test
     public void Nem_ADs_felhasználó_szerkesztése() {
-       // DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-       ADUser user = new ADUser().
-               setADUsername("takarekingatlanuser1").
-               setPassword("Testing123");
-       DashboardPage dashboardPage = new LoginPage(getDriver()).
-               load().
-               enterTextInUsernameFld(user.getADUsername()).
-               enterTextInPasswordFld(user.getPassword()).
-               belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String nev = "Teszt Elek";
@@ -197,7 +189,7 @@ public class FelhasznalokTest extends BaseTest {
         UsersPage usersPage = new UsersPage(getDriver()).
                 clickOnMuveletekButton().
                 clickOnszerkesztesBtnInMuveletekDropDown().
-                nevFldClearAndenterModositottNevToNevFld(nev).
+                nevFldClearAndEnterModositottNevToNevFld(nev).
                 emailFldClearAndEnterModositottEmailToEmailFld(email).
                 szervezetDropDownClearAndEnterModositottSzervezetToSzervezetFld(szervezet).
                 szerepkorDropDownClearAndEnterModositottSzerepkorToSzerepkorFld(szerepkor1).
@@ -211,15 +203,7 @@ public class FelhasznalokTest extends BaseTest {
 
    @Test
     public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_kitoltes_hianyaban(){
-      // DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-       ADUser user = new ADUser().
-               setADUsername("takarekingatlanuser1").
-               setPassword("Testing123");
-       DashboardPage dashboardPage = new LoginPage(getDriver()).
-               load().
-               enterTextInUsernameFld(user.getADUsername()).
-               enterTextInPasswordFld(user.getPassword()).
-               belepes();
+       DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
        String jelszo = "Testpassword";
@@ -236,14 +220,7 @@ public class FelhasznalokTest extends BaseTest {
 
     @Test
     public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_generalassal(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         UsersPage usersPage = new UsersPage(getDriver()).
@@ -260,14 +237,7 @@ public class FelhasznalokTest extends BaseTest {
 
     @Test
     public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_megszakitassal(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         UsersPage usersPage = new UsersPage(getDriver()).
@@ -285,14 +255,7 @@ public class FelhasznalokTest extends BaseTest {
 
     @Test
     public void Nem_ADs_felhasználó_eseten_jelszo_modositasa_uj_jelszo_megadasaval() {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         String jelszo = "Testpassword";
@@ -310,20 +273,13 @@ public class FelhasznalokTest extends BaseTest {
 
     @Test
     public void Nem_ADs_felhasznalo_inaktivalasa(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
         UsersPage usersPage = new UsersPage(getDriver()).
                 clickOnMuveletekButton().
-                felhasznaloInaktivalasa().
-                inaktivUser();
+                felhasznaloInaktivalasa();
+                Assert.assertTrue(usersPage.inaktivUserMegj());
     }
 
 }

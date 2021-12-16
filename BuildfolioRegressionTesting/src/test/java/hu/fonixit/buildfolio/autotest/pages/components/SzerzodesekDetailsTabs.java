@@ -18,27 +18,27 @@ public class SzerzodesekDetailsTabs extends BasePage {
 
     //click
     public SzerzodesekDetailsTabs clickOnAlapadatokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(alapadatokTab)).click();
+        waitUtil.waitAndClick(alapadatokTab);
         return this;
     }
 
     public SzerzodesekDetailsTabs clickOnIngatlanokEsEladasiArakTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(ingatlanokEsEladasiArakTab)).click();
+        waitUtil.waitAndClick(ingatlanokEsEladasiArakTab);
         return this;
     }
 
     public SzerzodesekDetailsTabs clickOnSzerzodoPartnereTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerzodoPartnereTab)).click();
+        waitUtil.waitAndClick(szerzodoPartnereTab);
         return this;
     }
 
     public SzerzodesekDetailsTabs clickOnSzamlakTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(szamlakTab)).click();
+        waitUtil.waitAndClick(szamlakTab);
         return this;
     }
 
     public SzerzodesekDetailsTabs clickOnDokumentumokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(dokumentumokTab)).click();
+        waitUtil.waitAndClick(dokumentumokTab);
         return this;
     }
 

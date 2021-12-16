@@ -15,18 +15,18 @@ public class ParkolokDetailsPageTabs extends BasePage {
     }
 
     //click
-    public ParkolokDetailsPageTabs clickOnalapadatokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(alapadatokTab)).click();
+    public ParkolokDetailsPageTabs clickOnAlapadatokTab(){
+        waitUtil.waitAndClick(alapadatokTab);
         return this;
     }
 
     public ParkolokDetailsPageTabs clickOnParkolohelyekTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(parkolohelyekTab)).click();
+        waitUtil.waitAndClick(parkolohelyekTab);
         return this;
     }
 
     public ParkolokDetailsPageTabs clickOnIngatlanokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(ingatlanokTab)).click();
+        waitUtil.waitAndClick(ingatlanokTab);
         return this;
     }
 }

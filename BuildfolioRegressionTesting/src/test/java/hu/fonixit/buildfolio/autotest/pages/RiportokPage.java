@@ -17,7 +17,7 @@ public class RiportokPage extends BasePage {
 
     //riportok típusa
     private final By ingatlanokErteke = By.xpath("//label[normalize-space()='Ingatlanok értéke']");
-    private final By ezskozokLista = By.xpath("//label[normalize-space()='Eszközök lista']");
+    private final By eszkozokLista = By.xpath("//label[normalize-space()='Eszközök lista']");
     private final By partnerLista = By.xpath("//label[normalize-space()='Partner lista']");
     private final By ingatlanokLista = By.xpath("//label[normalize-space()='Ingatlanok lista']");
     private final By szamlakLista = By.xpath("//label[normalize-space()='Számlák lista']");
@@ -65,170 +65,170 @@ public class RiportokPage extends BasePage {
 
     //futtatás gomb
     public RiportokPage clickOnFuttatasBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(futtatasBtn)).click();
+        waitUtil.waitAndClick(futtatasBtn);
         return this;
     }
    //szerepkörök
     public RiportokPage clickOnSzerepkorDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(szerepkorDropDown)).click();
+        waitUtil.waitAndClick(szerepkorDropDown);
         return this;
     }
 
     public RiportokPage selectSzerepkor(String szerepkor){
         clickOnSzerepkorDropDown();
-        WebElement szerepk = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'"+szerepkor+"')]")));
+        WebElement szerepk = waitUtil.waitWebElement(By.xpath("//span[contains(text(),'"+szerepkor+"')]"));
         szerepk.click();
         return this;
     }
    //szerepkor ellenőrzés
    public String szerepkorEllenorzesTulajd(){
-       return  wait.until(ExpectedConditions.visibilityOfElementLocated(dropDownSzerepkorTulajd)).getText();
+       return  waitUtil.waitAndGetText(dropDownSzerepkorTulajd);
    }
 
     public String szerepkorEllenorzesBerlo(){
-        return  wait.until(ExpectedConditions.visibilityOfElementLocated(dropDownSzerepkorBerlo)).getText();
+        return  waitUtil.waitAndGetText(dropDownSzerepkorBerlo);
     }
 
     public String szerepkorEllenorzesUzem(){
-        return  wait.until(ExpectedConditions.visibilityOfElementLocated(dropDownSzerepkorUzem)).getText();
+        return  waitUtil.waitAndGetText(dropDownSzerepkorUzem);
     }
 
     public String szerepkorEllenorzesKezelo(){
-        return  wait.until(ExpectedConditions.visibilityOfElementLocated(dropDownSzerepkorKezelo)).getText();
+        return  waitUtil.waitAndGetText(dropDownSzerepkorKezelo);
     }
 
 
     //riport típusa isSelected()?
     public boolean ingatlanokErtekeRadioBtnChecked(){
-        return wait.until(ExpectedConditions.elementToBeClickable(ingatlanokErtekeRadioBtn)).isEnabled();
+        return waitUtil.radioBtnIsChecked(ingatlanokErtekeRadioBtn);
     }
 
     public boolean ingatlanokListaRadioBtnCheckedBerlo(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanokListaRadioBtnBerlo)).isEnabled();
+        return waitUtil.radioBtnIsChecked(ingatlanokListaRadioBtnBerlo);
     }
 
     public boolean eszkozokListaRadioBtnCheckedUzem(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(eszkozokListaRadioBtnUzem)).isEnabled();
+        return waitUtil.radioBtnIsChecked(eszkozokListaRadioBtnUzem);
     }
 
     public boolean szamlakListaRadioBtnCheckedKezelo(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(szamlakListaRadioBtnKezelo)).isEnabled();
+        return waitUtil.radioBtnIsChecked(szamlakListaRadioBtnKezelo);
     }
 
     //fájlformátum isEnabled()? tulajdonos
     public boolean pdfFajlformRadioBtnChecked(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtn)).isEnabled();
+        return waitUtil.radioBtnIsChecked(pdfRadioBtn);
     }
 
     //fájlformátum isEnabled()? üzemeltető
     public boolean pdfFajlformRadioBtnCheckedUzem(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtnUzem)).isEnabled();
+        return waitUtil.radioBtnIsChecked(pdfRadioBtnUzem);
     }
 
     //fájlformátum isEnabled()? berlo
     public boolean pdfFajlformRadioBtnCheckedBerlo(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtnBerlo)).isEnabled();
+        return waitUtil.radioBtnIsChecked(pdfRadioBtnBerlo);
     }
 
     //fájlformátum isEnabled()? kezelo
     public boolean pdfFajlformRadioBtnCheckedKezelo(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtnBerlo)).isEnabled();
+        return waitUtil.radioBtnIsChecked(pdfRadioBtnKezelo);
     }
 
     //megjelenő riport típusok
     public boolean ingatlanErtekeMegjelenik(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanokErteke)).isDisplayed();
+        return waitUtil.elementIsClickable(ingatlanokErteke);
     }
 
     public boolean eszkozokListaMegjelenik(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(ezskozokLista)).isDisplayed();
+        return waitUtil.elementIsClickable(eszkozokLista);
     }
 
     public boolean partnerListaMegjelenik(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(partnerLista)).isDisplayed();
+        return waitUtil.elementIsClickable(partnerLista);
     }
 
     public boolean ingatlanokListaMegjelenik(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanokLista)).isDisplayed();
+        return waitUtil.elementIsClickable(ingatlanokLista);
     }
 
     public boolean szamlakListaMegjelenik(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(szamlakLista)).isDisplayed();
+        return waitUtil.elementIsClickable(szamlakLista);
     }
 
     public boolean szerzodesListaMegjelenik(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(szerzodesLista)).isDisplayed();
+        return waitUtil.elementIsClickable(szerzodesLista);
     }
 
     //Fájlformátum kiválasztása tulajdonos
     public RiportokPage selectExcelRadioBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(excelRadioBtn)).click();
+        waitUtil.waitAndClick(excelRadioBtn);
         return this;
     }
 
     public RiportokPage selectPdfRadioBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtn)).click();
+        waitUtil.waitAndClick(pdfRadioBtn);
         return this;
     }
 
     //fájlformátum kiválasztása bérlo
     public RiportokPage selectExcelRadioBtnBerlo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(excelRadioBtnBerlo)).click();
+        waitUtil.waitAndClick(excelRadioBtnBerlo);
         return this;
     }
 
     public RiportokPage selectPdfRadioBtnBerlo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtnBerlo)).click();
+        waitUtil.waitAndClick(pdfRadioBtnBerlo);
         return this;
     }
     //fájlformátum kiválasztása üzemeltető
 
     public RiportokPage selectExcelRadioBtnUzem(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(excelRadioBtnUzem)).click();
+        waitUtil.waitAndClick(excelRadioBtnUzem);
         return this;
     }
 
     public RiportokPage selectPdfRadioBtnUzem(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtnUzem)).click();
+        waitUtil.waitAndClick(pdfRadioBtnUzem);
         return this;
     }
 
     //fájlformátum kiválasztása kezelő
 
        public RiportokPage selectExcelRadioBtnKezelo(){
-           wait.until(ExpectedConditions.visibilityOfElementLocated(excelRadioBtnKezelo)).click();
-            return this;
+           waitUtil.waitAndClick(excelRadioBtnKezelo);
+           return this;
        }
 
        public RiportokPage selectPdfRadioBtnKezelo(){
-            wait.until(ExpectedConditions.visibilityOfElementLocated(pdfRadioBtnKezelo)).click();
-            return this;
+           waitUtil.waitAndClick(pdfRadioBtnKezelo);
+           return this;
         }
 
     //Riport típusának kiválasztása tulajdonos
 
     public RiportokPage selectEszkozokListaRadioBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(eszkozokListaRadioBtn)).click();
+        waitUtil.waitAndClick(eszkozokListaRadioBtn);
         return this;
     }
 
     public RiportokPage selectPartnerListaRadioBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(partnerListaRadioBtn)).click();
+        waitUtil.waitAndClick(partnerListaRadioBtn);
         return this;
     }
 
     public RiportokPage selectIngatlanokListaRadioBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanokListaRadioBtn)).click();
+        waitUtil.waitAndClick(ingatlanokListaRadioBtn);
         return this;
     }
 
     public RiportokPage selectSzamlakListaRadioBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szamlakListaRadioBtn)).click();
+        waitUtil.waitAndClick(szamlakListaRadioBtn);
         return this;
     }
 
     public RiportokPage selectSzerzodesListaRadioBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerzodesListaRadioBtn)).click();
+        waitUtil.waitAndClick(szerzodesListaRadioBtn);
         return this;
     }
 
@@ -236,51 +236,51 @@ public class RiportokPage extends BasePage {
 
 
     public RiportokPage selectIngatlanokListaRadioBtnBerlo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanokListaRadioBtnBerlo)).click();
+        waitUtil.waitAndClick(ingatlanokListaRadioBtnBerlo);
         return this;
     }
 
     public RiportokPage selectSzamlakListaRadioBtnBerlo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szamlakListaRadioBtnBerlo)).click();
+        waitUtil.waitAndClick(szamlakListaRadioBtnBerlo);
         return this;
     }
 
     public RiportokPage selectSzerzodesListaRadioBtnBerlo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerzodesListaRadioBtnBerlo)).click();
+        waitUtil.waitAndClick(szerzodesListaRadioBtnBerlo);
         return this;
     }
 
     //Riport kiválasztása Üzemeltető
     public RiportokPage selectIngatlanokListaRadioBtnUzem(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ingatlanokListaRadioBtnUzem)).click();
+        waitUtil.waitAndClick(ingatlanokListaRadioBtnUzem);
         return this;
     }
 
     public RiportokPage selectSzamlakListaRadioBtnUzem(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szamlakListaRadioBtnUzem)).click();
+        waitUtil.waitAndClick(szamlakListaRadioBtnUzem);
         return this;
     }
 
     public RiportokPage selectSzerzodesListaRadioBtnUzem(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerzodesListaRadioBtnUzem)).click();
+        waitUtil.waitAndClick(szerzodesListaRadioBtnUzem);
         return this;
     }
 
     //Riport kiválasztása Kezelő
 
     public RiportokPage selectSzamlakListaRadioBtnKezelo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szamlakListaRadioBtnKezelo)).click();
+        waitUtil.waitAndClick(szamlakListaRadioBtnKezelo);
         return this;
     }
 
     public RiportokPage selectSzerzodesListaRadioBtnKezelo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szerzodesListaRadioBtnKezelo)).click();
+        waitUtil.waitAndClick(szerzodesListaRadioBtnKezelo);
         return this;
     }
 
     //riport letöltése
     public RiportokPage clickOnRiportLetolteseBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(riportLetolteseBtn)).click();
+        waitUtil.waitAndClick(riportLetolteseBtn);
         return this;
     }
 

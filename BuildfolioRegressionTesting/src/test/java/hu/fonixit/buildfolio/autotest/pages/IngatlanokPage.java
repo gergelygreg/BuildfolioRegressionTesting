@@ -3,8 +3,8 @@ package hu.fonixit.buildfolio.autotest.pages;
 import hu.fonixit.buildfolio.autotest.base.BasePage;
 import hu.fonixit.buildfolio.autotest.objects.UjIngatlan;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class IngatlanokPage extends BasePage {
     private final By ujIngatlanFelvetelBtn = By.xpath("//button[normalize-space()='Új ingatlan felvétele']");
@@ -15,60 +15,65 @@ public class IngatlanokPage extends BasePage {
     private final By megnevezesFld  = By.xpath("//app-text-input[@name='name']//input[@placeholder='Nincs megadva']");  //uniqueField
     private final By gpsSzelessegFld = By.xpath("//app-text-input[@name='gpsLatitude']//input[@placeholder='Nincs megadva']");
     private final By gpsHosszusagFld = By.xpath("//app-text-input[@name='gpsLongitude']//input[@placeholder='Nincs megadva']");
-    private final By jellegDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[4]");
+    private final By jellegDropDown = By.xpath("(//input[@role='combobox'])[4]");
     private final By helyrajziSzamFld = By.xpath("//app-text-input[@name='topographicalNumber']//input[@placeholder='Nincs megadva']");
-    private final By uzemeltetesiRegioDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[7]");
+    private final By uzemeltetesiRegioDropDown = By.xpath("(//input[@role='combobox'])[7]");
     private final By iranyitoszamFld = By.xpath("//app-text-input[@name='postCode']//input[@placeholder='Nincs megadva']");
     private final By varosFld = By.xpath("//app-text-input[@name='city']//input[@placeholder='Nincs megadva']");
-    private final By szervezerDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[8]");
+    private final By szervezetDropDown = By.xpath("(//input[@role='combobox'])[8]");
     private final By kozteruletNeveFld = By.xpath("//app-text-input[@name='publicPlace']//input[@placeholder='Nincs megadva']");
-    private final By tulajdoniStatuszDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[9]");
-    private final By hasznositasDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[10]");
-    private final By kozteruletTipusaDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[5]");
+    private final By tulajdoniStatuszDropDown = By.xpath("(//input[@role='combobox'])[9]");
+    private final By hasznositasDropDown = By.xpath("(//input[@role='combobox'])[10]");
+    private final By kozteruletTipusaDropDown = By.xpath("(//input[@role='combobox'])[5]");
     private final By hazszamFld = By.xpath("//app-text-input[@name='houseNumber']//input[@placeholder='Nincs megadva']");
 
     public IngatlanokPage(WebDriver driver) {
         super(driver);
     }
 
+    //assert
+    public String ingatlanMegjATabl(String ingatlanNeve){
+        return waitUtil.waitAndGetText(By.xpath("//td[2]"));
+    }
+
     //enterText
     public IngatlanokPage enterTextToMegnevezesFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(megnevezesFld)).sendKeys(megnevezes);
+        waitUtil.waitAndSendkeys(megnevezesFld, megnevezes);
         return this;
     }
 
-    public IngatlanokPage enterTextToGpsSzelessegFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(gpsSzelessegFld)).sendKeys(megnevezes);
+    public IngatlanokPage enterTextToGpsSzelessegFld(String gpsSzelesseg){
+        waitUtil.waitAndSendkeys(gpsSzelessegFld, gpsSzelesseg);
         return this;
     }
 
-    public IngatlanokPage enterTextToGpsHosszusagFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(gpsHosszusagFld)).sendKeys(megnevezes);
+    public IngatlanokPage enterTextToGpsHosszusagFld(String gpsHosszusag){
+        waitUtil.waitAndSendkeys(gpsHosszusagFld, gpsHosszusag);
         return this;
     }
 
-    public IngatlanokPage enterTextToHelyrajziSzamFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(helyrajziSzamFld)).sendKeys(megnevezes);
+    public IngatlanokPage enterTextToHelyrajziSzamFld(String helyrajziSzam){
+        waitUtil.waitAndSendkeys(helyrajziSzamFld, helyrajziSzam);
         return this;
     }
 
-    public IngatlanokPage enterTextToIranyitoszamFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(iranyitoszamFld)).sendKeys(megnevezes);
+    public IngatlanokPage enterTextToIranyitoszamFld(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFld, iranyitoszam);
         return this;
     }
 
-    public IngatlanokPage enterTextToVarosFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(varosFld)).sendKeys(megnevezes);
+    public IngatlanokPage enterTextToVarosFld(String varos){
+        waitUtil.waitAndSendkeys(varosFld, varos);
         return this;
     }
 
-    public IngatlanokPage enterTextToKozteruletNeveFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kozteruletNeveFld)).sendKeys(megnevezes);
+    public IngatlanokPage enterTextToKozteruletNeveFld(String kozteruletNeve){
+        waitUtil.waitAndSendkeys(kozteruletNeveFld, kozteruletNeve);
         return this;
     }
 
-    public IngatlanokPage enterTextToHazszamFld(String megnevezes){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hazszamFld)).sendKeys(megnevezes);
+    public IngatlanokPage enterTextToHazszamFld(String hazszam){
+        waitUtil.waitAndSendkeys(hazszamFld, hazszam);
         return this;
     }
 
@@ -76,88 +81,89 @@ public class IngatlanokPage extends BasePage {
 
     //lista első ingatlanja
     public IngatlanokPage clickOnElsoIngatlan(){
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//tr[1]//td[2]"))).click();
+        waitUtil.waitAndClick(By.xpath("//tr[1]//td[2]"));
         return this;
     }
-
+    //
     public IngatlanokPage clickOnUjIngatlanFelveteleBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(ujIngatlanFelvetelBtn)).click();
+        waitUtil.waitAndClick(ujIngatlanFelvetelBtn);
         return this;
     }
 
     public IngatlanokPage clickOnFelvetelBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(felvetelBtn)).click();
+        waitUtil.waitAndClick(felvetelBtn);
         return this;
     }
 
     public IngatlanokPage clickOnMegsemBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 
     public IngatlanokPage clickJellegDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(jellegDropDown)).click();
+        waitUtil.waitAndClick(jellegDropDown);
         return this;
     }
 
     public IngatlanokPage clickUzemeltetesiRegioDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(uzemeltetesiRegioDropDown)).click();
+        waitUtil.waitAndClick(uzemeltetesiRegioDropDown);
         return this;
     }
 
     public IngatlanokPage clickSzervezetDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(szervezerDropDown)).click();
+        waitUtil.waitAndClick(szervezetDropDown);
         return this;
     }
 
     public IngatlanokPage clickTulajdonosiStatuszDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(tulajdoniStatuszDropDown)).click();
+        waitUtil.waitAndClick(tulajdoniStatuszDropDown);
         return this;
     }
 
     public IngatlanokPage clickHasznositasDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(hasznositasDropDown)).click();
+        waitUtil.waitAndClick(hasznositasDropDown);
         return this;
     }
 
     public IngatlanokPage clickKozteruletTipusaDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(kozteruletTipusaDropDown)).click();
+        waitUtil.waitAndClick(kozteruletTipusaDropDown);
         return this;
     }
 
     //select
     public IngatlanokPage selectElementFromJellegDropDown(String jelleg){
-        clickJellegDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+jelleg+"']"))).click();
+        waitUtil.waitAndSendkeys(jellegDropDown, jelleg);
+        driver.findElement(jellegDropDown).sendKeys(Keys.ENTER);
         return this;
     }
 
     public IngatlanokPage selectElementFromUzemeltetesiRegioDropDown(String uzemeltetesiRegio){
-        clickUzemeltetesiRegioDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+uzemeltetesiRegio+"']"))).click();
+        waitUtil.waitAndSendkeys(uzemeltetesiRegioDropDown, uzemeltetesiRegio);
+        driver.findElement(uzemeltetesiRegioDropDown).sendKeys(Keys.ENTER);
         return this;
     }
 
     public IngatlanokPage selectElementFromSzervezetDropDown(String szervezet){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//app-buildfolio-select[@name='name']//input[@role='combobox']"))).sendKeys(szervezet);
+        waitUtil.waitAndSendkeys(szervezetDropDown, szervezet);
+        driver.findElement(szervezetDropDown).sendKeys(Keys.ENTER);
         return this;
     }
 
     public IngatlanokPage selectElementFromTulajdoniStatuszDropDown(String tulajdoniStatusz){
-        clickTulajdonosiStatuszDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+tulajdoniStatusz+"']"))).click();
+        waitUtil.waitAndSendkeys(tulajdoniStatuszDropDown, tulajdoniStatusz);
+        driver.findElement(tulajdoniStatuszDropDown).sendKeys(Keys.ENTER);
         return this;
     }
 
     public IngatlanokPage selectElementFromHasznositasDropDown(String hasznositas){
-        clickHasznositasDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+hasznositas+"']"))).click();
+        waitUtil.waitAndSendkeys(hasznositasDropDown, hasznositas);
+        driver.findElement(hasznositasDropDown).sendKeys(Keys.ENTER);
         return this;
     }
 
     public IngatlanokPage selectElementFromKozteruletTipusaDropDown(String kozteruletTipusa){
-        clickKozteruletTipusaDropDown();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='"+kozteruletTipusa+"']"))).click();
+        waitUtil.waitAndSendkeys(kozteruletTipusaDropDown, kozteruletTipusa);
+        driver.findElement(kozteruletTipusaDropDown).sendKeys(Keys.ENTER);
         return this;
     }
 
@@ -177,6 +183,10 @@ public class IngatlanokPage extends BasePage {
                 enterTextToHazszamFld(ujIngatlan.getHazszam());
     }
 
+    public IngatlanokPage selectIngatlanFromTablazat(String ingatlanNeve){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(ingatlanNeve, "100", "2");
+        return this;
+    }
 
 }
 

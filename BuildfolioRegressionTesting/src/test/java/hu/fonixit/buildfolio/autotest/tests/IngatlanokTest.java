@@ -13,6 +13,7 @@ import hu.fonixit.buildfolio.autotest.pages.components.SideMenu;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages.IngatlanokDetailsAlapadatok;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages.IngatlanokDetailsMuszakiAdatok;
 import hu.fonixit.buildfolio.autotest.utils.FakerUtils;
+import hu.fonixit.buildfolio.autotest.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -25,14 +26,7 @@ public class IngatlanokTest extends BaseTest {
     @Test
     public  void ingatlan_felvetele() throws IOException {
         //teljes kitöltöttségű ingatlan felvétele
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
 
         SideMenu sideMenu = new SideMenu(getDriver());

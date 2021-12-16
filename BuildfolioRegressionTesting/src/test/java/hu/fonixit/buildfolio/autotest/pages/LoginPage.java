@@ -11,8 +11,8 @@ public class LoginPage extends BasePage {   //id, kigyűjteni ahol nincs id
     private final By usernameFld = By.id("login-username");
     private final By passwordFld = By.id("login-password");
     private final By belepesBtn = By.cssSelector(".btn.btn-primary.btn-submit.sign-in");
-    private final By header = By.cssSelector("div[class='col-12 mb-5'] h3");
-    private final By felugroAblakSzöveg = By.cssSelector(".h5.mt-4");
+    private final By headerLetGazdRendsz = By.cssSelector("div[class='col-12 mb-5'] h3");
+    private final By felugroAblakSzoveg = By.cssSelector(".h5.mt-4");
     private  final By felugroAblakOkBtn = By.cssSelector("button[class='btn btn-primary']");
     private final By alertMessage = By.cssSelector(".alert-danger.p-2.mt-3");
 
@@ -26,49 +26,43 @@ public class LoginPage extends BasePage {   //id, kigyűjteni ahol nincs id
     }
 
     public LoginPage enterTextInUsernameFld(String username){
-        //WaitUtils.waitAndSendkeys(usernameFld, username);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameFld)).sendKeys(username);
+         waitUtil.waitAndSendkeys(usernameFld, username);
         return this;
     }
 
     public LoginPage enterTextInPasswordFld(String password){
-        //waitUtil.waitAndSendkeys(passwordFld, password);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordFld)).sendKeys(password);
+        waitUtil.waitAndSendkeys(passwordFld, password);
         return this;
     }
 
-    public String headerSuccessNotice(){
-        //return waitUtil.waitAndGetText(header);
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(header)).getText();
+    public String headerLetGazdRendSzoveg(){
+        return waitUtil.waitAndGetText(headerLetGazdRendsz);
     }
 
     public String errorMessageText(){
-        //return waitUtil.waitAndGetText(felugroAblakSzöveg);
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(felugroAblakSzöveg)).getText();
+        return waitUtil.waitAndGetText(felugroAblakSzoveg);
     }
 
     public LoginPage clickOnErrorMessageOkBtn(){
-        //waitUtil.waitAndClick(felugroAblakOkBtn);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(felugroAblakOkBtn)).click();
+        waitUtil.waitAndClick(felugroAblakOkBtn);
+
         return this;
     }
 
     public String alertMessageText(){
-       // return waitUtil.waitAndGetText(alertMessage);
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(alertMessage)).getText();
+        return waitUtil.waitAndGetText(alertMessage);
     }
 
     public DashboardPage belepes(){ //explicit wait használata
-        //waitUtil.waitAndClick(belepesBtn);
-        wait.until(ExpectedConditions.elementToBeClickable(belepesBtn)).click();
+        waitUtil.waitAndClick(belepesBtn);
         return new DashboardPage(driver);
     }
 
-   /* public DashboardPage doLogin(ADUser user) {
+   public DashboardPage doLogin(ADUser user) {
         return this.load()
                 .enterTextInUsernameFld(user.getADUsername())
                 .enterTextInPasswordFld(user.getPassword())
                 .belepes();
-    }*/
+    }
 
 }

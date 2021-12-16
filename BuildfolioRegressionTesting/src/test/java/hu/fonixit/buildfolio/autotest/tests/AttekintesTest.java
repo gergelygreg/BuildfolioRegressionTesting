@@ -16,8 +16,8 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_TULAJDONOS_szerepkorrel_design(){
-       // DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-       // Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage attekintesPage = new DashboardPage(getDriver());
         Assert.assertEquals(attekintesPage.szerepkorEllenorzes(), "Tulajdonos");
@@ -32,8 +32,8 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_tulajdonos_szerepkorrel_Ingatlan_Portfolio_panel(){
-      //  DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-      //  Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
         Assert.assertEquals(dashboardPage1.szerepkorEllenorzes(), "Tulajdonos");
@@ -48,14 +48,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_tulajdonos_szerepkorrel_INGATLAN_PORTFOLIO_panel_riport(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -78,14 +71,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_tulajdonos_szerepkorrel_INGATLANOK_ERTEKE_panel_riport(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -107,14 +93,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attektintes_tulajdonos_szerepkorrel_SZAMLAK_panel_riport_tovabb_gomb(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -141,14 +120,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_tulajdonos_szerepkorrel_SZERZODESEK_panel_riport_tovabb_gomb() throws InterruptedException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -174,14 +146,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_KEZELŐ_szerepkorrel_megjeleno_panelek()  {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -196,14 +161,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_KEZELO_szerepkorrel_INGATLAN_PORTFOLIO_panel_riport(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -227,14 +185,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_KEZELO_szerepkorrel_SZERZODESEK_riport_tovabb_gomb() throws InterruptedException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -261,14 +212,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_KEZELO_szerepkorrel_SZAMLAK_riport_tovabb_gomb(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -295,14 +239,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_UZEMELTETO_szerepkorrel_megjeleno_panelek(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -316,14 +253,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_UZEMELTETO_szerepkorrel_INGATLAN_PORTFOLIO_panel_riport(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -347,14 +277,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_UZEMELTETO_szerepkorrel_SZERZODESEK_riport_tovabb_gomb() throws InterruptedException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());
@@ -381,14 +304,7 @@ public class AttekintesTest extends BaseTest {
 
     @Test
     public void Attekintes_UZEMELTETO_szerepkorrel_SZAMLAK_riport_tovabb_gomb(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
         DashboardPage dashboardPage1 = new DashboardPage(getDriver());

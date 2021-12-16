@@ -24,47 +24,47 @@ public class IngatlanokDetailsMuszakiAdatok extends BasePage {
 
     //click
     public IngatlanokDetailsMuszakiAdatok clickOnAdatokSzerkeszteseBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(adatokSzerkeszteseBtn)).click();
+        waitUtil.waitAndClick(adatokSzerkeszteseBtn);
         return this;
     }
 
     public IngatlanokDetailsMuszakiAdatok clickOnMentesBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(mentesBtn)).click();
+        waitUtil.waitAndClick(mentesBtn);
         return this;
     }
 
     public IngatlanokDetailsMuszakiAdatok clickOnMegsemBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 
     public IngatlanokDetailsMuszakiAdatok clickOnEpitesEveDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(epitesEveDropDown)).click();
+        waitUtil.waitAndClick(epitesEveDropDown);
         return this;
     }
 
     public IngatlanokDetailsMuszakiAdatok clickOnUtolsoFelujEveDropDown(){
-        wait.until(ExpectedConditions.elementToBeClickable(utolsoFelujEveDropDown)).click();
+        waitUtil.waitAndClick(utolsoFelujEveDropDown);
         return this;
     }
 
     //select
     public IngatlanokDetailsMuszakiAdatok selectElementFromEpitesEveDropDown(String epitesEve){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@role='combobox'])[1]"))).sendKeys(epitesEve);
+        waitUtil.waitAndSendkeys(By.xpath("(//input[@role='combobox'])[1]"), epitesEve);
         return this;
     }
 
 
 
     public IngatlanokDetailsMuszakiAdatok selectElementFromUtolsoFelujEveDropDown(String utolsoFelujEve){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@role='combobox'])[2]"))).sendKeys(utolsoFelujEve);
+        waitUtil.waitAndSendkeys(By.xpath("(//input[@role='combobox'])[2]"), utolsoFelujEve);
         return this;
     }
 
 
     //enter
     public IngatlanokDetailsMuszakiAdatok enterTextToKozmuvesitettseg(String kozmuvetitettseg){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kozmuvesitettsegFld)).sendKeys(kozmuvetitettseg);
+        waitUtil.waitAndSendkeys(kozmuvesitettsegFld, kozmuvetitettseg);
         return this;
     }
 

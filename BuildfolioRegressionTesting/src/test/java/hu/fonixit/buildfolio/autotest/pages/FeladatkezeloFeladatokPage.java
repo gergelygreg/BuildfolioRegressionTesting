@@ -15,42 +15,42 @@ public class FeladatkezeloFeladatokPage extends BasePage {
     }
 
     public FeladatkezeloFeladatokPage clickOnFeladatokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(feladatokTab)).click();
+        waitUtil.waitAndClick(feladatokTab);
         return this;
     }
 
     public FeladatkezeloFeladatokPage clickOnMunkafolyamatokTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(munkafolyamatokTab)).click();
+        waitUtil.waitAndClick(munkafolyamatokTab);
         return this;
     }
 
     public FeladatkezeloFeladatokPage statuszDoneListaElso(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='icon-container done'])[1]")));
+        waitUtil.waitForVisibility(By.xpath("(//div[@class='icon-container done'])[1]"));
         return this;
     }
 
     public FeladatkezeloFeladatokPage statuszDoneListaUtolso(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='icon-container done'])[last()]")));
+        waitUtil.waitForVisibility(By.xpath("(//div[@class='icon-container done'])[last()]"));
         return this;
     }
 
     public FeladatkezeloFeladatokPage feladatMegnevezeseEladasiArAListaban(String eladasiAr){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("td[2][contains(.,'"+eladasiAr+"')]")));
+        waitUtil.waitForVisibility(By.xpath("td[2][contains(.,'"+eladasiAr+"')]"));
         return this;
     }
 
     public FeladatkezeloFeladatokPage azonositoAListaban(String azonosito){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[2][contains(.,'"+azonosito+"')]")));
+        waitUtil.waitForVisibility(By.xpath("//td[2][contains(.,'"+azonosito+"')]"));
         return this;
     }
 
     public FeladatkezeloFeladatokPage feladatFeleloseAListaban(String feladatFelelose){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[3][contains(.,'"+feladatFelelose+"')]")));
+        waitUtil.waitForVisibility(By.xpath("//td[3][contains(.,'"+feladatFelelose+"')]"));
         return this;
     }
 
     public FeladatkezeloFeladatokPage munkafolyamatAListaban(String munkafolyamat){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[4][contains(.,'"+munkafolyamat+"')]")));
+        waitUtil.waitForVisibility(By.xpath("//td[4][contains(.,'"+munkafolyamat+"')]"));
         return this;
     }
 

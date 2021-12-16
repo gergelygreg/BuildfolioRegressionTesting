@@ -15,33 +15,33 @@ public class SzerzodesekDetailsIngatlanokEsEladasiArak extends BasePage {
     }
 
     public boolean hozzarendelesBtnKattinthato(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(hozzarendelesBtn)).isEnabled();
+        return waitUtil.waitAndEnabled(hozzarendelesBtn);
     }
 
     //click
     public SzerzodesekDetailsIngatlanokEsEladasiArak clickOnHozzarendelesBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(hozzarendelesBtn)).click();
+        waitUtil.waitAndClick(hozzarendelesBtn);
         return this;
     }
 
     public SzerzodesekDetailsIngatlanokEsEladasiArak clickOnEladasiArakMegadasaAKijelolteknelBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(eladasiArakMegadasaAKijelolteknelBtn)).click();
+        waitUtil.waitAndClick(eladasiArakMegadasaAKijelolteknelBtn);
         return this;
     }
 
 
     //select
     public SzerzodesekDetailsIngatlanokEsEladasiArak selectCheckboxFelvettIngatlan(String felvettIngatlan){
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//tr[contains(.,'"+felvettIngatlan+"')]//input"))).click();
+        waitUtil.waitAndClick(By.xpath("//tr[contains(.,'"+felvettIngatlan+"')]//input"));
         return this;
     }
 
     public boolean eladasiArakMegadasaAKijelolteknelBtnKattinthato(){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(eladasiArakMegadasaAKijelolteknelBtn)).isEnabled();
+        return waitUtil.waitAndEnabled(eladasiArakMegadasaAKijelolteknelBtn);
     }
 
     public SzerzodesekDetailsIngatlanokEsEladasiArak enterToNettoEladasiArFld(String nettoEladasiAr){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nettoEladasiArFld)).sendKeys(nettoEladasiAr);
+        waitUtil.waitAndSendkeys(nettoEladasiArFld, nettoEladasiAr);
         return this;
     }
 

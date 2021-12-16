@@ -13,7 +13,7 @@ public class Navbar extends BasePage {
    }
 
    public Navbar exitApplicationUsingUsername (){
-       wait.until(ExpectedConditions.visibilityOfElementLocated(kilepesUsername)).click();
+       waitUtil.waitAndClick(kilepesUsername);
        return this;
    }
 }

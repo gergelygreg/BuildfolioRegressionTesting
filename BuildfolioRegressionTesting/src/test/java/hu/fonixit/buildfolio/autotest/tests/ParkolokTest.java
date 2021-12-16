@@ -1,15 +1,19 @@
 package hu.fonixit.buildfolio.autotest.tests;
 
 import hu.fonixit.buildfolio.autotest.base.BaseTest;
-import hu.fonixit.buildfolio.autotest.objects.ADUser;
+import hu.fonixit.buildfolio.autotest.objects.UjIngatlan;
+import hu.fonixit.buildfolio.autotest.objects.UjIngatlanAlapadatok;
+import hu.fonixit.buildfolio.autotest.objects.UjMuszakiAdatok;
 import hu.fonixit.buildfolio.autotest.objects.UjParkolo;
-import hu.fonixit.buildfolio.autotest.pages.DashboardPage;
-import hu.fonixit.buildfolio.autotest.pages.LoginPage;
-import hu.fonixit.buildfolio.autotest.pages.ParkolokPage;
-import hu.fonixit.buildfolio.autotest.pages.components.SideMenu;
-import hu.fonixit.buildfolio.autotest.pages.components.Szurok;
+import hu.fonixit.buildfolio.autotest.pages.*;
+import hu.fonixit.buildfolio.autotest.pages.components.*;
+import hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages.IngatlanokDetailsAlapadatok;
+import hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages.IngatlanokDetailsParkolas;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.ParkolokDetailsPages.ParkolokDetailsAlapadatok;
+import hu.fonixit.buildfolio.autotest.pages.detailsPages.ParkolokDetailsPages.ParkolokDetailsIngatlanok;
+import hu.fonixit.buildfolio.autotest.pages.detailsPages.ParkolokDetailsPages.ParkolokDetailsParkolohelyek;
 import hu.fonixit.buildfolio.autotest.utils.FakerUtils;
+import hu.fonixit.buildfolio.autotest.utils.UserUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -23,14 +27,7 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
     public void Uj_parkolo_felvetele() throws IOException { //új parkolók felvételénél mely mezők egyediek?
         UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
 
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
 
@@ -43,20 +40,13 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
                 enterAzonosito(azonosito).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
-        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaba(), azonosito);
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
     }
 
     @Test
     public void Uj_parkolo_felvetele_kotelezo_mezok_kitoltese_nelkul() throws IOException {
         UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
 
@@ -224,14 +214,7 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
     public void Uj_parkolo_felvetelenek_megszakitasa_Megsem_gombbal() throws IOException {
         UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
 
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
 
@@ -248,14 +231,7 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
 
     @Test
     public void Szurok_mukodese(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
         String azon = "12";
@@ -332,14 +308,7 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
 
     @Test
     public void Alapadatok_ful_alapadatok_szerkesztese() throws IOException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
 
@@ -355,7 +324,7 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
                 enterAzonosito(azonosito).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
-        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaba(), azonosito);
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
 
         ParkolokDetailsAlapadatok parkolokDetailsPage = new ParkolokDetailsAlapadatok(getDriver());
         String betelepitesiMod = "telepítés";
@@ -380,14 +349,7 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
 
     @Test
     public void Alapadatok_szerkesztese_kotelezo_mezok_kitoltese_nelkul() throws IOException {
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
 
@@ -403,7 +365,7 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
                 enterAzonosito(azonosito).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
-        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaba(), azonosito);
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
         parkolokPage.clickOnListaElsoParkolo();
 
         ParkolokDetailsAlapadatok parkolokDetailsPage = new ParkolokDetailsAlapadatok(getDriver());
@@ -453,19 +415,932 @@ public class ParkolokTest extends BaseTest { //Szekvenciálisan kell lefutnia
                 clickOnMentesBtn();
         Assert.assertTrue(parkolokDetailsPage.popUpMegjelenik());
         Assert.assertEquals(parkolokDetailsPage.popUpSzoveg(), "Töltse ki a kötelező mezőket");
+    }
 
+    @Test
+    public void Uj_Parkolohely_felvetele() throws IOException {
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
+
+        //új parkoló felvétele
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnParkolohelyekTab();
+        ParkolokDetailsParkolohelyek parkolokDetailsParkolohelyek = new ParkolokDetailsParkolohelyek(getDriver());
+        String parkhelyAzonosito = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTip = "Elektromos autó";
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn();
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+        parkolokDetailsParkolohelyek.
+                enterTextToAzonositoFld(parkhelyAzonosito);
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+        parkolokDetailsParkolohelyek.
+                selectElemFromParkHelyTipDropDown(parkolohelyTip);
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+        parkolokDetailsParkolohelyek.
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito));
+    }
+
+    @Test
+    public void Uj_parkolohely_felvetele_kotelezo_mezok_kitoltese_nelkul() throws IOException {
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
+
+        //új parkoló felvétele
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnParkolohelyekTab();
+        ParkolokDetailsParkolohelyek parkolokDetailsParkolohelyek = new ParkolokDetailsParkolohelyek(getDriver());
+        String parkhelyAzonosito = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTip = "Elektromos autó";
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn();
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+        parkolokDetailsParkolohelyek.
+                enterTextToAzonositoFld(parkhelyAzonosito);
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+    }
+
+    @Test
+    public void Uj_parkolohely_felvetelenek_megszakitasa_megsem_gombbal() throws IOException {
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
+
+        //új parkoló felvétele
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnParkolohelyekTab();
+        ParkolokDetailsParkolohelyek parkolokDetailsParkolohelyek = new ParkolokDetailsParkolohelyek(getDriver());
+        String parkhelyAzonosito = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTip = "Elektromos autó";
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn();
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+        Assert.assertTrue(parkolokDetailsParkolohelyek.megsemBtnKattinthato());
+        parkolokDetailsParkolohelyek.
+                enterTextToAzonositoFld(parkhelyAzonosito);
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+        Assert.assertTrue(parkolokDetailsParkolohelyek.megsemBtnKattinthato());
+        parkolokDetailsParkolohelyek.
+                selectElemFromParkHelyTipDropDown(parkolohelyTip);
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvetelBtnKattinthato());
+        Assert.assertTrue(parkolokDetailsParkolohelyek.megsemBtnKattinthato());
+        parkolokDetailsParkolohelyek.clickOnMegsemBtn();
+    }
+
+    @Test
+    public void Parkolohelyek_tipusonkent_megjelenese_az_alapadatokon() throws IOException {
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
+
+        //új parkoló felvétele
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnParkolohelyekTab();
+        ParkolokDetailsParkolohelyek parkolokDetailsParkolohelyek = new ParkolokDetailsParkolohelyek(getDriver());
+        String parkhelyAzonosito1 = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkhelyAzonosito2 = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkhelyAzonosito3 = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkhelyAzonosito4 = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkhelyAzonosito5 = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkhelyAzonosito6 = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkhelyAzonosito7 = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTip1 = "Elektromos autó";
+        String parkolohelyTip2 = "Családos";
+        String parkolohelyTip3 = "Normál";
+        String parkolohelyTip4 = "Rokkant";
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito1).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip1).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito1));
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito2).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip2).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito2));
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito3).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip3).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito3));
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito4).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip4).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito4));
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito5).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip1).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito5));
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito6).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip2).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito6)); //2db-Elektromos autó, 2db-Családos, 1db-Normál, 1db-Rokkant
+        Assert.assertEquals(parkolokDetailsParkolohelyek.parkolohelyekSzamaTablazat(), 6);
+        Assert.assertEquals(parkolokDetailsParkolohelyek.parkolohelyekSzamaHeader(), "Parkolóhelyek (6)");
+
+        parkolokDetailsPageTabs.clickOnAlapadatokTab();
+        ParkolokDetailsAlapadatok parkolokDetailsAlapadatok = new ParkolokDetailsAlapadatok(getDriver());
+        Assert.assertEquals(parkolokDetailsAlapadatok.parkolohelyekSzamaHeaderben(), "Parkolóhelyek (6)");
+        Assert.assertEquals(parkolokDetailsAlapadatok.normalParkolohelySzama(), "1");
+        Assert.assertEquals(parkolokDetailsAlapadatok.rokkantParkolohelySzama(), "1");
+        Assert.assertEquals(parkolokDetailsAlapadatok.csaladosParkolohelySzama(), "2");
+        Assert.assertEquals(parkolokDetailsAlapadatok.elektrAutoParkolohelySzama(), "2");
+
+        parkolokDetailsPageTabs.clickOnParkolohelyekTab();  //+1 Elektomos auto tip park.hely felvétele
+        parkolokDetailsParkolohelyek.
+                clickOnFelvetelBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito7).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip1).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito7));
+    }
+
+    @Test
+    public void Parkolohelyek_szerkesztese() throws IOException {
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
+
+        //új parkoló felvétele
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnParkolohelyekTab();
+        ParkolokDetailsParkolohelyek parkolokDetailsParkolohelyek = new ParkolokDetailsParkolohelyek(getDriver());
+        String parkhelyAzonosito = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTip = "Elektromos autó";
+        String parkhelyAzonositoMod = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTipMod = "Családos";
+
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito));
+        parkolokDetailsParkolohelyek.
+                clickOnMuveletekBtn().
+                clickOnSzerkesztesMuvelDropDown().
+                clearAzonositFld().
+                enterTextToAzonositoFld(parkhelyAzonositoMod).
+                clearParkTipDropDown().
+                selectElemFromParkHelyTipDropDown(parkolohelyTipMod).
+                clickOnMentesBtn();
+        Assert.assertEquals(parkolokDetailsParkolohelyek.sikeresRogzMessage(), "Sikeres rögzítés!");
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonositoMod));
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito));
+    }
+
+    @Test
+    public void Parkolohely_torlese() throws IOException {
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
+
+        //új parkoló felvétele
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnParkolohelyekTab();
+        ParkolokDetailsParkolohelyek parkolokDetailsParkolohelyek = new ParkolokDetailsParkolohelyek(getDriver());
+        String parkhelyAzonosito = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTip = "Elektromos autó";
+
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito));
+        parkolokDetailsParkolohelyek.
+                clickOnMuveletekBtn().
+                clickOnTorlesMuvelDropDown().
+                clickOnMegsemMegEroBtn().
+                clickOnMuveletekBtn().
+                clickOnTorlesMuvelDropDown().
+                clickOnTorlesBtn();
+        Assert.assertFalse(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito));
+    }
+
+    @Test
+    public void Kereses_a_parkolohelyek_kozott() throws IOException, InterruptedException { //ELLENŐRIZNI
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToParkolokPanel();
+
+        //új parkoló felvétele
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnParkolohelyekTab();
+        ParkolokDetailsParkolohelyek parkolokDetailsParkolohelyek = new ParkolokDetailsParkolohelyek(getDriver());
+        String parkhelyAzonosito = "Teszt Parkolóhely" + new FakerUtils().generateRandomNumber();
+        String parkolohelyTip = "Elektromos autó";
+
+        parkolokDetailsParkolohelyek.
+                clickOnUjParkolohelyFelevBtn().
+                enterTextToAzonositoFld(parkhelyAzonosito).
+                selectElemFromParkHelyTipDropDown(parkolohelyTip).
+                clickOnFelvetelBtn();
+        Assert.assertTrue(parkolokDetailsParkolohelyek.felvettParkolohelyMegjATablazatban(parkhelyAzonosito));
+
+        Szurok szurok = new Szurok(getDriver()).
+                clickOnSzurokBtn().
+                enterTextToAzonFldParkolohely(parkhelyAzonosito).
+                clickOnKeresesBtn();
+        Assert.assertEquals(parkolokDetailsParkolohelyek.felvettParkolohelyMegjAListaban(), parkhelyAzonosito);
+        szurok.clickOnSzurokTorleseBtn();
+
+        szurok.clickOnSzurokBtn().
+                selectFromParkolohelyTipusaDropDown(parkolohelyTip).
+                clickOnKeresesBtn();
+        Assert.assertEquals(parkolokDetailsParkolohelyek.felvettParkolohelyMegjAListaban(), parkolohelyTip);
+        szurok.clickOnSzurokTorleseBtn();
+    }
+
+    @Test
+    public void Ingatlanok_hozzarendelese_a_parkolohoz() throws IOException {  //ELLENŐRIZNI
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        // 2 ingatlanhoz a partner-szervezet fölvétele
+        //1. szervezet
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //2 ingatlan fölvétele
+        //1. ingatlan
+        sideMenu.navigateToIngatlanokPanel();
+        UjIngatlan ujIngatlan = deserializeJson("ujIngatlan.json", UjIngatlan.class);
+        IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        String megnevezes = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes), megnevezes);
+
+        //2. ingatlan
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        String megnevezes2 = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes2).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes2), megnevezes2);
+
+        //parkolóhoz - a 2 ingatlan hozzárendelése
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).
+                clickOnIngatlanokTab();
+        ParkolokDetailsIngatlanok parkolokDetailsIngatlanok = new ParkolokDetailsIngatlanok(getDriver());
+        Assert.assertTrue(parkolokDetailsIngatlanok.nincsMegjAdatFelirat());
+        Assert.assertEquals(parkolokDetailsIngatlanok.ingatlanokFelirat("Ingatlanok (0)"), "Ingatlanok (0)");
+        parkolokDetailsIngatlanok.clickOnHozzarendelesBtn();
+        Oldalmeret oldalmeret = new Oldalmeret(getDriver()).
+                selectOldalmeret("100");
+        Assert.assertTrue(parkolokDetailsIngatlanok.eltavolitasBtnInaktiv());
+        parkolokDetailsIngatlanok.
+                clickOnCheckbox(megnevezes);
+        Assert.assertFalse(parkolokDetailsIngatlanok.hozzarendelesBtnInaktiv());
+        Assert.assertEquals(parkolokDetailsIngatlanok.hozzarendelesSzama("1"), "1");
+        parkolokDetailsIngatlanok.
+                clickOnCheckbox(megnevezes2);
+        Assert.assertFalse(parkolokDetailsIngatlanok.hozzarendelesBtnInaktiv());
+        Assert.assertEquals(parkolokDetailsIngatlanok.hozzarendelesSzama("2"), "2");
+        parkolokDetailsIngatlanok.
+                clickOnHozzarendelesBtn();
+
+        Assert.assertTrue(parkolokDetailsIngatlanok.popupMegjelenik("Sikeres hozzárendelés"));
+        Assert.assertEquals(parkolokDetailsIngatlanok.ingatlanokFelirat("Ingatlanok (2)"), "Ingatlanok (2)");
+        Assert.assertFalse(parkolokDetailsIngatlanok.hozzarendelesBtnInaktiv());
+
+        parkolokDetailsIngatlanok.clickOnHozzarendelesBtn();
+        Assert.assertFalse(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes));
+        Assert.assertFalse(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+
+        parkolokDetailsIngatlanok.
+                clickOnMegsem().
+                clickOnListaElsoElem();
+        IngatlanokDetailsAlapadatok ingatlanokDetailsAlapadatok = new IngatlanokDetailsAlapadatok(getDriver());
+        Assert.assertTrue(ingatlanokDetailsAlapadatok.ingatlanAdatlaponAllunk(megnevezes2));
+
+        IngatlanokDetailsPageTabs ingatlanokDetailsPageTabs = new IngatlanokDetailsPageTabs(getDriver()).
+                clickOnParkolasTab();
+        IngatlanokDetailsParkolas ingatlanokDetailsParkolas = new IngatlanokDetailsParkolas(getDriver());
+        Assert.assertTrue(ingatlanokDetailsParkolas.parkoloMegjATabl(parkMegn));
+    }
+
+    @Test
+    public void Inaktiv_ingatlan_hozzarendelese_a_parkolohoz() throws IOException {
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+
+        //1 szervezet
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //1. ingatlan
+        sideMenu.navigateToIngatlanokPanel();
+        UjIngatlan ujIngatlan = deserializeJson("ujIngatlan.json", UjIngatlan.class);
+        IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
+        IngatlanokDetailsAlapadatok ingatlanokDetailsAlapadatok = new IngatlanokDetailsAlapadatok(getDriver());
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        String megnevezes = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes), megnevezes);
+        ingatlanokPage.clickOnElsoIngatlan();
+        Assert.assertTrue(ingatlanokDetailsAlapadatok.ingatlanAdatlaponAllunk(megnevezes));
+        ingatlanokDetailsAlapadatok.
+                clickOnInaktivalasBtn().
+                clickInIgenBtn().
+                popupInaktivalasMegj();
+
+        sideMenu.navigateToParkolokPanel();
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver());
+        parkolokDetailsPageTabs.clickOnIngatlanokTab();
+        ParkolokDetailsIngatlanok parkolokDetailsIngatlanok = new ParkolokDetailsIngatlanok(getDriver()).
+                clickOnHozzarendelesBtn();
+        Assert.assertFalse(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes));
+    }
+
+    @Test
+    public void Ingatlan_eltavolitasa_a_parkolorol() throws IOException { //ELLENŐRIZNI
+
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+
+        //1 szervezet
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //1. ingatlan
+        sideMenu.navigateToIngatlanokPanel();
+        UjIngatlan ujIngatlan = deserializeJson("ujIngatlan.json", UjIngatlan.class);
+        IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
+        IngatlanokDetailsAlapadatok ingatlanokDetailsAlapadatok = new IngatlanokDetailsAlapadatok(getDriver());
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        String megnevezes = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes), megnevezes);
+        ingatlanokPage.clickOnElsoIngatlan();
+        Assert.assertTrue(ingatlanokDetailsAlapadatok.ingatlanAdatlaponAllunk(megnevezes));
+        ingatlanokDetailsAlapadatok.clickOnAdatokSzerkeszteseBtn().
+                clickOnInaktivalasBtn().
+                clickInIgenBtn().
+                popupInaktivalasMegj();
+
+        sideMenu.navigateToParkolokPanel();
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver());
+        parkolokDetailsPageTabs.clickOnIngatlanokTab();
+        ParkolokDetailsIngatlanok parkolokDetailsIngatlanok = new ParkolokDetailsIngatlanok(getDriver()).
+                clickOnHozzarendelesBtn();
+        Oldalmeret oldalmeret = new Oldalmeret(getDriver()).
+                selectOldalmeret("100");
+        Assert.assertTrue(parkolokDetailsIngatlanok.hozzarendelesBtnInaktiv());
+        parkolokDetailsIngatlanok.
+                clickOnCheckbox(megnevezes);
+        Assert.assertFalse(parkolokDetailsIngatlanok.hozzarendelesBtnInaktiv());
+        Assert.assertEquals(parkolokDetailsIngatlanok.hozzarendelesSzama("1"), "1");
+          parkolokDetailsIngatlanok.
+                  clickOnHozzarendelesBtn();
+          Assert.assertTrue(parkolokDetailsIngatlanok.popupMegjelenik("Sikeres hozzárendelés"));
+        Assert.assertTrue(parkolokDetailsIngatlanok.eltavolitasBtnInaktiv());
+          parkolokDetailsIngatlanok.
+                  clickOnCheckbox(megnevezes).
+                  clickOnEltavolitasBtn().
+                  clickOnMegsem();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes));
+        oldalmeret.selectOldalmeret("100");
+        parkolokDetailsIngatlanok.
+                clickOnEltavolitasBtn().
+                clickOntorlesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.popupMegjelenik("Sikeres törlés"));
+        sideMenu.navigateToIngatlanokPanel();
+        ingatlanokPage.selectIngatlanFromTablazat(megnevezes);
+        IngatlanokDetailsPageTabs ingatlanokDetailsPageTabs = new IngatlanokDetailsPageTabs(getDriver()).
+                clickOnParkolasTab();
+        IngatlanokDetailsParkolas ingatlanokDetailsParkolas = new IngatlanokDetailsParkolas(getDriver());
+        Assert.assertFalse(ingatlanokDetailsParkolas.parkoloMegjATabl(parkMegn));
+    }
+
+    @Test
+    public void Kereses_a_parkolohoz_rendelt_ingatlanok_kozott() throws IOException {  //ELLENŐRIZNI
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver());
+        //szervezet felvétele
+        sideMenu.navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //1. ingatlan
+        sideMenu.navigateToIngatlanokPanel();
+        UjIngatlan ujIngatlan = deserializeJson("ujIngatlan.json", UjIngatlan.class);
+        IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
+        String megnevezes1 = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        String megnevezes2 = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        String megnevezes3 = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes1).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes1), megnevezes1);
+
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes2).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes2), megnevezes2);
+
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes3).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes3), megnevezes3);
+
+        //parkoló felvétele
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        sideMenu.navigateToPartnerekPanel().
+                navigateToParkolokPanel();
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();  //csak frissítés után jelenik meg az elem a listában
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).clickOnIngatlanokTab();
+        ParkolokDetailsIngatlanok parkolokDetailsIngatlanok = new ParkolokDetailsIngatlanok(getDriver());
+        parkolokDetailsIngatlanok.
+                clickOnHozzarendelesBtn().
+                clickOnCheckbox(megnevezes1).
+                clickOnCheckbox(megnevezes2).
+                clickOnCheckbox(megnevezes3).
+                clickOnHozzarendelesBtn();
+
+        //Szűrés
+        Szurok szurok = new Szurok(getDriver());
+        szurok.
+                clickOnSzurokBtn().
+                enterToMegnevezesFldIng(megnevezes1).
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertFalse(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertFalse(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                selectElemFromJellegDropDownIng("Hétvégi ház").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                enterToIranyitoszamFldIng("6720").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                enterToVarosFldIng("Szeged").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                enterToKozteruletNeveFldIng("Mátyás").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                enterTextToHrszFld("123/456").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                selectElemFromHasznositasDropDownIng("Egyéb").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                selectElemFromBankuzemiCeluDropDownIng("Nem").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
+        szurok.
+                clickOnSzurokTorleseBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes2));
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes3));
 
 
     }
 
+    @Test
+    public void Kereses_az_ingatlan_hozzarendelese_listaban() throws IOException { //ELLenőrizni
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+        SideMenu sideMenu = new SideMenu(getDriver());
+        //szervezet felvétele
+        sideMenu.navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
 
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
+        szervezetekPage.clickOnFelvetelBtn();
 
+        //1. ingatlan
+        sideMenu.navigateToIngatlanokPanel();
+        UjIngatlan ujIngatlan = deserializeJson("ujIngatlan.json", UjIngatlan.class);
+        IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
+        String megnevezes1 = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
+        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        ingatlanokPage.
+                enterTextToMegnevezesFld(megnevezes1).
+                setUjIngatlan(ujIngatlan).
+                selectElementFromSzervezetDropDown(partnerNeve).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(ingatlanokPage.ingatlanMegjATabl(megnevezes1), megnevezes1);
 
+        //parkoló felvétele
+        UjParkolo ujParkolo = deserializeJson("ujParkolo.json", UjParkolo.class);
+        sideMenu.navigateToPartnerekPanel().
+                navigateToParkolokPanel();
+        String parkMegn = "Parkoló" + new FakerUtils().generateRandomNumber();
+        String azonosito = "12" + new FakerUtils().generateRandomNumber();
+        ParkolokPage parkolokPage = new ParkolokPage(getDriver());
+        parkolokPage.clickOnUjParkoloFelveteleBtn().
+                enterParkoloMegn(parkMegn).
+                setUjParkolo(ujParkolo).
+                enterAzonosito(azonosito).
+                clickOnFelvetelBtn();
+        getDriver().navigate().refresh();
+        Assert.assertEquals(parkolokPage.felvettParkoloMegjAListaban(), azonosito);
+        parkolokPage.clickOnListaElsoParkolo();
+        ParkolokDetailsPageTabs parkolokDetailsPageTabs = new ParkolokDetailsPageTabs(getDriver()).clickOnIngatlanokTab();
+        ParkolokDetailsIngatlanok parkolokDetailsIngatlanok = new ParkolokDetailsIngatlanok(getDriver()).clickOnHozzarendelesBtn();
 
+        //Szűrés
+        Szurok szurok = new Szurok(getDriver());
+        szurok.
+                clickOnSzurokBtn().
+                enterToMegnevezesFldIng(megnevezes1).
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
 
+        szurok.
+                clickOnSzurokTorleseBtn();
 
+        szurok.
+                clickOnSzurokBtn().
+                selectElemFromJellegDropDownIng("Hétvégi ház").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl("Hétvégi ház", "4"));
 
+        szurok.
+                clickOnSzurokTorleseBtn();
 
+        szurok.
+                clickOnSzurokBtn().
+                enterToIranyitoszamFldIng("6720").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl("6720", "5"));
+
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                enterToVarosFldIng("Szeged").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl("Szeged", "5"));
+
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                enterToKozteruletNeveFldIng("Mátyás").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl("Mátyás", "5"));
+
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                enterTextToHrszFld("123/456").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl("123/456", "6"));
+
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                selectElemFromHasznositasDropDownIng("Egyéb").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl("Egyéb", "8"));
+
+        szurok.
+                clickOnSzurokTorleseBtn();
+
+        szurok.
+                clickOnSzurokBtn().
+                selectElemFromBankuzemiCeluDropDownIng("Nem").
+                clickOnKeresesBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.bankuzemCeluUnchecked());
+
+        szurok.
+                clickOnSzurokTorleseBtn();
+        Assert.assertTrue(parkolokDetailsIngatlanok.ingatlanMegjATabl(megnevezes1));
 
     }
+
+
+}
 

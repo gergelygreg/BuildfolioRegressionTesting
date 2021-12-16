@@ -44,245 +44,240 @@ public class ParkolokDetailsAlapadatok extends BasePage {
 
     //metódusok: click, enterText
     public ParkolokDetailsAlapadatok clickOnAdatokSzerkeszteseBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(adatokSzerkeszteseBtn)).click();
+        waitUtil.waitAndClick(adatokSzerkeszteseBtn);
         return this;
     }
 
     public ParkolokDetailsAlapadatok clickOnMentesBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(mentesBtn)).click();
+        waitUtil.waitAndClick(mentesBtn);
         return this;
     }
 
     public ParkolokDetailsAlapadatok clickOnMegsemBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextToOrzeseBetelepitesiModFld(String orzeseBetelepitesiMod){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(orzeseBetelepitesiModFld)).sendKeys(orzeseBetelepitesiMod);
+        waitUtil.waitAndSendkeys(orzeseBetelepitesiModFld, orzeseBetelepitesiMod);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextToNyitvaTartasFld(String nyitvaTartas){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nyitvaTartasFld)).sendKeys(nyitvaTartas);
+        waitUtil.waitAndSendkeys(nyitvaTartasFld, nyitvaTartas);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextToParkoloMegnFld(String parkoloMegn){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nevFld)).sendKeys(parkoloMegn);
+        waitUtil.waitAndSendkeys(parkoloMegnevezeseFld, parkoloMegn);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextToTipusDropDown(String tipus){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tipusDropDown)).sendKeys(tipus);
-        wait.until(ExpectedConditions.elementToBeClickable(By.ByXPath.xpath("//div[@title='"+tipus+"']"))).click();
+        waitUtil.waitAndSendkeys(tipusDropDown, tipus);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+tipus+"']"));
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextToTeruletFld(String terulet){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(teruletFld)).sendKeys(terulet);
+        waitUtil.waitAndSendkeys(teruletFld, terulet);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextIrSzamFld(String irSzam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(irSzamFld)).sendKeys(irSzam);
+        waitUtil.waitAndSendkeys(irSzamFld, irSzam);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextToVarosFld(String varos){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(varosFld)).sendKeys(varos);
+        waitUtil.waitAndSendkeys(varosFld, varos);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextKozteruletNeveFld(String kozteruletNeve){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kozteruletNeveFld)).sendKeys(kozteruletNeve);
+        waitUtil.waitAndSendkeys(kozteruletNeveFld, kozteruletNeve);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextToKoztTipDropDown(String koztTip){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tipusDropDown)).sendKeys(koztTip);
-        wait.until(ExpectedConditions.elementToBeClickable(By.ByXPath.xpath("//div[@title='"+koztTip+"']"))).click();
+        waitUtil.waitAndSendkeys(tipusDropDown, koztTip);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+koztTip+"']"));
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextHazszamFld(String hazszam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hazszamFld)).sendKeys(hazszam);
+        waitUtil.waitAndSendkeys(hazszamFld, hazszam);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextAzonositoFld(String azonosito){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(azonositoFld)).sendKeys(azonosito);
+        waitUtil.waitAndSendkeys(azonositoFld, azonosito);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextHrszFld(String hrsz){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hrszFld)).sendKeys(hrsz);
+        waitUtil.waitAndSendkeys(hrszFld, hrsz);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextNevFld(String nev){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nevFld)).sendKeys(nev);
+        waitUtil.waitAndSendkeys(nevFld, nev);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterEmailFld(String email){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailFld)).sendKeys(email);
+        waitUtil.waitAndSendkeys(emailFld, email);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTelefonszamFld(String telefonszam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(telefonszamFld)).sendKeys(telefonszam);
+        waitUtil.waitAndSendkeys(telefonszamFld, telefonszam);
         return this;
     }
 
     public ParkolokDetailsAlapadatok enterTextMobilszamFld(String mobilszam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(mobilFld)).sendKeys(mobilszam);
+        waitUtil.waitAndSendkeys(mobilFld, mobilszam);
         return this;
     }
 
-
     public ParkolokDetailsAlapadatok enterTextSzolgaltatasMegnFld(String szolgaltatasMegn){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nevFld)).sendKeys(szolgaltatasMegn);
+        waitUtil.waitAndSendkeys(szolgaltatasMegnFld, szolgaltatasMegn);
         return this;
     }
 
     //ellenőrző metódusok
-    public ParkolokDetailsAlapadatok parkolokDetailsOldalonVagyunk(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(parkoloAdatlapFelirat));
-        return this;
+    public boolean parkolokDetailsOldalonVagyunk(){
+       return waitUtil.elementIsDisplayed(parkoloAdatlapFelirat);
     }
 
     public boolean orzeseBetelepitesiModFldUres(){
-        WebElement inputBox = wait.until(ExpectedConditions.visibilityOfElementLocated(orzeseBetelepitesiModFld));
+        WebElement inputBox = waitUtil.waitWebElement(orzeseBetelepitesiModFld);
         String textInsideInputBox = inputBox.getAttribute("value");
         return textInsideInputBox.isEmpty();
     }
 
-    public String javascriptErrorMessageTextMentes() {
-        Alert alert = driver.switchTo().alert();
-        String messageText = alert.getText();
-        return messageText;
-    }
-
     public boolean mezokNemszerkeszthetoek() {
-        Boolean eredmeny = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(.,'Nincs megadva')]"))).isEnabled();
-        return eredmeny;
+        return waitUtil.elementIsDisplayed(By.xpath("//span[contains(.,'Nincs megadva')]"));
     }
 
-    public Boolean mentesBtnKattinthato(){
-        Boolean eredmeny = wait.until(ExpectedConditions.elementToBeClickable(mentesBtn)).isEnabled();
-        return eredmeny;
+    public boolean mentesBtnKattinthato(){
+        return waitUtil.elementIsDisplayed(mentesBtn);
     }
 
-    public Boolean megsemBtnKattinthato(){
-        Boolean eredmeny = wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).isEnabled();
-        return eredmeny;
+    public boolean megsemBtnKattinthato(){
+        return waitUtil.elementIsDisplayed(megsemBtn);
     }
 
 
-    public Boolean parkolohelyekPanelMegjelenik(){
-        Boolean ertek = false;
-        try{
-            WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='card padded ng-star-inserted']")));
-            if(e.isDisplayed()){
-                ertek = true;
-            }
-        }catch (Exception e){
-            ertek = false;
-        }
-        return ertek;
+    public boolean parkolohelyekPanelMegjelenik(){
+        return waitUtil.elementIsDisplayed(By.xpath("//div[@class='card padded ng-star-inserted']"));
     }
 
 
-    public Boolean popUpMegjelenik(){
-        Boolean eredmeny = wait.until(ExpectedConditions.visibilityOfElementLocated(popUpToltseKiAKotMezoket)).isDisplayed();
-        return eredmeny;
+    public boolean popUpMegjelenik(){
+        return waitUtil.elementIsDisplayed(popUpToltseKiAKotMezoket);
     }
 
     public String popUpSzoveg(){
-        String alertText = wait.until(ExpectedConditions.visibilityOfElementLocated(popUpToltseKiAKotMezoket)).getText();
+        String alertText = waitUtil.waitAndGetText(popUpToltseKiAKotMezoket);
         return alertText;
     }
 
+    public String parkolohelyekSzamaHeaderben(){
+        return waitUtil.waitAndGetText(By.cssSelector("div[class='col'] h3"));
+    }
+
+    public String normalParkolohelySzama(){
+        return waitUtil.waitAndGetText(By.xpath("(//div[@class='col'])[7]//span"));
+    }
+
+    public String rokkantParkolohelySzama(){
+        return waitUtil.waitAndGetText(By.xpath("(//div[@class='col'])[8]//span"));
+    }
+
+    public String csaladosParkolohelySzama(){
+        return waitUtil.waitAndGetText(By.xpath("(//div[@class='col'])[9]//span"));
+    }
+
+    public String elektrAutoParkolohelySzama(){
+        return waitUtil.waitAndGetText(By.xpath("(//div[@class='col'])[10]//span"));
+    }
+
+
     //clear textfld
     public ParkolokDetailsAlapadatok parkoloMegnevFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(parkoloMegnevezeseFld)).clear();
+        waitUtil.waitAndClearText(parkoloMegnevezeseFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok tipusDropDownFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tipusDropDown)).clear();
+        waitUtil.waitAndClearText(tipusDropDown);
         return this;
     }
 
     public ParkolokDetailsAlapadatok teruletFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(teruletFld)).clear();
+        waitUtil.waitAndClearText(teruletFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok irSzamFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(irSzamFld)).clear();
+        waitUtil.waitAndClearText(irSzamFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok varosFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(varosFld)).clear();
+        waitUtil.waitAndClearText(varosFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok kozteruletNeveFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kozteruletNeveFld)).clear();
+        waitUtil.waitAndClearText(kozteruletNeveFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok kozteruletTipusaDropDown(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(kozteruletTipusaDropDown)).clear();
+        waitUtil.waitAndClearText(kozteruletTipusaDropDown);
         return this;
     }
 
     public ParkolokDetailsAlapadatok hazszamFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hazszamFld)).clear();
+        waitUtil.waitAndClearText(hazszamFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok azonositoFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(azonositoFld)).clear();
+        waitUtil.waitAndClearText(azonositoFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok hrszFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(hrszFld)).clear();
+        waitUtil.waitAndClearText(hrszFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok nevFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(nevFld)).clear();
+        waitUtil.waitAndClearText(nevFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok emailFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailFld)).clear();
+        waitUtil.waitAndClearText(emailFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok telefonszamFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(telefonszamFld)).clear();
+        waitUtil.waitAndClearText(telefonszamFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok mobilFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(mobilFld)).clear();
+        waitUtil.waitAndClearText(mobilFld);
         return this;
     }
 
     public ParkolokDetailsAlapadatok szolgaltatasMegnFldClear(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(szolgaltatasMegnFld)).clear();
+        waitUtil.waitAndClearText(szolgaltatasMegnFld);
         return this;
     }
-
-
-
-
-
 
 }

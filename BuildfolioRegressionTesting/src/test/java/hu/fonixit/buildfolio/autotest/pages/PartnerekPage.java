@@ -3,6 +3,7 @@ package hu.fonixit.buildfolio.autotest.pages;
 import hu.fonixit.buildfolio.autotest.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class PartnerekPage extends BasePage {
@@ -13,6 +14,7 @@ public class PartnerekPage extends BasePage {
     private final By partnerNeveFld = By.xpath("(//input[@placeholder='Nincs megadva'])[1]");
     private final By telefonszFld = By.xpath("(//input[@placeholder='Nincs megadva'])[2]");
     private final By emailFld = By.xpath("(//input[@placeholder='Nincs megadva'])[3]");
+    private final By kozmuChb = By.xpath("//label[.=' Közműcég ']");
     //lista
     private final By listaUtolsoPartnerNev = By.xpath("//tr[last()]//td[2]");
 
@@ -21,39 +23,65 @@ public class PartnerekPage extends BasePage {
     }
     //lista
     public String kapcsolodoPartnerNev(){  //Ezt átadjuk Szervezet kapcsolódó partner dropdownba
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(listaUtolsoPartnerNev)).getText();
+        return waitUtil.waitAndGetText(listaUtolsoPartnerNev);
     }
 
-    //partner adarok megadása
+    //partner adatok megadása
     public PartnerekPage enterPartnerNeveFld(String partnerNeve){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(partnerNeveFld)).sendKeys(partnerNeve);
+        waitUtil.waitAndSendkeys(partnerNeveFld, partnerNeve);
         return this;
     }
 
     public PartnerekPage enterTelefonszFld(String telefonszam){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(telefonszFld)).sendKeys(telefonszam);
+        waitUtil.waitAndSendkeys(telefonszFld, telefonszam);
         return this;
     }
 
     public PartnerekPage enterEmailFld(String email){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailFld)).sendKeys(email);
+        waitUtil.waitAndSendkeys(emailFld, email);
         return this;
     }
 
+    //click
     public PartnerekPage clickOnFelvetelBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(felvetelBtn)).click();
+        waitUtil.waitAndClick(felvetelBtn);
         return this;
     }
 
     public PartnerekPage clickOnMegsemBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(megsemBtn)).click();
+        waitUtil.waitAndClick(megsemBtn);
         return this;
     }
 
     public PartnerekPage clickOnUjPartnerFelveteleBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(ujPartnerFelveteleBtn)).click();
+        waitUtil.waitAndClick(ujPartnerFelveteleBtn);
         return this;
     }
 
+    public PartnerekPage clickOnListaElsoEleme(){
+        waitUtil.waitAndClick(By.xpath("//tr[1]"));
+        return this;
+    }
+
+    //select
+    public PartnerekPage selectKozmuChb(){
+        WebElement chb = driver.findElement(kozmuChb);
+        chb.click();
+        return this;
+    }
+
+    //assertion
+    public  boolean uzenetMegjelenik(String uzenet){
+       return waitUtil.popupWindMegjelenik(uzenet);
+    }
+
+    public boolean partnerMegjATablaban(String PartnerNeve, String oszlop){
+       return waitUtil.elementIsDisplayedInTable(PartnerNeve, "100", oszlop);
+    }
+
+
+    public boolean partnerekTextMegjelenik(){
+         return waitUtil.elementIsDisplayed(By.xpath("//h3[contains(.,'Partnerek')]"));
+    }
 
 }

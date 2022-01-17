@@ -109,8 +109,8 @@ public class ParkolokDetailsParkolohelyek extends BasePage {
         return waitUtil.elementIsClickable(megsemBtn);
     }
 
-    public boolean felvettParkolohelyMegjATablazatban(String parkhelyNeve){
-        return waitUtil.elementIsDisplayedInTable(parkhelyNeve, "100", "1");
+    public boolean felvettParkolohelyMegjATablazatban(String parkhelyNeve, String tablaIndex){
+        return waitUtil.elementIsDisplayedInTable(parkhelyNeve, tablaIndex);
     }
 
     public String parkolohelyekSzamaHeader(){
@@ -137,14 +137,6 @@ public class ParkolokDetailsParkolohelyek extends BasePage {
 
     public String sikeresRogzMessage(){
         return waitUtil.waitAndGetText(By.xpath("//div[@role='alertdialog']"));
-    }
-
-    public boolean azonositoElemMegjelenik(String azon){
-        return waitUtil.elementIsDisplayed(By.xpath("//td[1][contains(text(), '"+azon+"')]"));
-    }
-
-    public boolean azonositoElemMegjelenikTipus(String tipus){
-        return waitUtil.elementIsDisplayed(By.xpath("//td[2][contains(text(), '"+tipus+"')]"));
     }
 
     public String felvettParkolohelyMegjAListaban(){

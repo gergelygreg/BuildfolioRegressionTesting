@@ -1,0 +1,16 @@
+{
+  "beepitettseg": "Falba épített",
+  "penznem": "HUF",
+  "toltesiOsszeg": "1000000",
+  "hitelkeret": "250000",
+  "kartyaSzama": "32130123123412341234",
+  "kartyaErvenyes": "2022. 01. 05.",
+  "kartyaHasznaloja": "Teszt használó",
+  "kartyaolvasoTipusa": "kártyaolvasó",
+  "halozatiSzolgaltato": "Hálózati szolgáltató Kft.",
+  "cimletek": "címletek",
+  "festekSzalahJournalTipusa": "festékszalag",
+  "journalNyomtatoTipusa": "journal nyomtató",
+  "journalSzalagTipusa": "journal szalag",
+  "ugyfelBonSzalagTipusa": "bon szalag"
+}

@@ -83,12 +83,8 @@ public class ParkolokDetailsIngatlanok extends BasePage {
        return waitUtil.popupWindMegjelenik(popupSzoveg);
     }
 
-    public boolean ingatlanMegjATabl(String nev){
-        return  waitUtil.elementIsDisplayedInTable(nev, "100", "3");
-    }
-
-    public boolean ingatlanMegjATabl(String nev, String tablaOszlopa){
-        return  waitUtil.elementIsDisplayedInTable(nev, "100", tablaOszlopa);
+    public boolean ingatlanMegjATabl(String elemNeve, String tablaIndex){
+        return  waitUtil.elementIsDisplayedInTable(elemNeve, tablaIndex);
     }
 
     public ParkolokDetailsIngatlanok hozzarendelesSzama(String hozzarendSzama){

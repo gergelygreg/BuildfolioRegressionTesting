@@ -9,7 +9,7 @@ public class IngatlanokDetailsParkolas extends BasePage {
         super(driver);
     }
 
-    public boolean parkoloMegjATabl(String parkoloNeve){
-        return  waitUtil.elementIsDisplayedInTable(parkoloNeve, "100", "2");
+    public boolean parkoloMegjATabl(String parkoloNeve, String tablaIndex){
+        return  waitUtil.elementIsDisplayedInTable(parkoloNeve, tablaIndex);
     }
 }

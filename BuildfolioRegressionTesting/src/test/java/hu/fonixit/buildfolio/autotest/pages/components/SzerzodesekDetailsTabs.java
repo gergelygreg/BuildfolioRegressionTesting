@@ -27,7 +27,7 @@ public class SzerzodesekDetailsTabs extends BasePage {
         return this;
     }
 
-    public SzerzodesekDetailsTabs clickOnSzerzodoPartnereTab(){
+    public SzerzodesekDetailsTabs clickOnSzerzodoPartnerekTab(){
         waitUtil.waitAndClick(szerzodoPartnereTab);
         return this;
     }

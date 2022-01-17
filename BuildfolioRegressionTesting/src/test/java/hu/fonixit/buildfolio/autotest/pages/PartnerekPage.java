@@ -70,18 +70,29 @@ public class PartnerekPage extends BasePage {
         return this;
     }
 
+    public PartnerekPage selectPartnerFromTable(String partnerNeve, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(partnerNeve, oszlopIndex);
+        return this;
+    }
+
     //assertion
     public  boolean uzenetMegjelenik(String uzenet){
        return waitUtil.popupWindMegjelenik(uzenet);
     }
 
-    public boolean partnerMegjATablaban(String PartnerNeve, String oszlop){
-       return waitUtil.elementIsDisplayedInTable(PartnerNeve, "100", oszlop);
+    public boolean partnerMegjATablaban(String elemNeve, String oszlop){
+       return waitUtil.elementIsDisplayedInTable(elemNeve, oszlop);
     }
 
 
     public boolean partnerekTextMegjelenik(){
          return waitUtil.elementIsDisplayed(By.xpath("//h3[contains(.,'Partnerek')]"));
+    }
+
+    public String alapadatokLinkActive() {
+        WebElement alapadLink = driver.findElement(By.xpath("//a[.='Alapadatok']"));
+        String value = alapadLink.getAttribute("class");
+        return value;
     }
 
 }

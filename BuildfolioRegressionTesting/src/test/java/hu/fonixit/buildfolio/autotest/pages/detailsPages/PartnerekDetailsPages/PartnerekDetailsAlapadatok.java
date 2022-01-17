@@ -2,6 +2,7 @@ package hu.fonixit.buildfolio.autotest.pages.detailsPages.PartnerekDetailsPages;
 
 import hu.fonixit.buildfolio.autotest.base.BasePage;
 import hu.fonixit.buildfolio.autotest.pages.IngatlanokPage;
+import hu.fonixit.buildfolio.autotest.pages.PartnerekPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -74,11 +75,65 @@ public class PartnerekDetailsAlapadatok extends BasePage {
         return this;
     }
 
+    public PartnerekDetailsAlapadatok clickOnKozmucegChb(){
+        waitUtil.waitAndClick(By.xpath("//input[@id='publicUtility']"));
+        return this;
+    }
+
     //scroll-down
     public PartnerekDetailsAlapadatok scrollDownPage(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", driver.findElement(mentesBtn));
         return this;
+    }
+
+    //clear txtfld
+    public PartnerekDetailsAlapadatok clearHazszamTxtFld(){
+        waitUtil.waitAndClearText(hazszamFld);
+        return this;
+    }
+
+    //assert
+    public boolean linkText(String linkText){
+        try{
+            waitUtil.waitForVisibility(By.xpath("//a[.='"+linkText+"']"));
+        }
+        catch (Exception e){
+
+        }
+        return true;
+    }
+
+    public String kozmucegTxtAlapadatok(){
+       return waitUtil.waitAndGetText(By.xpath("//label[.=' Közműcég ']"));
+    }
+
+    public boolean kozmucegChbMegjelenik(){
+       return waitUtil.elementIsDisplayed(By.xpath("//label[.=' Közműcég ']"));
+    }
+
+    public boolean kozmucegChboxpipaMegjelenik(){
+        boolean ertek;
+        try{
+            waitUtil.waitForVisibility(By.xpath("//span[@class='icon-container checkbox-icon']"));
+            ertek = true;
+        }
+        catch (Exception e ){
+            ertek = false;
+        }
+        return ertek;
+    }
+
+    public boolean kozmucegFeliratMegjelenik() {
+        boolean ertek;
+        try{
+            waitUtil.waitForVisibility(By.xpath("//label[.=' Közműcég ']"));
+            ertek = true;
+        }
+        catch (Exception e ){
+            ertek = false;
+        }
+        return ertek;
     }
 
 }

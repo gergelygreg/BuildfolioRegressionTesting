@@ -83,78 +83,8 @@ public class EladasTest extends BaseTest {
 
 
         //Adásvételi szerződés felvétele
-        sideMenu.navigateToSzerzodesekPanel();
-        UjSzerzodes ujSzerzodes = deserializeJson("ujSzerzodes.json", UjSzerzodes.class);
-        String szerzodesSzam = "Teszt Szerződésszám" + new FakerUtils().generateRandomNumber();
-        SzerzodesekPage szerzodesekPage = new SzerzodesekPage(getDriver());
-        szerzodesekPage.
-                clickOnUjSzerzodesFelveteleBtn().
-                enterTextToSzerzodesszamFld(szerzodesSzam).
-                setUjSzerzodes(ujSzerzodes).
-                clickOnFelvetelBtn();
-        Assert.assertEquals(szerzodesekPage.listaElsoElemeEll(), szerzodesSzam);
-        getDriver().navigate().refresh();
-        szerzodesekPage.clickOnElsoElem();
-
-        SzerzodesekDetailsTabs szerzodesekDetailsTabs = new SzerzodesekDetailsTabs(getDriver());
-        szerzodesekDetailsTabs.clickOnIngatlanokEsEladasiArakTab();
-
-        SzerzodesekDetailsIngatlanokEsEladasiArak szerzodesekDetailsIngatlanokEsEladasiArak = new SzerzodesekDetailsIngatlanokEsEladasiArak(getDriver());
-        szerzodesekDetailsIngatlanokEsEladasiArak.
-                clickOnHozzarendelesBtn();
-        Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
-        szerzodesekDetailsIngatlanokEsEladasiArak.selectCheckboxFelvettIngatlan(megnevezes);
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
-        szerzodesekDetailsIngatlanokEsEladasiArak.clickOnEladasiArakMegadasaAKijelolteknelBtn();
-        Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
-        String nettoEladasiAr = "10000000";
-        szerzodesekDetailsIngatlanokEsEladasiArak.enterToNettoEladasiArFld(nettoEladasiAr);
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
-        szerzodesekDetailsIngatlanokEsEladasiArak.clickOnHozzarendelesBtn().
-                clickOnHozzarendelesBtn();
-
 
 
     }
-
-   /* @Test
-    public void szervezet_megjelenik(){
-        ADUser user = new ADUser().
-                setADUsername("takarekingatlanuser1").
-                setPassword("Testing123");
-        DashboardPage dashboardPage = new LoginPage(getDriver()).
-                load().
-                enterTextInUsernameFld(user.getADUsername()).
-                enterTextInPasswordFld(user.getPassword()).
-                belepes();
-        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToSzervezetekPanel();
-        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
-        Assert.assertTrue(szervezetekPage.felvettSzervezetMegjelenik("Szervezet78162"));
-    }*/
-
-    @Test
-    public void partner(){
-
-        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-
-        //partnerek felvétele eladó-vevő
-        //eladó
-        SideMenu sideMenu = new SideMenu(getDriver());
-        sideMenu.navigateToPartnerekPanel();
-        PartnerekPage partnerekPage = new PartnerekPage(getDriver());
-        String eladoPartnerNeve = "Teszt Partner Eladó" + new FakerUtils().generateRandomNumber();
-        String telefonszam = "06202102121";
-        String email = "email@gmail.com";
-        partnerekPage.
-                clickOnUjPartnerFelveteleBtn().
-                enterPartnerNeveFld(eladoPartnerNeve).
-                enterTelefonszFld(telefonszam).
-                enterEmailFld(email).
-                clickOnFelvetelBtn();
-        getDriver().navigate().refresh();  //refresh page
-    }
-
 
 }

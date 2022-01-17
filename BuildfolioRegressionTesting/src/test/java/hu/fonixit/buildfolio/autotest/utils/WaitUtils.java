@@ -75,22 +75,19 @@ public class WaitUtils {
         return ertek;
     }
 
-    public boolean elementIsDisplayedInTable(String elemNeve, String oldalmeret, String tablaOszlopa) {  //ha felvétel során a táblázat "1." sorába kerül felvételre az elem
+    public boolean elementIsDisplayedInTable(String elemNeve, String tablaIndex) {  //ha felvétel során a táblázat "1." sorába kerül felvételre az elem
         String tablazatElem = null;
-        boolean ertek;
+        boolean ertek = false;
         do {
             try {
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select"))).click();
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select//option[contains(.,'"+oldalmeret+"')]"))).click();
-                tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td["+tablaOszlopa+"]"))).getText();
+                tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td["+tablaIndex+"][contains(.,'"+elemNeve+"')]"))).getText();
                 if (tablazatElem != null && tablazatElem.contains(elemNeve)) {
                     ertek = true;
                 }
                 else {
-                    ertek = false;
+                    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='table-pager-next']//span[@class='icon-container']")));
                 }
-
-            } catch (Exception e) {
+            } catch (NoSuchElementException e) {
                 ertek = false;
             }
 
@@ -98,14 +95,15 @@ public class WaitUtils {
         return ertek;
     }
 
-    public void selectElementFromTableOszlopKivalasztasaval(String elemNeve, String oldalmeret, String tablaOszlopa) {  //ha felvétel során a táblázat "1." sorába kerül felvételre az elem
+    public void selectElementFromTableOszlopKivalasztasaval(String elemNeve, String tablaIndex) {
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select"))).click();
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select//option[contains(.,'" + oldalmeret + "')]"))).click();
-            String tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[" + tablaOszlopa + "]"))).getText();
-            WebElement tablaElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[" + tablaOszlopa + "]")));
-            if (tablazatElem.contains(elemNeve)) {
+            String tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(., ' "+elemNeve+" ')]["+tablaIndex+"]"))).getText();
+            WebElement tablaElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[contains(., ' "+elemNeve+" ')]["+tablaIndex+"]")));
+            if (tablazatElem != null && tablazatElem.contains(elemNeve)) {
                 tablaElement.click();
+            }
+            else {
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='table-pager-next']//span[@class='icon-container']")));
             }
         } catch (ElementClickInterceptedException e) {
 

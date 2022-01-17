@@ -11,7 +11,7 @@ public class SzerzodesekPage extends BasePage {
     private  final By szerzodesszamFld = By.xpath("//app-text-input[@name='contractNumber']//input[@placeholder='Nincs megadva']");
     private final By szerzodesTipusaDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[4]");
     private final By szerzodesTargyaTArea = By.xpath("//textarea[@placeholder='Nincs megadva']"); //először click és utána sendKeys
-    private final By lejaratiTipusDropDown = By.xpath("(//span[@class='ng-arrow-wrapper'])[5]");
+    private final By lejaratiTipusDropDown = By.xpath("((//input[@role='combobox'])[5]");
     private By felvetelBtn = By.xpath("//button[@class='btn btn-primary btn-submit']");
 
     public SzerzodesekPage (WebDriver driver){
@@ -35,6 +35,11 @@ public class SzerzodesekPage extends BasePage {
 
     public SzerzodesekPage clickOnFelvetelBtn(){
         waitUtil.waitAndClick(felvetelBtn);
+        return this;
+    }
+
+    public SzerzodesekPage clickOnTablazatEleme(String elemNeve, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(elemNeve, oszlopIndex);
         return this;
     }
 
@@ -82,13 +87,22 @@ public class SzerzodesekPage extends BasePage {
     //set uj szerzodes
     public SzerzodesekPage setUjSzerzodes(UjSzerzodes ujSzerzodes){
         return selectSzerzodesTipusa(ujSzerzodes.getSzerzodesTipusa()).
-                enterTextToSzerzodesekTargyaTextarea(ujSzerzodes.getSzerzodesTargya()).
-                selectLejaratiTipus(ujSzerzodes.getLejaratiTipus());
+                enterTextToSzerzodesekTargyaTextarea(ujSzerzodes.getSzerzodesTargya());
     }
 
-    //ellenőrzés
+    //assertion
     public String listaElsoElemeEll(){
         return waitUtil.waitAndGetText(By.xpath("//tr[1]//td[1]"));
     }
+
+    public boolean elemMegjelenikATablazatban(String elemNeve, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(elemNeve, oszlopIndex);
+    }
+
+    public boolean popUpMegjelenik(String popUpSzoveg){
+        return waitUtil.popupWindMegjelenik(popUpSzoveg);
+    }
+
+
 }
 

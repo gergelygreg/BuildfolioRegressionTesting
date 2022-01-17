@@ -8,4 +8,10 @@ public class PartnerekDetailsIngatlanok extends BasePage {
     public PartnerekDetailsIngatlanok(WebDriver driver) {
         super(driver);
     }
+
+    //assertion
+
+    public boolean ingatlanMegjATablBan(String elemNeve, String tablaoszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(elemNeve,tablaoszlopIndex);
+    }
 }

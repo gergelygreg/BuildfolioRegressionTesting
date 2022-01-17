@@ -45,6 +45,7 @@ public class IngatlanokTest extends BaseTest {
                 selectElementFromSzervezetDropDown(szervezetAzon).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
         ingatlanokPage.clickOnElsoIngatlan();
 
         IngatlanokDetailsAlapadatok ingatlanokDetailsAlapadatok = new IngatlanokDetailsAlapadatok(getDriver());
@@ -63,4 +64,5 @@ public class IngatlanokTest extends BaseTest {
                 setUjMuszakiAdatok(ujMuszakiAdatok).
                 clickOnMentesBtn();
     }
+
 }

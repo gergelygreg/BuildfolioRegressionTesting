@@ -19,7 +19,7 @@ public class IngatlanokPage extends BasePage {
     private final By helyrajziSzamFld = By.xpath("//app-text-input[@name='topographicalNumber']//input[@placeholder='Nincs megadva']");
     private final By uzemeltetesiRegioDropDown = By.xpath("(//input[@role='combobox'])[7]");
     private final By iranyitoszamFld = By.xpath("//app-text-input[@name='postCode']//input[@placeholder='Nincs megadva']");
-    private final By varosFld = By.xpath("//app-text-input[@name='city']//input[@placeholder='Nincs megadva']");
+    private final By telepulesFld = By.xpath("//app-text-input[.='Település']//input");
     private final By szervezetDropDown = By.xpath("(//input[@role='combobox'])[8]");
     private final By kozteruletNeveFld = By.xpath("//app-text-input[@name='publicPlace']//input[@placeholder='Nincs megadva']");
     private final By tulajdoniStatuszDropDown = By.xpath("(//input[@role='combobox'])[9]");
@@ -62,8 +62,8 @@ public class IngatlanokPage extends BasePage {
         return this;
     }
 
-    public IngatlanokPage enterTextToVarosFld(String varos){
-        waitUtil.waitAndSendkeys(varosFld, varos);
+    public IngatlanokPage enterTextToTelepulesFld(String telepules){
+        waitUtil.waitAndSendkeys(telepulesFld, telepules);
         return this;
     }
 
@@ -175,7 +175,7 @@ public class IngatlanokPage extends BasePage {
                 enterTextToHelyrajziSzamFld(ujIngatlan.getHelyrajziszam()).
                 selectElementFromUzemeltetesiRegioDropDown(ujIngatlan.getUzemeltetesiRegio()).
                 enterTextToIranyitoszamFld(ujIngatlan.getIranyitoszam()).
-                enterTextToVarosFld(ujIngatlan.getVaros()).
+                enterTextToTelepulesFld(ujIngatlan.getTelepules()).
                 enterTextToKozteruletNeveFld(ujIngatlan.getKozteruletNeve()).
                 selectElementFromTulajdoniStatuszDropDown(ujIngatlan.getTulajdoniStatusz()).
                 selectElementFromHasznositasDropDown(ujIngatlan.getHasznositas()).
@@ -183,9 +183,14 @@ public class IngatlanokPage extends BasePage {
                 enterTextToHazszamFld(ujIngatlan.getHazszam());
     }
 
-    public IngatlanokPage selectIngatlanFromTablazat(String ingatlanNeve){
-        waitUtil.selectElementFromTableOszlopKivalasztasaval(ingatlanNeve, "100", "2");
+    public IngatlanokPage selectIngatlanFromTablazat(String ingatlanNeve, String tablaIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(ingatlanNeve, tablaIndex);
         return this;
+    }
+
+    //assertion
+    public boolean ingatlanMegjelATablaban(String elemNeve){
+        return waitUtil.elementIsDisplayedInTable(elemNeve, "2");
     }
 
 }

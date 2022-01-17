@@ -45,7 +45,55 @@ public class Szurok extends BasePage {
     private final By iranyitoszamFldPartn = By.xpath("//input[@placeholder='Irányítószám']");
     private final By varosFldPartn = By.xpath("//input[@placeholder='Város']");
     private final By kozteruletneveFldPartn = By.xpath("//input[@placeholder='Közterület neve']");
-
+    //Partner adatlap - Szerződések
+    private final By szerzodesszamFld = By.xpath("//input[@placeholder='Szerződésszám']");
+    private final By partnerFld = By.xpath("//input[@placeholder='Partner']");
+    private final By tipusDropDown1 = By.xpath("//app-buildfolio-select[@name='contractType']//input");
+    private final By lejaratiTipusDropDown = By.xpath("//app-buildfolio-select[@name='expirationTypeCode']//input");
+    private final By ervenyKezdeteDate = By.xpath("//app-datepicker-range[@name='validityStartFrom']//input");
+    private final By ervenyVegeDate = By.xpath("//app-datepicker-range[@name='validityEndFrom']//input");
+    private final By statuszDropDown = By.xpath("//app-buildfolio-select[.='Státusz']//input");
+    //Partner adatlap - Ingatlanok
+    private final By megnevezesFldPartnIng = By.xpath("//input[@placeholder='Megnevezés']");
+    private final By jellegDropDownPartnIng = By.xpath("//app-buildfolio-select[@name='natureCode']//input");
+    private final By iranyitoszamFldPartnIng = By.xpath("//input[@placeholder='Irányítószám']");
+    private final By telepulesFldPartnIng = By.xpath("//input[@placeholder='Település']");
+    private final By koztNeveFldPartnIng = By.xpath("//input[@placeholder='Közterület neve']");
+    private final By hrszFldPartnIng = By.xpath("//input[@placeholder='HRSZ']");
+    private final By bankuzemCeluPartnIngDropDown = By.xpath("//app-buildfolio-select[@name='usedAsBank']//input");
+    private final By szerepDropDownPartnIng = By.xpath("//app-buildfolio-select[@name='roleCode']//input");
+    //Partner adatlap - Partnerek
+    private final By sorszamFldPartnSzamlak = By.xpath("//input[@placeholder='Név']");
+    private final By tipusDropDownPartnSzamlak = By.xpath("//app-buildfolio-select[@name='invoiceTypeCode']//input");
+    private final By vevoFldPartnSzamlak = By.xpath("//input[@placeholder='Vevő']");
+    private final By szallitoFldPartnSzamlak = By.xpath("//input[@placeholder='Szállító']");
+    private final By bruttoVegosszegTolFldPartnSzamlak = By.xpath("//input[@placeholder='-tól']");
+    private final By bruttoVegosszegIgFldPartnSzamlak = By.xpath("//input[@placeholder='-ig']");
+    private final By statuszDropDownPartnSzamlak = By.xpath("//app-buildfolio-select[@name='stateCode']//input");
+    //Partnerek adatlap - Mérőórák
+    private final By oratipusDropDownPartnMero = By.xpath("//div//div[text()='Óratípus']/following-sibling::div//input");
+    private final By gyariSzamFldPartnMero = By.xpath("//app-text-input[@name='meterFactoryNumber']//input");
+    private final By hrszFldPartnMero = By.xpath("//app-text-input[@name='topographicalNumber']//input");
+    private final By meresiPontAzonPartnMero = By.xpath("//app-text-input[@name='placeOfUse']//input");
+    private final By legutobbiRogzitesFld = By.xpath("//input[@placeholder='Legutóbbi rögzítés']");
+    //Eszközök - Atm-ek
+    private final By tipusFldAtmAdatlap = By.xpath("//input[@placeholder='Típus']");
+    private final By gyariSzamFldAtmAdatlap = By.xpath("//input[@placeholder='Gyári szám']");
+    private final By iranyitoszamFldAtmAdatlap = By.xpath("//input[@placeholder='Irányítószám']");
+    private final By varosFldAtmAdatlap = By.xpath("//input[@placeholder='Város']");
+    private final By kozteruletNeveFldAtmAdatlap = By.xpath("//input[@placeholder='Közterület neve']");
+    private final By beepitettsegDropDownAtmAdatlap = By.xpath("//app-buildfolio-select[@name='atmIntegrationCode']//input");
+    private final By elhelyezkedesDropDownAtmAdatlap = By.xpath("//app-buildfolio-select[@name='locationCode']//input");
+    private final By statuszDropDownAtmAdatlap = By.xpath("//app-buildfolio-select[@name='atmStateCode']//input");
+    //Eszközök - Banktechnikai eszközök
+    private final By megnevezesFldBanktechEszk = By.xpath("//input[@placeholder='Megnevezés']");
+    private final By leltariSzamFldBanktechEszk = By.xpath("//input[@placeholder='Leltári szám']");
+    private final By tipusFldBanktechEszk = By.xpath("//input[@placeholder='Típus']");
+    private final By eszkozcsoportDropDownBanktechEszk = By.xpath("//app-buildfolio-select[.='Eszközcsoport']//input");
+    private final By iranyitoszamFldBanktechEszk = By.xpath("//input[@placeholder='Irányítószám']");
+    private final By varosFldBanktechEszk = By.xpath("//input[@placeholder='Város']");
+    private final By kozteruletNeveFldBanktechEszk = By.xpath("//input[@placeholder='Közterület neve']");
+    private final By statuszDropDownBanktechEszk = By.xpath("//app-buildfolio-select[.='Státusz']//input");
 
     public Szurok(WebDriver driver){
         super(driver);
@@ -232,5 +280,424 @@ public class Szurok extends BasePage {
         waitUtil.waitAndSendkeys(kozteruletneveFldPartn, koztNeve);
         return this;
     }
+
+    //Partner adatlap - Szerződések
+    public Szurok enterTextToSzerzodesszamFld(String szerzodesszam){
+        waitUtil.waitAndSendkeys(szerzodesszamFld, szerzodesszam);
+        return this;
+    }
+
+    public Szurok enterTextToPartnerFld(String partner){
+        waitUtil.waitAndSendkeys(szerzodesszamFld, partner);
+        return this;
+    }
+
+    public Szurok selectTipus1FromDropDown(String tipus){
+        waitUtil.waitAndClick(tipusDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+tipus+"']"));
+        return this;
+    }
+
+    public Szurok selectLejaratiTipusFromDropDown(String lejaratiTipus){
+        waitUtil.waitAndClick(lejaratiTipusDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+lejaratiTipus+"']"));
+        return this;
+    }
+
+    public Szurok selectDateFromErvenyessegKezdDropDown(String datum){
+        waitUtil.waitAndSendkeys(ervenyKezdeteDate, datum);
+        return this;
+    }
+
+    public Szurok selectDateFromErvenyessegVegeDropDown(String datum){
+        waitUtil.waitAndSendkeys(ervenyVegeDate, datum);
+        return this;
+    }
+
+    public Szurok selectStatuszFromDropDown(String statusz){
+        waitUtil.waitAndClick(statuszDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
+        return this;
+    }
+
+    //Partner adatlap - Ingatlanok
+
+    public Szurok enterTextToMegnevezesFldPartnIng (String megnevezes){
+        waitUtil.waitAndSendkeys(megnevezesFldPartnIng, megnevezes);
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldPartnIng (String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldPartn, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToTelepulesFldPartnIng (String telepules){
+        waitUtil.waitAndSendkeys(telepulesFldPartnIng, telepules);
+        return this;
+    }
+
+    public Szurok enterTextToKoztNeveFldPartnIng(String kozterNeve){
+        waitUtil.waitAndSendkeys(kozteruletneveFldPartn, kozterNeve);
+        return this;
+    }
+
+    public Szurok enterTextToHrszFldPartnIng (String HRSZ){
+        waitUtil.waitAndSendkeys(hrszFldPartnIng, HRSZ);
+        return this;
+    }
+
+    public Szurok selectSzerepPartIngDropDown(String szerep){
+        waitUtil.waitForVisibility(szerepDropDownPartnIng);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+szerep+"'])"));
+        return this;
+    }
+
+    public Szurok selectJellegPartIngFromDropDown(String jelleg){
+        waitUtil.waitAndClick(jellegDropDownPartnIng);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+jelleg+"'])"));
+        return this;
+    }
+    public Szurok selectBankuzemCeluPartnIngDropDown(String bankuzemCelu){
+        waitUtil.waitAndClick(bankuzemCeluPartnIngDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+bankuzemCelu+"'])"));
+        return this;
+    }
+
+    //Partnerek adatlap - Számlák
+    public Szurok enterTextToSorszamFldPartnSzamlak(String sorszam){
+        waitUtil.waitAndSendkeys(sorszamFldPartnSzamlak, sorszam);
+        return  this;
+    }
+
+    public Szurok selectTipusFromtipusDropDownPartnSzamlak(String tipus){
+        waitUtil.waitAndClick(tipusDropDownPartnSzamlak);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+tipus+"']"));
+        return this;
+    }
+
+    public Szurok enterTextToVevoFldPartnSzamlak(String vevo){
+        waitUtil.waitAndSendkeys(vevoFldPartnSzamlak, vevo);
+        return this;
+    }
+
+    public Szurok enterTextToSzallitoFldPartnSzamlak(String szallito){
+        waitUtil.waitAndSendkeys(szallitoFldPartnSzamlak, szallito);
+        return this;
+    }
+
+    public Szurok enterDateToKiallitasDatumaFld(String datum){
+        waitUtil.waitAndSendkeys(By.xpath("//input[@placeholder='-tól -ig']"), datum);
+        return this;
+    }
+
+    public Szurok enterTextToBruttoVegosszegTolFLdPartnSzamlak(String bruttoVegosszegTol){
+        waitUtil.waitAndSendkeys(bruttoVegosszegTolFldPartnSzamlak, bruttoVegosszegTol);
+        return this;
+    }
+
+    public Szurok enterTextToBruttoVegosszegIgFldPartnSzamlak(String bruttoVegosszegIg){
+        waitUtil.waitAndSendkeys(bruttoVegosszegIgFldPartnSzamlak, bruttoVegosszegIg);
+        return this;
+    }
+
+    public Szurok selectStatuszFromStatuszDropDownPartnSzamlak(String statusz){
+        waitUtil.waitAndSendkeys(statuszDropDownPartnSzamlak, statusz);
+        return this;
+    }
+
+    //Partnerek adatlap - Merőórák
+    public Szurok selectOratipusDropDownPartnMero(String oratipus){
+        waitUtil.waitAndClick(oratipusDropDownPartnMero);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+oratipus+"']"));
+        return this;
+    }
+
+    public Szurok enterTextGyariSzamFldPartnMero(String gyariSzam){
+        waitUtil.waitAndSendkeys(gyariSzamFldPartnMero, gyariSzam);
+        return this;
+    }
+
+    public Szurok enterTextToHrszFldPartnMero(String hrsz){
+        waitUtil.waitAndSendkeys(hrszFldPartnIng, hrsz);
+        return this;
+    }
+
+    public Szurok enterTextToMeresiPontAzonPartnMero(String meresiPontAzon){
+        waitUtil.waitAndSendkeys(meresiPontAzonPartnMero, meresiPontAzon);
+        return this;
+    }
+
+    public Szurok enterDateToLegutobbiRogzitesFld(String legutobbiRogz){
+        waitUtil.waitAndSendkeys(legutobbiRogzitesFld, legutobbiRogz);
+        return this;
+    }
+
+    //Eszközök - Atm-ek adatlap
+
+    public Szurok enterTextToTipusFldAtmAdatlap(String tipus){
+        waitUtil.waitAndSendkeys(tipusFldAtmAdatlap, tipus);
+        return this;
+    }
+
+    public Szurok enterTextToGyariSzamAtmAdatlap(String gyariSzam){
+        waitUtil.waitAndSendkeys(gyariSzamFldAtmAdatlap, gyariSzam);
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldAtmAdatlap(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldAtmAdatlap, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToVarosFldAtmAdatlap(String varos){
+        waitUtil.waitAndSendkeys(varosFldAtmAdatlap, varos);
+        return this;
+    }
+
+    public Szurok enterTextToKozteruletNeveFldAtmAdatlap(String kozteruletNeve){
+        waitUtil.waitAndSendkeys(kozteruletNeveFldAtmAdatlap , kozteruletNeve);
+        return this;
+    }
+
+    public Szurok selectBeepitettsegFromDropDownAtmAdatlap(String beepitettseg){
+        waitUtil.waitAndClick(beepitettsegDropDownAtmAdatlap);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+beepitettseg+"']"));
+        return this;
+    }
+
+    public Szurok selectElhelyezkedesFromDropDownAtmAdatlap(String elhelyezkedes){
+        waitUtil.waitAndClick(elhelyezkedesDropDownAtmAdatlap);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+elhelyezkedes+"']"));
+        return this;
+    }
+
+    public Szurok selectStatuszFromDropDownAtmAdatlap(String statusz){
+        waitUtil.waitAndClick(statuszDropDownAtmAdatlap);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
+        return this;
+    }
+
+    //Eszközök - Banktechnikai eszközök
+
+    public Szurok enterTextToMegnevezesFldBanktechEszk(String megnevezes){
+        waitUtil.waitAndSendkeys(megnevezesFldBanktechEszk, megnevezes);
+        return this;
+    }
+
+    public Szurok enterTextToLeltariSzamFldBanktechEszk(String leltariSzam){
+        waitUtil.waitAndSendkeys(leltariSzamFldBanktechEszk, leltariSzam);
+        return this;
+    }
+
+    public Szurok enterTextToTipusFldBanktechEszk(String tipus){
+        waitUtil.waitAndSendkeys(tipusFldBanktechEszk, tipus);
+        return this;
+    }
+
+    public Szurok selectFromEszkozcsoportDropDownBanktechEszk(String eszkozcsoport){
+        waitUtil.waitAndClick(eszkozcsoportDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='Bankjegyszámláló']"));
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldBanktechEszk(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldBanktechEszk, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToVarosFldBanktechEszk(String varos){
+        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
+        return this;
+    }
+
+    public Szurok enterTextKozteruletNeveFldBanktechEszk(String koztNeve){
+        waitUtil.waitAndSendkeys(kozteruletNeveFldBanktechEszk, koztNeve);
+        return this;
+    }
+
+    public Szurok selectFromStatuszDropDownBanktechEszk(String statusz){
+        waitUtil.waitAndClick(statuszDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
+        return this;
+    }
+
+    //Eszközök - Bankbiztonsági eszközök
+
+    public Szurok enterTextToMegnevezesFldBankbiztEszk(String megnevezes){
+        waitUtil.waitAndSendkeys(megnevezesFldBanktechEszk, megnevezes);
+        return this;
+    }
+
+    public Szurok enterTextToLeltariSzamFldBankbiztEszk(String leltariSzam){
+        waitUtil.waitAndSendkeys(leltariSzamFldBanktechEszk, leltariSzam);
+        return this;
+    }
+
+    public Szurok enterTextToTipusFldBankbiztEszk(String tipus){
+        waitUtil.waitAndSendkeys(tipusFldBanktechEszk, tipus);
+        return this;
+    }
+
+    public Szurok selectFromEszkozcsoportDropDownBankbiztEszk(String eszkozcsoport){
+        waitUtil.waitAndClick(eszkozcsoportDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='Bankjegyszámláló']"));
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldBankbiztEszk(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldBanktechEszk, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToVarosFldBankbiztEszk(String varos){
+        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
+        return this;
+    }
+
+    public Szurok enterTextKozteruletNeveFldBankbiztEszk(String koztNeve){
+        waitUtil.waitAndSendkeys(kozteruletNeveFldBanktechEszk, koztNeve);
+        return this;
+    }
+
+    public Szurok selectFromStatuszDropDownBankbiztEszk(String statusz){
+        waitUtil.waitAndClick(statuszDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
+        return this;
+    }
+
+    //Partner adatlap - Eszközök - Atm-ek adatlap
+
+    public Szurok enterTextToTipusFldPartnerAdatlapAtm(String tipus){
+        waitUtil.waitAndSendkeys(tipusFldAtmAdatlap, tipus);
+        return this;
+    }
+
+    public Szurok enterTextToGyariSzamPartnerAdatlapAtm(String gyariSzam){
+        waitUtil.waitAndSendkeys(gyariSzamFldAtmAdatlap, gyariSzam);
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldPartnerAdatlapAtm(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldAtmAdatlap, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToVarosFldPartnerAdatlapAtm(String varos){
+        waitUtil.waitAndSendkeys(varosFldAtmAdatlap, varos);
+        return this;
+    }
+
+    public Szurok enterTextToKozteruletNeveFldPartnerAdatlapAtm(String kozteruletNeve){
+        waitUtil.waitAndSendkeys(kozteruletNeveFldAtmAdatlap , kozteruletNeve);
+        return this;
+    }
+
+    public Szurok selectBeepitettsegFromDropDownPartnerAdatlapAtm(String beepitettseg){
+        waitUtil.waitAndClick(beepitettsegDropDownAtmAdatlap);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+beepitettseg+"']"));
+        return this;
+    }
+
+    public Szurok selectElhelyezkedesFromDropDownPartnerAdatlapAtm(String elhelyezkedes){
+        waitUtil.waitAndClick(elhelyezkedesDropDownAtmAdatlap);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+elhelyezkedes+"']"));
+        return this;
+    }
+
+    public Szurok selectStatuszFromDropDownPartnerAdatlapAtm(String statusz){
+        waitUtil.waitAndClick(statuszDropDownAtmAdatlap);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
+        return this;
+    }
+
+    //Partner adatlap - Eszközök - Banktechnikai eszközök
+
+    public Szurok enterTextToMegnevezesFldPartnerAdatlapBanktechEszk(String megnevezes){
+        waitUtil.waitAndSendkeys(megnevezesFldBanktechEszk, megnevezes);
+        return this;
+    }
+
+    public Szurok enterTextToLeltariSzamFldPartnerAdatlapBanktechEszk(String leltariSzam){
+        waitUtil.waitAndSendkeys(leltariSzamFldBanktechEszk, leltariSzam);
+        return this;
+    }
+
+    public Szurok enterTextToTipusFldPartnerAdatlapBanktechEszk(String tipus){
+        waitUtil.waitAndSendkeys(tipusFldBanktechEszk, tipus);
+        return this;
+    }
+
+    public Szurok selectFromEszkozcsoportDropDownPartnerAdatlapBanktechEszk(String eszkozcsoport){
+        waitUtil.waitAndClick(eszkozcsoportDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='Bankjegyszámláló']"));
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldPartnerAdatlapBanktechEszk(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldBanktechEszk, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToVarosFldPartnerAdatlapBanktechEszk(String varos){
+        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
+        return this;
+    }
+
+    public Szurok enterTextKozteruletNeveFldPartnerAdatlapBanktechEszk(String koztNeve){
+        waitUtil.waitAndSendkeys(kozteruletNeveFldBanktechEszk, koztNeve);
+        return this;
+    }
+
+    public Szurok selectFromStatuszDropDownPartnerAdatlapBanktechEszk(String statusz){
+        waitUtil.waitAndClick(statuszDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
+        return this;
+    }
+
+    //Partnerek adatlap - Eszközök - Bankbiztonsági eszközök
+
+    public Szurok enterTextToMegnevezesFldPartnerAdatlapBankbiztEszk(String megnevezes){
+        waitUtil.waitAndSendkeys(megnevezesFldBanktechEszk, megnevezes);
+        return this;
+    }
+
+    public Szurok enterTextToLeltariSzamFldPartnerAdatlapBankbiztEszk(String leltariSzam){
+        waitUtil.waitAndSendkeys(leltariSzamFldBanktechEszk, leltariSzam);
+        return this;
+    }
+
+    public Szurok enterTextToTipusFldPartnerAdatlapBankbiztEszk(String tipus){
+        waitUtil.waitAndSendkeys(tipusFldBanktechEszk, tipus);
+        return this;
+    }
+
+    public Szurok selectFromEszkozcsoportDropDownPartnerAdatlapBankbiztEszk(String eszkozcsoport){
+        waitUtil.waitAndClick(eszkozcsoportDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='Bankjegyszámláló']"));
+        return this;
+    }
+
+    public Szurok enterTextToIranyitoszamFldPartnerAdatlapBankbiztEszk(String iranyitoszam){
+        waitUtil.waitAndSendkeys(iranyitoszamFldBanktechEszk, iranyitoszam);
+        return this;
+    }
+
+    public Szurok enterTextToVarosFldPartnerAdatlapBankbiztEszk(String varos){
+        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
+        return this;
+    }
+
+    public Szurok enterTextKozteruletNeveFldPartnerAdatlapBankbiztEszk(String koztNeve){
+        waitUtil.waitAndSendkeys(kozteruletNeveFldBanktechEszk, koztNeve);
+        return this;
+    }
+
+    public Szurok selectFromStatuszDropDownPartnerAdatlapBankbiztEszk(String statusz){
+        waitUtil.waitAndClick(statuszDropDownBanktechEszk);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
+        return this;
+    }
+
 
 }

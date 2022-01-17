@@ -16,7 +16,7 @@ public class SideMenu extends BasePage {
     private final By szamlakBtn = By.xpath("//span[normalize-space()='Számlák']");
     private final By eszkozokBtn = By.xpath("//span[normalize-space()='Eszközök']");
     private final By igenyekBtn = By.xpath("//span[normalize-space()='Igények']");
-    private final By ertesitesekBtn = By.xpath("//span[normalize-space()='Értesítések']");
+    private final By ertesitesekBtn = By.xpath("//a[@id='notifications-navigation.notifications']");
     private final By felhasznalokBtn = By.xpath("//span[normalize-space()='Felhasználók']");
     private final By szervezetekBtn = By.xpath("//span[normalize-space()='Szervezetek']");
     private final By adatfeltoltesBtn = By.xpath("//span[normalize-space()='Adatfeltöltés']");
@@ -99,5 +99,10 @@ public class SideMenu extends BasePage {
     public SideMenu navigateToAdatletoltesPanel(){
         waitUtil.waitAndClick(adatletoltesBtn);
         return this;
+    }
+
+    //assertion
+    public boolean ertesitesSzamMegjelenik(String szam){ //két elemnél jelenik meg
+        return  waitUtil.elementIsDisplayed(By.xpath("//app-notification-number-badge//span[contains(.,'"+szam+"')]"));
     }
 }

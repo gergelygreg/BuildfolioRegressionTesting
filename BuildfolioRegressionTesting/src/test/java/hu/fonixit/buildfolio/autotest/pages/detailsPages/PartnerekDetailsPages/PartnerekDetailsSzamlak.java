@@ -8,4 +8,8 @@ public class PartnerekDetailsSzamlak extends BasePage {
     public PartnerekDetailsSzamlak(WebDriver driver) {
         super(driver);
     }
+
+    public boolean szamlaMegjelenikATablazatban(String elemNeve, String oszlopIndex){
+       return waitUtil.elementIsDisplayedInTable(elemNeve, oszlopIndex);
+    }
 }

@@ -7,7 +7,7 @@ public class UjIngatlan {
     private String helyrajziszam;
     private String uzemeltetesiRegio;
     private String iranyitoszam;
-    private String varos;
+    private String telepules;
     private String kozteruletNeve;
     private String tulajdoniStatusz;
     private String hasznositas;
@@ -42,8 +42,8 @@ public class UjIngatlan {
         return iranyitoszam;
     }
 
-    public String getVaros() {
-        return varos;
+    public String getTelepules() {
+        return telepules;
     }
 
     public String getKozteruletNeve() {

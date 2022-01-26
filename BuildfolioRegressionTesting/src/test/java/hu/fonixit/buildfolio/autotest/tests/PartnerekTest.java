@@ -20,6 +20,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
+
 import static hu.fonixit.buildfolio.autotest.utils.JacksonUtils.deserializeJson;
 
 public class PartnerekTest extends BaseTest {

@@ -1,0 +1,16 @@
+{
+  "beepitettseg": "N/A",
+  "penznem": "HUF",
+  "toltesiOsszeg": "1000000",
+  "hitelkeret": "25000",
+  "kartyaSzama": "1234512345",
+  "kartyaErvenyes": "2022. 01. 12.",
+  "kartyaHasznaloja": "Teszt használó",
+  "kartyaolvasoTipusa": "Kártyaolvasó típusa teszt",
+  "halozatiSzolgaltato": "Hálózati szolgáltaó teszt Kft.",
+  "cimletek": "címlet",
+  "festekSzalagJournalTipusa": "Epson ERC-09B",
+  "journalNyomtatoTipusa": "PhomemoPrinter",
+  "journalSzalagTipusa": "57x37 thermo papír POS terminálokba",
+  "ugyfelBonSzalagTipusa": "bon thermo papír"
+}

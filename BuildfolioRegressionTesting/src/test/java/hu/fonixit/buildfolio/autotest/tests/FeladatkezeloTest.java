@@ -21,7 +21,7 @@ import static hu.fonixit.buildfolio.autotest.utils.JacksonUtils.deserializeJson;
 public class FeladatkezeloTest extends BaseTest {
 
     @Test
-    public void Feladatkezelo_menu_Feladatok_tab_szurok_mukodese() throws IOException, InterruptedException {
+    public void feladatkezelo_menu_Feladatok_tab_szurok_mukodese() throws IOException, InterruptedException {
         //Eladás
         //Szervezet+Partner felvétele(az ingatlanhoz)
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
@@ -159,5 +159,6 @@ public class FeladatkezeloTest extends BaseTest {
         //Feladat tab - Szűrés
 
 
+        //FOLYATATÁS, SZERVEZET FELVÉTELE BUG
     }
 }

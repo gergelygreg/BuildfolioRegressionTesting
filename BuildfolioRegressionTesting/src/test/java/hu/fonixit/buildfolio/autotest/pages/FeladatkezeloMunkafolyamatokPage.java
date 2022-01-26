@@ -17,6 +17,17 @@ public class FeladatkezeloMunkafolyamatokPage extends BasePage {
         return this;
     }
 
+    //select
+    public FeladatkezeloMunkafolyamatokPage selectMunkafolyamatFromTable(String egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
+        return this;
+    }
+
+    //assert
+    public boolean munkafolyamatMegjelenikATablazatban(String egyediAzon, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzon, oszlopIndex);
+    }
+
 
 
 

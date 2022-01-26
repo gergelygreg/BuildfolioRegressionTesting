@@ -13,18 +13,16 @@ public class FeladatkezeloFeladatokPage extends BasePage {
         super(driver);
     }
 
-    public FeladatkezeloFeladatokPage feladatKivalasztas(String alcim){
-        String feldatAlcim = null;
-        try {
-            feldatAlcim = waitUtil.waitAndGetText(By.xpath("//span[normalize-space()='"+alcim+"']"));
-            if (feldatAlcim != null && feldatAlcim.contains(alcim)) {
-                waitUtil.waitAndClick(By.xpath("//tr[contains(.,'"+alcim+"')]//input"));
-            }
-            else {
-                waitUtil.waitAndClick(By.xpath("//button[@id='table-pager-next']//span[@class='icon-container']"));
-            }
-        } catch (Exception e) {
-        }
+
+    //select
+    public FeladatkezeloFeladatokPage selectFeladatFromTable(String egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
         return this;
     }
+
+    //assert
+    public boolean feladatMegjelenikATablazatban(String egyediAzon, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzon, oszlopIndex);
+    }
+
 }

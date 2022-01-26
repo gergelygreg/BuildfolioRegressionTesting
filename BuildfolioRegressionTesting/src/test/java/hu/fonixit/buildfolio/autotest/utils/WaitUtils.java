@@ -1,17 +1,9 @@
 
 package hu.fonixit.buildfolio.autotest.utils;
-
-import hu.fonixit.buildfolio.autotest.base.BasePage;
-import hu.fonixit.buildfolio.autotest.pages.components.Oldalmeret;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class WaitUtils {
@@ -31,10 +23,6 @@ public class WaitUtils {
 
     public void waitAndSendkeys(By element, String text) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(element)).sendKeys(text);
-    }
-
-    public void waitAndSendNumbers(By element, int num){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element)).sendKeys(String.valueOf(num));
     }
 
     public void waitAndClick(By locator) {
@@ -87,8 +75,8 @@ public class WaitUtils {
                 else {
                     wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='table-pager-next']//span[@class='icon-container']")));
                 }
-            } catch (NoSuchElementException e) {
-                ertek = false;
+            } catch (Exception e) {
+                return ertek = false;
             }
 
         } while (!tablazatElem.contains(elemNeve));
@@ -97,8 +85,8 @@ public class WaitUtils {
 
     public void selectElementFromTableOszlopKivalasztasaval(String elemNeve, String tablaIndex) {
         try {
-            String tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(., ' "+elemNeve+" ')]["+tablaIndex+"]"))).getText();
-            WebElement tablaElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[contains(., ' "+elemNeve+" ')]["+tablaIndex+"]")));
+            String tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td["+tablaIndex+"][contains(.,'"+elemNeve+"')]"))).getText();
+            WebElement tablaElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td["+tablaIndex+"][contains(.,'"+elemNeve+"')]")));
             if (tablazatElem != null && tablazatElem.contains(elemNeve)) {
                 tablaElement.click();
             }
@@ -124,23 +112,6 @@ public class WaitUtils {
     }
 
     public boolean fldIsNotEditable(By locator, String attribute) { //disabled attribute
-        boolean ertek;
-        String elem;
-        try {
-            WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            elem = e.getAttribute(attribute);
-            if (elem != null) {
-                ertek = true;
-            } else {
-                ertek = false;
-            }
-        } catch (Exception e) {
-            ertek = false;
-        }
-        return ertek;
-    }
-
-    public boolean btnIsEditable(By locator, String attribute) {
         boolean ertek;
         String elem;
         try {

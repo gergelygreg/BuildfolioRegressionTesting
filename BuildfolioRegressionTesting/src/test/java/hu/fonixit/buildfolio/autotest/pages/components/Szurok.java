@@ -94,6 +94,9 @@ public class Szurok extends BasePage {
     private final By varosFldBanktechEszk = By.xpath("//input[@placeholder='Város']");
     private final By kozteruletNeveFldBanktechEszk = By.xpath("//input[@placeholder='Közterület neve']");
     private final By statuszDropDownBanktechEszk = By.xpath("//app-buildfolio-select[.='Státusz']//input");
+    //ATM adatlap - Igények
+    private final By azonositoAtmDetailsIgenyekFld = By.xpath("//input[@placeholder='Azonosító']");
+    private final By leirasFld = By.xpath("//input[@placeholder='Leírás']");
 
     public Szurok(WebDriver driver){
         super(driver);
@@ -698,6 +701,18 @@ public class Szurok extends BasePage {
         waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
         return this;
     }
+
+    //ATM adatlap - Igények
+    public Szurok enterTextToAzonositoAtmDetailsIgenyekFld(String azonosito){
+        waitUtil.waitAndSendkeys(azonositoAtmDetailsIgenyekFld, azonosito);
+        return this;
+    }
+
+    public Szurok enterTextToAtmDetailsLeirasFld(String leiras){
+        waitUtil.waitAndSendkeys(leirasFld, leiras);
+        return this;
+    }
+
 
 
 }

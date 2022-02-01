@@ -22,12 +22,10 @@ public class EszkozokPage extends BasePage {
     private final By statuszEszkozDropDown = By.xpath("//div//label[.='Státusz *']/following-sibling::app-buildfolio-select//input");
     private final By megsemBtn = By.xpath("//button[normalize-space()='Mégsem']");
 
-
     public EszkozokPage(WebDriver driver) {
         super(driver);
     }
 
-    //click
     public EszkozokPage clickOnMegsemBtn(){
         waitUtil.waitAndClick(megsemBtn);
         return this;
@@ -115,17 +113,18 @@ public class EszkozokPage extends BasePage {
         return waitUtil.elementIsClickable(felvetelBtn);
     }
 
+    public boolean nincsMegjAdatFeliratMegj() {
+        return waitUtil.nincsMegjAdatFeliratMegj();
+    }
     //set
     public EszkozokPage setUjBankbiztonsagiEszkoz(UjBankbiztonsagiEszkoz ujBankbiztonsagiEszkoz){
-        return enterTextToLeltariSzamFld(ujBankbiztonsagiEszkoz.getLeltariSzam()).
-                selectEszkozcsoportFromDropDown(ujBankbiztonsagiEszkoz.getEszkozcsoport()).
+        return selectEszkozcsoportFromDropDown(ujBankbiztonsagiEszkoz.getEszkozcsoport()).
                 enterTextToEszkozTipusFld(ujBankbiztonsagiEszkoz.getTipus()).
                 selectEszkozStatuszFromDropDown(ujBankbiztonsagiEszkoz.getStatusz());
     }
 
     public EszkozokPage setUjBankTechnikaiEszkoz(UjBanktechnikaiEszkoz ujBankTechnikaiEszkoz){
-        return enterTextToLeltariSzamFld(ujBankTechnikaiEszkoz.getLeltariSzam()).
-                selectEszkozcsoportFromDropDown(ujBankTechnikaiEszkoz.getEszkozcsoport()).
+        return selectEszkozcsoportFromDropDown(ujBankTechnikaiEszkoz.getEszkozcsoport()).
                 enterTextToEszkozTipusFld(ujBankTechnikaiEszkoz.getTipus()).
                 selectEszkozStatuszFromDropDown(ujBankTechnikaiEszkoz.getStatusz());
     }

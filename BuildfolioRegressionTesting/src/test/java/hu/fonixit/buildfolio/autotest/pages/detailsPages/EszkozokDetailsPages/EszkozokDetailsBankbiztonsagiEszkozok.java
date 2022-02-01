@@ -81,5 +81,14 @@ public class EszkozokDetailsBankbiztonsagiEszkozok extends BasePage {
         return this;
     }
 
+    //assert
+    public boolean popUpUzenetMegjelenik(String popUpSzoveg){
+        return waitUtil.popupWindMegjelenik(popUpSzoveg);
+    }
+
+    public boolean elemMegjelenikATablazatban(String egyediAzon, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzon, oszlopIndex);
+    }
+
 
 }

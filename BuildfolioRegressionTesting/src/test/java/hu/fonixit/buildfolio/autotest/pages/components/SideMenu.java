@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class SideMenu extends BasePage {
-    private final By attekintesBtn = By.xpath("//span[normalize-space()='Áttekintés']");
+    private final By attekintesBtn = By.xpath("//a[@id='dashboard-navigation.dashboard']");
     private final By riportokBtn = By.xpath("//span[normalize-space()='Riportok']");
-    private final By ingatlanokBtn = By.xpath("//span[normalize-space()='Ingatlanok']");
+    private final By ingatlanokBtn = By.xpath("//a[@id='real-estate-navigation.realEstate']");
     private final By parkolokBtn = By.xpath("//span[normalize-space()='Parkolók']");
     private final By partnerekBtn = By.xpath("//span[normalize-space()='Partnerek']");
     private final By feladatkezeloBtn = By.xpath("//span[normalize-space()='Feladatkezelő']");

@@ -4,9 +4,7 @@ package hu.fonixit.buildfolio.autotest.tests;
 import hu.fonixit.buildfolio.autotest.base.BaseTest;
 import hu.fonixit.buildfolio.autotest.objects.ADUser;
 import hu.fonixit.buildfolio.autotest.objects.UjFelhasznalo;
-import hu.fonixit.buildfolio.autotest.pages.DashboardPage;
-import hu.fonixit.buildfolio.autotest.pages.LoginPage;
-import hu.fonixit.buildfolio.autotest.pages.UsersPage;
+import hu.fonixit.buildfolio.autotest.pages.*;
 import hu.fonixit.buildfolio.autotest.pages.components.Navbar;
 import hu.fonixit.buildfolio.autotest.pages.components.SideMenu;
 import hu.fonixit.buildfolio.autotest.pages.components.Szurok;
@@ -25,18 +23,45 @@ public class FelhasznalokTest extends BaseTest {
     @Test
     public void Uj_felhasznalo_felvetele_az_osszes_mezo_kitoltesevel() throws IOException {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
-
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
-
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+        SideMenu sideMenu = new SideMenu(getDriver());
+
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvétele összes mező kitöltésével
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+        sideMenu.
+                navigateToFelhasznalokPanel();
         UsersPage usersPage = new UsersPage(getDriver())
                 .clickOnUjFelhasznaloFelveteleBtn()
                 .enterFelhasznalonev(username)
+                .enterNev(nev)
+                .selectSzervezet(partnerNeve)
                 .setUjFelhasznalo(ujFelhasznalo)
                 .clickOnFelvetelBtn();
-
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
     }
 
     @Test
@@ -44,17 +69,43 @@ public class FelhasznalokTest extends BaseTest {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+        SideMenu sideMenu = new SideMenu(getDriver());
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvétele üresen hagyott mezőkkel
+        sideMenu.
+                navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
-        String name = "Teszt Elek";
-        String email = "ujemail@gmail.com";
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+        String emailFelhasz = "ujemail@gmail.com";
+        sideMenu.
+                navigateToFelhasznalokPanel();
         UsersPage usersPage = new UsersPage(getDriver()).
                 clickOnUjFelhasznaloFelveteleBtn().
                 enterFelhasznalonev(username).
-                enterNev(name).
-                enterEmail(email).
+                enterNev(nev).
+                enterEmail(emailFelhasz).
                 felvetelBtnDisabled();
-
     }
 
     @Test
@@ -62,17 +113,46 @@ public class FelhasznalokTest extends BaseTest {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+        SideMenu sideMenu = new SideMenu(getDriver());
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //Uj felhasználó felvétele több szerepkörrel
+        sideMenu.
+                navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
         String role1 = "Bérlő";
         String role2 = "Igénykezelő";
         UsersPage usersPage = new UsersPage(getDriver()).
                 clickOnUjFelhasznaloFelveteleBtn().
                 enterFelhasznalonev(username).
+                enterNev(nev).
+                selectSzervezet(partnerNeve).
                 setUjFelhasznalo(ujFelhasznalo).
                 selectPlusSzerepkor(role1).
                 selectPlusSzerepkor(role2).
                 clickOnFelvetelBtn();
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
     }
 
     @Test
@@ -80,8 +160,34 @@ public class FelhasznalokTest extends BaseTest {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+        SideMenu sideMenu = new SideMenu(getDriver());
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó fölvétele az összes szerepkörrel
+        sideMenu.
+                navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
         String role1 = "Bérlő";
         String role2 = "Igénykezelő";
         String role3 = "Adminisztrátor";
@@ -90,6 +196,8 @@ public class FelhasznalokTest extends BaseTest {
         UsersPage usersPage = new UsersPage(getDriver()).
                 clickOnUjFelhasznaloFelveteleBtn().
                 enterFelhasznalonev(username).
+                enterNev(nev).
+                selectSzervezet(partnerNeve).
                 setUjFelhasznalo(ujFelhasznalo).
                 selectPlusSzerepkor(role1).
                 selectPlusSzerepkor(role2).
@@ -97,6 +205,7 @@ public class FelhasznalokTest extends BaseTest {
                 selectPlusSzerepkor(role4).
                 selectPlusSzerepkor(role5).
                 clickOnFelvetelBtn();
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
     }
 
     @Test
@@ -104,15 +213,41 @@ public class FelhasznalokTest extends BaseTest {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+        SideMenu sideMenu = new SideMenu(getDriver());
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        sideMenu.
+                navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
         String role = "Tulajdonos";
         UsersPage usersPage = new UsersPage(getDriver()).
                 clickOnUjFelhasznaloFelveteleBtn().
                 enterFelhasznalonev(username).
-                setUjFelhasznalo(ujFelhasznalo).
-                selectPlusSzerepkor(role).
-                clickOnFelvetelBtn();
+                enterNev(nev).
+                selectSzervezet(partnerNeve).
+                setUjFelhasznalo(ujFelhasznalo);
+        Assert.assertFalse(usersPage.addMegegyezoSzerepkorToFelhasznaloModositasAblak(role));
     }
 
     @Test
@@ -120,42 +255,108 @@ public class FelhasznalokTest extends BaseTest {
         UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+        SideMenu sideMenu = new SideMenu(getDriver());
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvételének megszakítása a Mégsem gomb megnyomásával
+        sideMenu.
+                navigateToFelhasznalokPanel();
         String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
         UsersPage usersPage = new UsersPage(getDriver()).
                 clickOnUjFelhasznaloFelveteleBtn().
                 enterFelhasznalonev(username).
+                enterNev(nev).
                 setUjFelhasznalo(ujFelhasznalo).
                 clickOnMegseBtn();
     }
 
     @Test
-    public void Szurok_mukodese() throws InterruptedException {
+    public void Szurok_mukodese() throws InterruptedException, IOException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
-        String nev = "Teszt Név";
+        UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
+        SideMenu sideMenu = new SideMenu(getDriver());
+
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
         String email = "email@gmail.com";
-        String szervezet = "Minta Zrt.";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvétele összes mező kitöltésével
+        String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+        String emailFelhasz = "felhaszEmail@gmail.com" + new FakerUtils().generateRandomNumber();
         String szerepkor = "Tulajdonos";
-        Szurok szurok = new Szurok(getDriver()).
+        sideMenu.
+                navigateToFelhasznalokPanel();
+        UsersPage usersPage = new UsersPage(getDriver())
+                .clickOnUjFelhasznaloFelveteleBtn()
+                .enterFelhasznalonev(username)
+                .enterNev(nev)
+                .selectSzervezet(partnerNeve)
+                .enterEmail(emailFelhasz)
+                .selectSzerepkor(szerepkor)
+                .clickOnFelvetelBtn();
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
+
+        //Szűrés
+        Szurok szurok = new Szurok(getDriver());
+        szurok.
                 clickOnSzurokBtn().
                 enterNev(nev).
                 clickOnKeresesBtn();
-        UsersPage usersPage = new UsersPage(getDriver()).
+        usersPage.
                 megjelenoNevAListaban(nev);
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterEmail(email).
                 clickOnKeresesBtn();
         usersPage.
-                megjelenoEmailAListaban(email);
+                megjelenoEmailAListaban(emailFelhasz);
         szurok.
                 clickOnSzurokTorleseBtn().
-                selectSzervezetFromSzervezetDropdDown(szervezet).
+                selectSzervezetFromSzervezetDropdDown(partnerNeve).
                 clickOnKeresesBtn();
         usersPage.
-                megjelenoSzervezetAListaban(szervezet);
+                megjelenoSzervezetAListaban(partnerNeve);
         szurok.
                 clickOnSzurokTorleseBtn().
                 selectSzerepkorFromSzerepkorDropdDown(szerepkor).
@@ -165,121 +366,383 @@ public class FelhasznalokTest extends BaseTest {
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterNev(nev).
-                enterEmail(email).
-                selectSzervezetFromSzervezetDropdDown(szervezet).
+                enterEmail(emailFelhasz).
+                selectSzervezetFromSzervezetDropdDown(partnerNeve).
                 selectSzerepkorFromSzerepkorDropdDown(szerepkor).
                 clickOnKeresesBtn();
       usersPage.
               megjelenoNevAListaban(nev).
-              megjelenoEmailAListaban(email).
-              megjelenoSzervezetAListaban(szervezet).
+              megjelenoEmailAListaban(emailFelhasz).
+              megjelenoSzervezetAListaban(partnerNeve).
               megjelenoSzerepkorAListaban(szerepkor);
     }
 
    @Test
-    public void Nem_ADs_felhasználó_szerkesztése() {
+    public void Nem_ADs_felhasználó_szerkesztése() throws IOException, InterruptedException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
-        String nev = "Teszt Elek";
-        String email = "testemail@gmail.com";
-        String szervezet = "Teszt Partner";
-        String szerepkor1 = "Adminisztrátor";
-        String szerepkor2 = "Kezelő";
-        UsersPage usersPage = new UsersPage(getDriver()).
-                clickOnMuveletekButton().
-                clickOnszerkesztesBtnInMuveletekDropDown().
-                nevFldClearAndEnterModositottNevToNevFld(nev).
-                emailFldClearAndEnterModositottEmailToEmailFld(email).
-                szervezetDropDownClearAndEnterModositottSzervezetToSzervezetFld(szervezet).
-                szerepkorDropDownClearAndEnterModositottSzerepkorToSzerepkorFld(szerepkor1).
-                addUjSzerepkorToFelhasznaloModositasAblak(szerepkor2).
+       UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
+       SideMenu sideMenu = new SideMenu(getDriver());
+
+       //Szervezet felvétele
+       sideMenu.
+               navigateToPartnerekPanel();
+       String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+       String telefonszam = "06202102121";
+       String email = "email@gmail.com";
+       PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+               clickOnUjPartnerFelveteleBtn().
+               enterPartnerNeveFld(partnerNeve).
+               enterTelefonszFld(telefonszam).
+               enterEmailFld(email).
+               clickOnFelvetelBtn();
+       sideMenu.
+               navigateToSzervezetekPanel();
+       String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+       SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+       szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+       szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+       szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+       szervezetekPage.clickOnFelvetelBtn();
+       Thread.sleep(2000);
+       //Módosított Szervezet felvétele
+       sideMenu.
+               navigateToPartnerekPanel();
+       String partnerNeveMod = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+       String telefonszamMod = "06202102121";
+       String emailMod = "email@gmail.com";
+       partnerekPage.
+               clickOnUjPartnerFelveteleBtn().
+               enterPartnerNeveFld(partnerNeveMod).
+               enterTelefonszFld(telefonszamMod).
+               enterEmailFld(emailMod).
+               clickOnFelvetelBtn();
+       sideMenu.
+               navigateToSzervezetekPanel();
+       String szervezetAzonMod = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+       szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+       szervezetekPage.enterSzervezetAzonositoFld(szervezetAzonMod);
+       szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeveMod);
+       szervezetekPage.clickOnFelvetelBtn();
+       Thread.sleep(2000);
+       //Uj felhasználó felvétele
+       sideMenu.
+               navigateToFelhasznalokPanel();
+       String username = "TestUser" + new FakerUtils().generateRandomNumber();
+       String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+       sideMenu.
+               navigateToFelhasznalokPanel();
+       UsersPage usersPage = new UsersPage(getDriver())
+               .clickOnUjFelhasznaloFelveteleBtn()
+               .enterFelhasznalonev(username)
+               .enterNev(nev)
+               .selectSzervezet(partnerNeve)
+               .setUjFelhasznalo(ujFelhasznalo)
+               .clickOnFelvetelBtn();
+       Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
+
+        //felhasználó szerkesztése
+        String nevModositott = "Teszt Módosított";
+        String emailModositott = "modositottmail@gmail.com";
+        String szerepkorModositott = "Adminisztrátor";
+        String ujSzerepkor = "Kezelő";
+        usersPage.
+                clickOnMuveletekBtn().
+                clickOnszerkesztesBtnInMuveletekDropDown(nev).
+                nevFldClearAndEnterModositottNevToNevFld(nev, nevModositott).
+                emailFldClearAndEnterModositottEmailToEmailFld("email@gmail.com",emailModositott).
+                szervezetDropDownClearAndEnterModositottSzervezetToSzervezetFld(partnerNeveMod).
+                szerepkorDropDownClearAndEnterModositottSzerepkorToSzerepkorFld(szerepkorModositott).
+                addUjSzerepkorToFelhasznaloModositasAblak(ujSzerepkor).
                 clickOnMentesBtn();
-
-
-
+        getDriver().navigate().refresh();
+       Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nevModositott, "1"));
     }
 
 
    @Test
-    public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_kitoltes_hianyaban(){
+    public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_kitoltes_hianyaban() throws IOException {
        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-       SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+       UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
+       SideMenu sideMenu = new SideMenu(getDriver());
+
+       //Szervezet felvétele
+       sideMenu.
+               navigateToPartnerekPanel();
+       String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+       String telefonszam = "06202102121";
+       String email = "email@gmail.com";
+       PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+               clickOnUjPartnerFelveteleBtn().
+               enterPartnerNeveFld(partnerNeve).
+               enterTelefonszFld(telefonszam).
+               enterEmailFld(email).
+               clickOnFelvetelBtn();
+       sideMenu.
+               navigateToSzervezetekPanel();
+       String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+       SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+       szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+       szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+       szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+       szervezetekPage.clickOnFelvetelBtn();
+
+       //új felhasználó felvétele összes mező kitöltésével
+       String username = "TestUser" + new FakerUtils().generateRandomNumber();
+       String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+       sideMenu.
+               navigateToFelhasznalokPanel();
+       UsersPage usersPage = new UsersPage(getDriver())
+               .clickOnUjFelhasznaloFelveteleBtn()
+               .enterFelhasznalonev(username)
+               .enterNev(nev)
+               .selectSzervezet(partnerNeve)
+               .setUjFelhasznalo(ujFelhasznalo)
+               .clickOnFelvetelBtn();
+       Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
+
+       //Jelszó módosítása
+       getDriver().navigate().refresh();
        String jelszo = "Testpassword";
        String jelszoMeger = "Testpassword";
-       UsersPage usersPage = new UsersPage(getDriver()).
-               clickOnMuveletekButton().
-               clickOnJelszoModositasaBtnMuveletekDropDown();
+       usersPage.
+               clickOnMuveletekBtn().
+               clickOnJelszoModositasaBtnMuveletekDropDown(nev);
        Assert.assertFalse(usersPage.mentesBtnJelszoModositasKattinthato());
        usersPage.
-               enterUjJelszoFld(jelszo).
+               enterUjJelszoFld(jelszo);
+       Assert.assertFalse(usersPage.mentesBtnJelszoModositasKattinthato());
+       usersPage.
                enterJelszoMegerositesFld(jelszoMeger).
                clickOnmentesBtnJelszoModositas();
+       Assert.assertTrue(usersPage.popUpMegjelenik("Sikeres rögzítés!"));
     }
 
     @Test
-    public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_generalassal(){
+    public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_generalassal() throws IOException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
-        UsersPage usersPage = new UsersPage(getDriver()).
-                clickOnMuveletekButton().
-                clickOnJelszoModositasaBtnMuveletekDropDown();
-        Assert.assertFalse(usersPage.mentesBtnJelszoModositasKattinthato());
+        UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
+        SideMenu sideMenu = new SideMenu(getDriver());
+
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvétele összes mező kitöltésével
+        String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+        sideMenu.
+                navigateToFelhasznalokPanel();
+        UsersPage usersPage = new UsersPage(getDriver())
+                .clickOnUjFelhasznaloFelveteleBtn()
+                .enterFelhasznalonev(username)
+                .enterNev(nev)
+                .selectSzervezet(partnerNeve)
+                .setUjFelhasznalo(ujFelhasznalo)
+                .clickOnFelvetelBtn();
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
+
+        //Jelszó módosítás generálással
+        getDriver().navigate().refresh();
         usersPage.
+                clickOnMuveletekBtn().
+                clickOnJelszoModositasaBtnMuveletekDropDown(nev).
                 clickOnjelszoGeneralasCheckbox();
         Assert.assertFalse(usersPage.ujJelszoFldSzerkesztheto());
         Assert.assertFalse(usersPage.jelszoMegerositesFldSzerkesztheto());
         Assert.assertTrue(usersPage.mentesBtnJelszoModositasKattinthato());
-        usersPage.clickOnmentesBtnJelszoModositas();
+        usersPage.
+                clickOnmentesBtnJelszoModositas();
+        Assert.assertTrue(usersPage.popUpMegjelenik("Sikeres rögzítés"));
     }
 
     @Test
-    public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_megszakitassal(){
+    public void Nem_ADs_felhasznalo_eseten_jelszo_modositas_megszakitassal() throws IOException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
-        UsersPage usersPage = new UsersPage(getDriver()).
-                clickOnMuveletekButton().
-                clickOnJelszoModositasaBtnMuveletekDropDown();
-        Assert.assertFalse(usersPage.mentesBtnJelszoModositasKattinthato());
-        Assert.assertTrue(usersPage.megsemBtnJelszoModositasKattinthato());
+        UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
+        SideMenu sideMenu = new SideMenu(getDriver());
+
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvétele összes mező kitöltésével
+        String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+        sideMenu.
+                navigateToFelhasznalokPanel();
+        UsersPage usersPage = new UsersPage(getDriver())
+                .clickOnUjFelhasznaloFelveteleBtn()
+                .enterFelhasznalonev(username)
+                .enterNev(nev)
+                .selectSzervezet(partnerNeve)
+                .setUjFelhasznalo(ujFelhasznalo)
+                .clickOnFelvetelBtn();
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
+
+        //Jelszó módosítás megszakítással
+        getDriver().navigate().refresh();
         String jelszo = "Testpassword";
         String jelszoMeger = "Testpassword";
         usersPage.
+                clickOnMuveletekBtn().
+                clickOnJelszoModositasaBtnMuveletekDropDown(nev).
                 enterUjJelszoFld(jelszo).
                 enterJelszoMegerositesFld(jelszoMeger).
                 clickOnMegsemBtnJelszoModositas();
+        Assert.assertTrue(usersPage.popUpMegjelenik("Sikeres rögzítés"));
     }
 
     @Test
-    public void Nem_ADs_felhasználó_eseten_jelszo_modositasa_uj_jelszo_megadasaval() {
+    public void Nem_ADs_felhasználó_eseten_jelszo_modositasa_uj_jelszo_megadasaval() throws IOException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
+        UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
+        SideMenu sideMenu = new SideMenu(getDriver());
+
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvétele összes mező kitöltésével
+        String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+        sideMenu.
+                navigateToFelhasznalokPanel();
+        UsersPage usersPage = new UsersPage(getDriver())
+                .clickOnUjFelhasznaloFelveteleBtn()
+                .enterFelhasznalonev(username)
+                .enterNev(nev)
+                .selectSzervezet(partnerNeve)
+                .setUjFelhasznalo(ujFelhasznalo)
+                .clickOnFelvetelBtn();
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
+
+        //jelszó módosítása új jelszó megadásával
+        getDriver().navigate().refresh();
         String jelszo = "Testpassword";
         String jelszoMeger = "Testpassword";
-        UsersPage usersPage = new UsersPage(getDriver()).
-                clickOnMuveletekButton().
-                clickOnJelszoModositasaBtnMuveletekDropDown();
+        usersPage.
+                clickOnMuveletekBtn().
+                clickOnJelszoModositasaBtnMuveletekDropDown(nev);
         Assert.assertFalse(usersPage.mentesBtnJelszoModositasKattinthato());
         usersPage.enterUjJelszoFld(jelszo);
         Assert.assertFalse(usersPage.mentesBtnJelszoModositasKattinthato());
         usersPage.enterJelszoMegerositesFld(jelszoMeger);
         Assert.assertTrue(usersPage.mentesBtnJelszoModositasKattinthato());
         usersPage.clickOnMentesBtn();
+        Assert.assertTrue(usersPage.popUpMegjelenik("Sikeres rögzítés"));
     }
 
     @Test
-    public void Nem_ADs_felhasznalo_inaktivalasa(){
+    public void Nem_ADs_felhasznalo_inaktivalasa() throws IOException, InterruptedException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToFelhasznalokPanel();
-        UsersPage usersPage = new UsersPage(getDriver()).
-                clickOnMuveletekButton().
-                felhasznaloInaktivalasa();
-                Assert.assertTrue(usersPage.inaktivUserMegj());
+        UjFelhasznalo ujFelhasznalo = deserializeJson("ujFelhasznalo.json", UjFelhasznalo.class);
+        SideMenu sideMenu = new SideMenu(getDriver());
+
+        //Szervezet felvétele
+        sideMenu.
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+        PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(partnerNeve).
+                enterTelefonszFld(telefonszam).
+                enterEmailFld(email).
+                clickOnFelvetelBtn();
+        sideMenu.
+                navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
+
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
+
+        //új felhasználó felvétele összes mező kitöltésével
+        String username = "TestUser" + new FakerUtils().generateRandomNumber();
+        String nev = "Teszt Név" + new FakerUtils().generateRandomNumber();
+        sideMenu.
+                navigateToFelhasznalokPanel();
+        UsersPage usersPage = new UsersPage(getDriver())
+                .clickOnUjFelhasznaloFelveteleBtn()
+                .enterFelhasznalonev(username)
+                .enterNev(nev)
+                .selectSzervezet(partnerNeve)
+                .setUjFelhasznalo(ujFelhasznalo)
+                .clickOnFelvetelBtn();
+        Assert.assertTrue(usersPage.elemMegjelenikATablazatban(nev, "1"));
+
+        //Felhasználó inaktiválása
+        usersPage.
+                clickOnMuveletekBtn().
+                clickOnInaktivalasBtnInMuveletekDropDown(nev).
+                clickOnOkMegerBtn();
+        Assert.assertTrue(usersPage.popUpMegjelenik("Sikeres inaktiválás!"));
     }
 
 }

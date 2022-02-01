@@ -7,20 +7,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class IngatlanokDetailsPageTabs extends BasePage {
     //fülek
-    private final By alapadatokTab = By.linkText("Alapadatok");
-    private final By parkolasTab = By.linkText("Parkolás");
-    private final By muszakiAdatokTab = By.linkText("Műszaki adatok");
-    private final By tulajdoniLapTab = By.linkText("Tulajdoni lap");
-    private final By nyilvantartasTab = By.linkText("Nyilvántartás");
-    private final By ertekTab = By.linkText("Érték");
-    private final By partnerekTab = By.linkText("Partnerek");
-    private final By szerzodesekTab = By.linkText("Szerződések");
-    private final By szamlakTab = By.linkText("Számlák");
-    private final By alingatlanokTab = By.linkText("Alingatlanok");
-    private final By eszkozokTab = By.linkText("Eszközök");
-    private final By dokumentumokTab = By.linkText("Dokumentumok");
-    private final By munkafolyamatokTab = By.linkText("Munkafolyamatok");
-    private final By igenyekTab = By.linkText("Igények");
+    private final By alapadatokTab = By.xpath("//a[.='Alapadatok']");
+    private final By parkolasTab = By.xpath("//a[.='Parkolás']");
+    private final By muszakiAdatokTab = By.xpath("//a[.='Műszaki adatok']");
+    private final By tulajdoniLapTab = By.xpath("//a[.='Tulahdoni lap']");
+    private final By nyilvantartasTab = By.xpath("//a[.='Nyilvántartás']");
+    private final By ertekTab = By.xpath("//a[.='Érték']");
+    private final By partnerekTab = By.xpath("//a[.='Partnerek']");
+    private final By szerzodesekTab = By.xpath("//a[.='Szerződések']");
+    private final By szamlakTab = By.xpath("//a[.='Számlák']");
+    private final By alingatlanokTab = By.xpath("//a[.='Alingatlanok']");
+    private final By eszkozokTab = By.xpath("//a[.='Eszközök']");
+    private final By dokumentumokTab = By.xpath("//a[.='Dokumentumok']");
+    private final By munkafolyamatokTab = By.xpath("//a[.='Munkafolyamatok']");
+    private final By igenyekTab = By.xpath("//a[.='Igények']");
 
     public IngatlanokDetailsPageTabs(WebDriver driver){
         super(driver);

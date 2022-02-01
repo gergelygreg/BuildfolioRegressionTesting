@@ -1,12 +1,8 @@
 package hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages;
 
 import hu.fonixit.buildfolio.autotest.base.BasePage;
-import hu.fonixit.buildfolio.autotest.pages.EszkozokPage;
-import hu.fonixit.buildfolio.autotest.pages.IngatlanokPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class IngatlanokDetailsEszkozok extends BasePage {
     private final By atmekLinkBtn = By.xpath("//a[.=' ATM-ek ']");
@@ -29,8 +25,8 @@ public class IngatlanokDetailsEszkozok extends BasePage {
     }
 
     //checkbox kiválasztása
-    public IngatlanokDetailsEszkozok checkboxKivalasztasa(String tipus){
-        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+tipus+"']/ancestor::tr//td//app-checkbox//div//label"));
+    public IngatlanokDetailsEszkozok checkboxKivalasztasa(String egyediAzon){
+        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+egyediAzon+"']/ancestor::tr//td//app-checkbox//div//label"));
         return this;
     }
 

@@ -7,7 +7,7 @@
             <package name="hu.fonixit.buildfolio.autotest.tests"/>
         </packages>-->
         <classes>
-            <class name="hu.fonixit.buildfolio.autotest.tests.AttekintesTest" />
+            <class name="hu.fonixit.buildfolio.autotest.tests.FelhasznalokTest" />
         </classes>
 
     </test>

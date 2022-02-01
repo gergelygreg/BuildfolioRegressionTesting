@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class IgenyekPage extends BasePage {
     private final  By ujIgenyFelveteleBtn = By.xpath("//button[normalize-space()='Új igény felvétele']");
     //Új igény felvétele ablak
-    private final By azonositoFld = By.xpath("//app-text-input[.='Azonosító']//input");
+    private final By azonositoFld = By.xpath("//app-text-input[@name='externalIdentifier']//input[@placeholder='Nincs megadva']");
     private final By leirasFld = By.xpath("//app-textarea//textarea");
     private final By felvetelBtn = By.xpath("//button[contains(.,'Felvétel')]");
     private final By megsemBtn = By.xpath("//button[normalize-space()='Mégsem']");

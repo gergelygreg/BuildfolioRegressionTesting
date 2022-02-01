@@ -2,6 +2,7 @@ package hu.fonixit.buildfolio.autotest.pages.detailsPages.EszkozokDetailsPages;
 
 import hu.fonixit.buildfolio.autotest.base.BasePage;
 import hu.fonixit.buildfolio.autotest.objects.UjAtmAlapadatok;
+import hu.fonixit.buildfolio.autotest.pages.EszkozokPage;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.IgenyekDetailsPages.IgenyekDetailsAlapadatok;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -28,9 +29,9 @@ public class EszkozokDetailsAtm extends BasePage {
     private final By journalNyomtatoTipusaFld = By.xpath("//app-text-input[@name='journalPrinterType']//input[@placeholder='Nincs megadva']");
     private final By journalSzalagTipusaFld = By.xpath("//app-text-input[@name='journalTapeType']//input[@placeholder='Nincs megadva']");
     private final By ugyfelBonSzalagTipusaFld = By.xpath("//app-text-input[@name = 'customerTapeType']//input");
-    private final By kulsoHelyszinChBox = By.xpath("//input[@id='externalAddress']");
+    private final By kulsoHelyszinChBox = By.xpath("(//div[@class='col-5'])[8]//label[contains(text(),'Külső helyszín')]");
     private final By irSzamFld = By.xpath("//app-text-input[@name='postCode']//input[@placeholder='Nincs megadva']");
-    private final By varosFld = By.xpath("//app-text-input[@name='postCode']//input[@placeholder='Nincs megadva']");
+    private final By varosFld = By.xpath("//app-text-input[@name='city']//input[@placeholder='Nincs megadva']");
     private final By kozteruletNeveFld = By.xpath("//app-text-input[@name='publicPlace']//input[@placeholder='Nincs megadva']");
     private final By kozteruletTipusaDropDown = By.xpath("//app-buildfolio-select[@name='publicPlaceTypeCode']//input");
     private final By hazszamFld = By.xpath("//app-text-input[@name='houseNumber']//input[@placeholder='Nincs megadva']");
@@ -47,6 +48,8 @@ public class EszkozokDetailsAtm extends BasePage {
     private final By hozzarendelesKijelBtn = By.xpath("//button[contains(.,'Hozzárendelés')]");
     private final By eltavolitasBtn = By.xpath("//button[contains(.,'Eltávolítás ')]");
     private final By torlesBtn = By.xpath("//button[normalize-space()='Törlés']");
+    //Külső helyszín megadása
+    private final By igenBtn = By.xpath("//button[normalize-space()='Igen']");
 
 
 
@@ -107,8 +110,13 @@ public class EszkozokDetailsAtm extends BasePage {
     }
 
     //select
-    public EszkozokDetailsAtm eszkozKivalasztasaChBox(String oszlopIndex){
-        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+oszlopIndex+"']/ancestor::tr//td//app-checkbox//div//label"));
+    public EszkozokDetailsAtm eszkozKivalasztasaChBox(String egyediAzon){
+        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+egyediAzon+"']/ancestor::tr//td//app-checkbox//div//label"));
+        return this;
+    }
+
+    public EszkozokDetailsAtm hozzarendeltEszkozKivalasztasa(String egyediAzon){
+        waitUtil.waitAndClick(By.xpath("//td[contains(text(),'"+egyediAzon+"')]/preceding-sibling::td//app-checkbox//div//label"));
         return this;
     }
 
@@ -240,6 +248,12 @@ public class EszkozokDetailsAtm extends BasePage {
     }
 
     //click
+    //click
+    public EszkozokDetailsAtm clickOnIgenBtn(){
+        waitUtil.waitAndClick(igenBtn);
+        return this;
+    }
+
     public EszkozokDetailsAtm clickOnVisszaGomb(){
         waitUtil.waitAndClick(By.xpath("//a[@class='no-link back-btn ng-star-inserted']"));
         return this;

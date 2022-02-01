@@ -4,16 +4,12 @@ import hu.fonixit.buildfolio.autotest.base.BasePage;
 import org.openqa.selenium.WebDriver;
 
 public class UjBankbiztonsagiEszkoz {
-    private String leltariSzam;
+
     private String eszkozcsoport;
     private String tipus;
     private String statusz;
     public UjBankbiztonsagiEszkoz() {
 
-    }
-
-    public String getLeltariSzam() {
-        return leltariSzam;
     }
 
     public String getEszkozcsoport() {

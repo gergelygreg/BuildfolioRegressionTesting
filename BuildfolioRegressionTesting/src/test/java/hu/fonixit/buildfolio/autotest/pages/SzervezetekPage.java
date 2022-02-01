@@ -82,7 +82,9 @@ public class SzervezetekPage extends BasePage {
         return true;
     }
 
-
+    public boolean popUpMegjelenik(String popUpSzovege){
+        return waitUtil.popupWindMegjelenik(popUpSzovege);
+    }
 
 
 
@@ -104,8 +106,8 @@ public class SzervezetekPage extends BasePage {
     public boolean felvetelBtnKattinthato() {
         return waitUtil.elementIsClickable(felvetelBtn);
     }
-    //
 
+    //click
     public SzervezetekPage clickOnUtolsoMuveletekBtn (){
         waitUtil.waitAndClick(muveletekUtolsoBtn);
         return this;

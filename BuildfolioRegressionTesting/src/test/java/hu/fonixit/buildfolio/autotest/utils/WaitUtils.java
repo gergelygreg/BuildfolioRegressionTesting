@@ -34,7 +34,8 @@ public class WaitUtils {
     }
 
     public void waitAndClearText(By element) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element)).clear();
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        e.sendKeys(Keys.CONTROL,"a", Keys.BACK_SPACE); //teljes input mező törlése
     }
 
     public boolean waitAndEnabled(By element) {
@@ -68,11 +69,10 @@ public class WaitUtils {
         boolean ertek = false;
         do {
             try {
-                tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td["+tablaIndex+"][contains(.,'"+elemNeve+"')]"))).getText();
+                tablazatElem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[" + tablaIndex + "][contains(.,'" + elemNeve + "')]"))).getText();
                 if (tablazatElem != null && tablazatElem.contains(elemNeve)) {
                     ertek = true;
-                }
-                else {
+                } else {
                     wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='table-pager-next']//span[@class='icon-container']")));
                 }
             } catch (Exception e) {
@@ -129,14 +129,11 @@ public class WaitUtils {
     }
 
     public boolean mezoSzerkesztheto(By locator) {
-        boolean ertek;
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isEnabled();
-            ertek = true;
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isSelected();
         } catch (Exception e) {
-            ertek = false;
+            return false;
         }
-        return ertek;
     }
 
     public boolean nincsMegjAdatFeliratMegj() {

@@ -138,14 +138,10 @@ public class AttekintesTest extends BaseTest {
         Assert.assertTrue(dashboardPage1.futtatasBtnKattinthato());
         dashboardPage1.clickOnFuttatasBtn();
         dashboardPage1.clickOnRiportLetolteseBtn();
-        //Thread.sleep(5000);
-        dashboardPage1.clickOnTovabbSzerzodesekBtn();
-        SzerzodesekPage szerzodesekPage = new SzerzodesekPage(getDriver());
-        Assert.assertTrue(szerzodesekPage.ujSzerzodesFelveteleBtnKattinthato());
     }
 
     @Test
-    public void Attekintes_KEZELŐ_szerepkorrel_megjeleno_panelek()  {
+    public void Attekintes_KEZELO_szerepkorrel_megjeleno_panelek()  {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToAttekintesPanel();
@@ -204,10 +200,6 @@ public class AttekintesTest extends BaseTest {
         Assert.assertTrue(dashboardPage1.futtatasBtnKattinthato());
         dashboardPage1.clickOnFuttatasBtn();
         dashboardPage1.clickOnRiportLetolteseBtn();
-        //Thread.sleep(5000);
-        dashboardPage1.clickOnTovabbSzerzodesekBtn();
-        SzerzodesekPage szerzodesekPage = new SzerzodesekPage(getDriver());
-        Assert.assertTrue(szerzodesekPage.ujSzerzodesFelveteleBtnKattinthato());
     }
 
     @Test
@@ -289,17 +281,12 @@ public class AttekintesTest extends BaseTest {
         Assert.assertTrue(dashboardPage1.futtatasBtnKattinthato());
         dashboardPage1.clickOnFuttatasBtn();
         dashboardPage1.clickOnRiportLetolteseBtn();
-        Thread.sleep(5000);
         dashboardPage1.clickOnSzerzodesekRiportBtn();
         Assert.assertFalse(dashboardPage1.futtatasBtnKattinthato());
         dashboardPage1.excelFajlformRiportKivalasztasa();   //Excel riport
         Assert.assertTrue(dashboardPage1.futtatasBtnKattinthato());
         dashboardPage1.clickOnFuttatasBtn();
         dashboardPage1.clickOnRiportLetolteseBtn();
-        //Thread.sleep(5000);
-        dashboardPage1.clickOnTovabbSzerzodesekBtn();
-        SzerzodesekPage szerzodesekPage = new SzerzodesekPage(getDriver());
-        Assert.assertTrue(szerzodesekPage.ujSzerzodesFelveteleBtnKattinthato());
     }
 
     @Test

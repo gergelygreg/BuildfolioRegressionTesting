@@ -77,4 +77,13 @@ public class EszkozokDetailsBanktecknikaiEszkozok extends BasePage {
         waitUtil.waitAndClick(By.xpath("//div[@title='"+szervFelelosPartner+"']"));
         return this;
     }
+
+    //assert
+    public boolean popUpMegjelenik(String popUpSzovege){
+        return waitUtil.popupWindMegjelenik(popUpSzovege);
+    }
+
+    public boolean elemMegjelenikATablazatban(String egyediAzon, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzon, oszlopIndex);
+    }
 }

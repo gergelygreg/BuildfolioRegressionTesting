@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 public class IngatlanokPage extends BasePage {
     private final By ujIngatlanFelvetelBtn = By.xpath("//button[normalize-space()='Új ingatlan felvétele']");
     //Új ingatlan felvétele ablak
-    private final By felvetelBtn = By.xpath("//button[@class='btn btn-primary btn-submit']");
+    private final By felvetelBtn = By.xpath("//button[contains(.,'Felvétel')]");
     private final By megsemBtn = By.xpath("//button[normalize-space()='Mégsem']");
 
     private final By megnevezesFld  = By.xpath("//app-text-input[@name='name']//input[@placeholder='Nincs megadva']");  //uniqueField
@@ -19,7 +19,7 @@ public class IngatlanokPage extends BasePage {
     private final By helyrajziSzamFld = By.xpath("//app-text-input[@name='topographicalNumber']//input[@placeholder='Nincs megadva']");
     private final By uzemeltetesiRegioDropDown = By.xpath("(//input[@role='combobox'])[7]");
     private final By iranyitoszamFld = By.xpath("//app-text-input[@name='postCode']//input[@placeholder='Nincs megadva']");
-    private final By telepulesFld = By.xpath("//app-text-input[.='Település']//input");
+    private final By telepulesFld = By.xpath("//app-text-input[@name='city']//input[@placeholder='Nincs megadva']");
     private final By szervezetDropDown = By.xpath("(//input[@role='combobox'])[8]");
     private final By kozteruletNeveFld = By.xpath("//app-text-input[@name='publicPlace']//input[@placeholder='Nincs megadva']");
     private final By tulajdoniStatuszDropDown = By.xpath("(//input[@role='combobox'])[9]");

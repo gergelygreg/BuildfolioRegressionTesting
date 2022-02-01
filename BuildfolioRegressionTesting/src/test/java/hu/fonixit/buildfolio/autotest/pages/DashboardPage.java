@@ -17,16 +17,16 @@ public class DashboardPage extends BasePage {
     private final By szerzodesekPanel = By.xpath("//h4[contains(text(),'Szerződések')]");
     //riport gomgok
     private final By ingatlanPortfolioRiportBtn = By.xpath("(//button[@class='btn btn-primary dashboard-report-button'][normalize-space()='Riport'])[1]");
-    private final By ingatlanokErtekeRiportBtn = By.xpath("((//button[@class='btn btn-primary dashboard-report-button'][normalize-space()='Riport'])[2]");
+    private final By ingatlanokErtekeRiportBtn = By.id("dashboard-real-estate-bf-report");
     private final By szamlakRiportBtn = By.xpath("(//button[@class='btn btn-primary mr-2 dashboard-report-button'][normalize-space()='Riport'])[1]");
     private final By szerzodesekRiportBtn = By.xpath("(//button[@class='btn btn-primary mr-2 dashboard-report-button'][normalize-space()='Riport'])[2]");
     //ingatlan portfólio dobozok
-    private final By osszesIngatlanDoboz = By.xpath("//div[@class='portfolio-item all']");
-    private final By berbeadottDoboz = By.xpath("(//div[@class='portfolio-item leasehold ng-star-inserted'])[1]");
-    private final By bereltDoboz = By.xpath("//div[@class='portfolio-item rented ng-star-inserted']");
-    private final By kiadatlanDoboz = By.xpath("//div[@class='portfolio-item unpublished ng-star-inserted']");
-    private final By sajatHasznalatbanDoboz = By.xpath("//div[@class='portfolio-item own ng-star-inserted']");
-    private final By hasznositatlanDoboz = By.xpath("//div[@class='portfolio-item unutilized ng-star-inserted']");
+    private final By osszesIngatlanDoboz = By.id("dashboard-portfolio-all");
+    private final By berbeadottDoboz = By.id("dashboard-portfolio-leasehold");
+    private final By bereltDoboz =  By.id("dashboard-portfolio-rented");
+    private final By kiadatlanDoboz =  By.id("dashboard-portfolio-unpublished");
+    private final By sajatHasznalatbanDoboz =  By.id("dashboard-portfolio-own");
+    private final By hasznositatlanDoboz =  By.id("dashboard-portfolio-unutilized");
     //Riport futtatás ablak
     private final By fajlformatumDropDown = By.xpath("//div[@class='ng-select-container']//input[@role='combobox']");
     private final By futtatasBtn = By.xpath("//button[normalize-space()='Futtatás']");
@@ -36,8 +36,8 @@ public class DashboardPage extends BasePage {
     //Riport letöltése ablak
     private final By riportLetolteseBtn = By.xpath("//button[normalize-space()='Riport letöltése']");
     //Tovább gombok
-    private final By tovabbSzamlakBtn = By.xpath("//a[@href='/panel/invoices'][normalize-space()='Továbbiak']");
-    private final By tovabbSzerzodesekBtn = By.xpath("(//a[@href='/panel/contracts'][normalize-space()='Továbbiak'])[1]");
+    private final By tovabbSzamlakBtn = By.xpath("//div//a[@id='dashboard-invoice-more-router-button']");
+    private final By tovabbSzerzodesekBtn = By.xpath("//div//a[@id='dashboard-contract-bf-router-button']");
 
 
     public DashboardPage(WebDriver driver){
@@ -125,7 +125,7 @@ public class DashboardPage extends BasePage {
 
     //panelek
     public DashboardPage ingatlanPortfolioPanelMegjelenik(){
-        waitUtil.waitForVisibility(ingatlanokErtekePanel);
+        waitUtil.waitForVisibility(ingatlanPortfolioPanel);
         return this;
     }
 
@@ -151,7 +151,7 @@ public class DashboardPage extends BasePage {
 
     //riport gombok
     public DashboardPage clickOningatlanPortfolioRiportBtn(){
-        waitUtil.waitAndClick(ingatlanokErtekeRiportBtn);
+        waitUtil.waitAndClick(ingatlanPortfolioRiportBtn);
         return this;
     }
 

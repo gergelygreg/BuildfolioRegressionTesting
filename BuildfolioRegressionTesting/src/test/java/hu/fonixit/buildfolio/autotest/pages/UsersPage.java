@@ -22,22 +22,19 @@ public class UsersPage extends BasePage {
     private final By pluszSzerepkorDropDownBtn = By.cssSelector(".btn.simple-button.add");
     private final By pluszszerepkorDropDown = By.cssSelector("div[class='select-wrapper ng-untouched ng-pristine ng-invalid'] input[role='combobox']");
     //találati lista
-    private final By muveletekBtn = By.xpath("//tbody/app-user-list-view/tr[1]/td[5]/app-dropdown[1]/div[1]/button[1]");
-    private final By szerkesztesBtnInMuveletekDropDown = By.xpath("(//button[contains(text(),'Szerkesztés')])");
-    private final By jelszoModositasaBtnInuveletekDropDown = By.xpath("(//button[normalize-space()='Jelszó módosítása'])[1]");
-    private final By inaktivalasBtnInMuveletekDropDown = By.xpath("(//button[normalize-space()='Inaktiválás'])[1]");
+    private final By muveletekBtn = By.xpath("(//button[@type='button'])[3]");
     //felhasználó módosítása ablak
     private final By nevFldModosit = By.xpath("(//input[@placeholder='Nincs megadva'])[1]");
     private final By emailFldModosit = By.xpath("pl-0 pr-0 text-align-left ng-pristine ng-star-inserted ng-valid ng-touched");
     private final By mentesBtn = By.cssSelector("button[class='btn btn-primary btn-submit']");
     private final By megsemBtnModositas = By.xpath("(//button[normalize-space()='Mégsem'])[1]");
-    private final By plusSzerepkorBtn = By.xpath("(//button[normalize-space()='+ Szerepkör'])[1]");
+    private final By plusSzerepkorBtn = By.xpath("//button[@id='user-add-new-role-button']");
     //jelszó módosítása ablak
     private final By ujJelszoFld = By.xpath("//input[@placeholder='Új jelszó']");
     private final By jelszoMegerositesFld = By.xpath("//input[@placeholder='Jelszó megerősítés']");
     private final By mentesBtnJelszoModositas = By.xpath("//button[normalize-space()='Mentés']");
     private final By megsemBtnJelszoModositas = By.xpath("//button[normalize-space()='Mégsem']");
-    private final By jelszoGeneralasCheckbox = By.id("generateNewPassword");
+    private final By jelszoGeneralasCheckbox = By.xpath("//label[normalize-space()='Jelszó generálás']");
     //inaktivalas megerősítő ablak
     private final By okMegerBtn = By.xpath("//button[normalize-space()='Igen']");
     private final By megseMegerBtn = By.xpath("//button[normalize-space()='Mégsem']");
@@ -48,14 +45,29 @@ public class UsersPage extends BasePage {
     }
 
     //user inaktiválás
-    public UsersPage clickOnInaktivalasBtnInMuveletekDropDown(){
-        waitUtil.waitAndClick(inaktivalasBtnInMuveletekDropDown);
+    public UsersPage clickOnInaktivalasBtnInMuveletekDropDown(String egyediAzon){
+        waitUtil.waitAndClick(By.xpath("//tr//td[.='"+egyediAzon+"']/following-sibling::td//button[.='Inaktiválás']"));
         return this;
     }
 
-    public UsersPage felhasznaloInaktivalasa(){
-        clickOnMuveletekButton();
-        clickOnInaktivalasBtnInMuveletekDropDown();
+    public UsersPage clickOnszerkesztesBtnInMuveletekDropDown(String egyediAzon){
+        waitUtil.waitAndClick(By.xpath("//tr//td[.='"+egyediAzon+"']/following-sibling::td//button[.='Szerkesztés']"));
+        return this;
+    }
+
+    public UsersPage clickOnJelszoModositasaBtnMuveletekDropDown(String egyediAzon){
+        waitUtil.waitAndClick(By.xpath("//tr//td[.='"+egyediAzon+"']/following-sibling::td//button[.='Jelszó módosítása']"));
+        return this;
+    }
+
+
+
+    public UsersPage clickOnMuveletekBtn(){
+        waitUtil.waitAndClick(muveletekBtn);
+        return this;
+    }
+
+    public UsersPage clickOnOkMegerBtn(){
         waitUtil.waitAndClick(okMegerBtn);
         return this;
     }
@@ -65,19 +77,6 @@ public class UsersPage extends BasePage {
         return this;
     }
 
-    public boolean inaktivUserMegj(){  //táblázatban lévő első elemet inaktiváljuk
-        boolean ertek = false;
-        String elem;
-        try {
-            WebElement e = waitUtil.waitWebElement(By.xpath("(//tr[1]"));
-            elem = e.getAttribute("class");
-            if(elem == "not filled")
-            ertek = true;
-        }catch (Exception e){
-            ertek = false;
-        }
-        return ertek;
-    }
 
     //jelszó módosítás
 
@@ -96,10 +95,6 @@ public class UsersPage extends BasePage {
         return this;
     }
 
-    public UsersPage clickOnJelszoModositasaBtnMuveletekDropDown(){
-        waitUtil.waitAndClick(jelszoModositasaBtnInuveletekDropDown);
-        return this;
-    }
 
     public boolean mentesBtnJelszoModositasKattinthato(){  //
        return waitUtil.elementIsClickable(mentesBtnJelszoModositas);
@@ -141,60 +136,39 @@ public class UsersPage extends BasePage {
         return this;
     }
 
-    public UsersPage nevFldClearAndEnterModositottNevToNevFld(String nev) {
-        waitUtil.waitAndClearText(By.xpath("(//input[@placeholder='Teszt Név'])[1]"));
-        waitUtil.waitAndSendkeys(By.cssSelector("input[placeholder='Teszt Név']"), nev);
+    public UsersPage nevFldClearAndEnterModositottNevToNevFld(String nev, String nevModositott) {
+        waitUtil.waitAndClearText(By.xpath("//input[@placeholder='"+nev+"']"));
+        waitUtil.waitAndSendkeys(By.xpath("//input[@placeholder='Nincs megadva']"), nevModositott);
         return this;
     }
 
-    public UsersPage emailFldClearAndEnterModositottEmailToEmailFld(String email){
-        waitUtil.waitAndClearText(By.xpath("(//input[@placeholder='email@gmail.com'])[1]"));
-        waitUtil.waitAndSendkeys(By.cssSelector("(//input[@placeholder='email@gmail.com'])[1]"), email);
+    public UsersPage emailFldClearAndEnterModositottEmailToEmailFld(String email, String emailModositott){
+        waitUtil.waitAndClearText(By.xpath("//input[@placeholder='"+email+"']"));
+        waitUtil.waitAndSendkeys(By.xpath("//input[@placeholder='Nincs megadva']"), emailModositott);
         return this;
     }
 
-    public UsersPage szervezetDropDownClearAndEnterModositottSzervezetToSzervezetFld(String szervezet){
-        waitUtil.waitAndClick(By.xpath("(//span[@title='Clear all'])[1]"));
-        waitUtil.waitAndClick(By.xpath("(//input[@role='combobox'])[3]"));
-        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='" + szervezet + "']"));
-        e.click();
+    public UsersPage szervezetDropDownClearAndEnterModositottSzervezetToSzervezetFld(String szervezetModositott){
+        waitUtil.waitAndClick(By.xpath("//app-buildfolio-select[@id='user-legal-entities-select']//input"));
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+szervezetModositott+"']"));
         return this;
     }
 
-    public UsersPage szerepkorDropDownClearAndEnterModositottSzerepkorToSzerepkorFld(String szerepkor){
-        waitUtil.waitAndClick(By.xpath("(//span[@title='Clear all'])[2]"));
-        waitUtil.waitAndClick(By.xpath("(//input[@role='combobox'])[4]"));
-        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='" + szerepkor + "']"));
-        e.click();
+    public UsersPage szerepkorDropDownClearAndEnterModositottSzerepkorToSzerepkorFld(String szerepkorModositott){
+        waitUtil.waitAndClick(By.xpath("//app-buildfolio-select[@id='user-role-select_0']//input"));
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+szerepkorModositott+"']"));
         return this;
     }
 
-    public UsersPage addUjSzerepkorToFelhasznaloModositasAblak(String szerepkor){
+    public UsersPage addUjSzerepkorToFelhasznaloModositasAblak(String ujSzerepkor){
         waitUtil.waitAndClick(plusSzerepkorBtn);
-        waitUtil.waitAndClick(By.xpath("(//input[@role='combobox'])[7]"));
-        WebElement e = waitUtil.waitWebElement(By.cssSelector("div[title='" + szerepkor + "']"));
-        e.click();
+        waitUtil.waitAndClick(By.xpath("//app-buildfolio-select[@id='user-role-select_1']//input"));
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+ujSzerepkor+"']"));
         return this;
     }
 
-    public UsersPage clickOnszerkesztesBtnInMuveletekDropDown(){
-        waitUtil.waitAndClick(szerkesztesBtnInMuveletekDropDown);
-        return this;
-    }
-
-
-
-    public UsersPage clickOninaktivalasBtnInMuveletekDropDown(){
-        waitUtil.waitAndClick(inaktivalasBtnInMuveletekDropDown);
-        return this;
-    }
 
     //találati lista
-    public UsersPage clickOnMuveletekButton(){
-        waitUtil.waitAndClick(muveletekBtn);
-        return this;
-    }
-
     public UsersPage clickOnUjFelhasznaloFelveteleBtn(){
         waitUtil.waitAndClick(ujFelhasznaloFelveteleBtn);
         return this;
@@ -216,7 +190,7 @@ public class UsersPage extends BasePage {
     }
 
     public UsersPage megjelenoSzerepkorAListaban(String szerepkor){
-        waitUtil.waitForVisibility(By.xpath("(//span[@class='cell-row ng-star-inserted'][contains(text(),'"+szerepkor+"')])"));
+        waitUtil.waitForVisibility(By.xpath("//tr[position()=1][contains(.,'"+szerepkor+"')]"));
         return this;
     }
 
@@ -276,10 +250,24 @@ public class UsersPage extends BasePage {
     }
 
     public UsersPage setUjFelhasznalo(UjFelhasznalo ujFelhasznalo){
-        return enterNev(ujFelhasznalo.getName()).
-                enterEmail(ujFelhasznalo.getEmail()).
-                selectSzervezet(ujFelhasznalo.getOrganisation()).
+        return enterEmail(ujFelhasznalo.getEmail()).
                 selectSzerepkor(ujFelhasznalo.getRole());
+    }
+
+    //assertion
+    public boolean elemMegjelenikATablazatban(String egyediAzonosito, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzonosito, oszlopIndex);
+    }
+
+    public boolean popUpMegjelenik(String popUpSzovege){
+        return waitUtil.popupWindMegjelenik(popUpSzovege);
+    }
+
+    public boolean addMegegyezoSzerepkorToFelhasznaloModositasAblak(String ujSzerepkor){
+        waitUtil.waitAndClick(plusSzerepkorBtn);
+        waitUtil.waitAndClick(By.xpath("//app-buildfolio-select[@id='user-role-select_1']//input"));
+        WebElement e = driver.findElement(By.xpath("//div[@title='" + ujSzerepkor + "']"));
+        return e.isSelected();
     }
 
 

@@ -230,10 +230,11 @@ public class ErtesitesekTest extends BaseTest {
     }
 
     @Test
-    public void Multbeli_datum_megadasa() throws IOException {
+    public void Multbeli_datum_megadasa() throws IOException, InterruptedException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         UjSzerzodes ujSzerzodes = deserializeJson("ujSzerzodes.json", UjSzerzodes.class);
+        Thread.sleep(80000);
         //Szerződés felvétele
         SideMenu sideMenu = new SideMenu(getDriver());
         sideMenu.

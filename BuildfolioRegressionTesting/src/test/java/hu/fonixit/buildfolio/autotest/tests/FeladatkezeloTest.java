@@ -20,7 +20,7 @@ import static hu.fonixit.buildfolio.autotest.utils.JacksonUtils.deserializeJson;
 
 public class FeladatkezeloTest extends BaseTest {
 
-    @Test
+    /*@Test
     public void feladatkezelo_menu_Feladatok_tab_szurok_mukodese() throws IOException, InterruptedException {
         //Eladás
         //Szervezet+Partner felvétele(az ingatlanhoz)
@@ -160,5 +160,5 @@ public class FeladatkezeloTest extends BaseTest {
 
 
         //FOLYATATÁS, SZERVEZET FELVÉTELE BUG
-    }
+    }*/
 }

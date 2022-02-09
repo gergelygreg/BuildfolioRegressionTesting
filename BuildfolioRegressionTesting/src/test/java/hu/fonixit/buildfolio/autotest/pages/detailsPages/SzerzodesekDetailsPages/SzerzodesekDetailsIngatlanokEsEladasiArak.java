@@ -6,9 +6,9 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 
 public class SzerzodesekDetailsIngatlanokEsEladasiArak extends BasePage {
-    private final By ingaltlHozzarendelewseASzerzhezBtn = By.xpath("//a[contains(text(),'Ingatlanok hozzárendelése a szerződéshez')]");
+    private final By ingaltlHozzarendeleseASzerzhezBtn = By.xpath("//a[contains(text(),'Ingatlanok hozzárendelése a szerződéshez')]");
     private final By eladasiArakMegadasaAKijelolteknelBtn = By.xpath("//button[@class='btn btn-primary mr-3 ng-star-inserted']");
-    private final By nettoEladasiArFld = By.xpath("//app-currency[@amountname='contractAmountOriginal']//input");
+    private final By nettoEladasiArFld = By.xpath("//app-currency[@amountname='contractAmountOriginal']//input[@placeholder='Nincs megadva']");
     private final By hozzarendelesBtn = By.xpath("//button[.=' Hozzárendelés ']");
 
     public SzerzodesekDetailsIngatlanokEsEladasiArak(WebDriver driver){
@@ -16,12 +16,12 @@ public class SzerzodesekDetailsIngatlanokEsEladasiArak extends BasePage {
     }
 
     public boolean hozzarendelesBtnKattinthato(){
-        return waitUtil.waitAndEnabled(ingaltlHozzarendelewseASzerzhezBtn);
+        return waitUtil.waitAndEnabled(hozzarendelesBtn);
     }
 
     //click
     public SzerzodesekDetailsIngatlanokEsEladasiArak clickOnIngaltlHozzarendelewseASzerzhezBtn(){
-        waitUtil.waitAndClick(ingaltlHozzarendelewseASzerzhezBtn);
+        waitUtil.waitAndClick(ingaltlHozzarendeleseASzerzhezBtn);
         return this;
     }
 
@@ -35,6 +35,11 @@ public class SzerzodesekDetailsIngatlanokEsEladasiArak extends BasePage {
         return this;
     }
 
+    public SzerzodesekDetailsIngatlanokEsEladasiArak clickOnHozzarendelesBtnAblakon(){
+        waitUtil.waitAndClick(By.xpath("//button[@class='btn btn-primary']"));
+        return this;
+    }
+
     //sendKeys
     public SzerzodesekDetailsIngatlanokEsEladasiArak enterToNettoEladasiArFld(String nettoEladasiAr){
         waitUtil.waitAndSendkeys(nettoEladasiArFld, nettoEladasiAr);
@@ -42,19 +47,9 @@ public class SzerzodesekDetailsIngatlanokEsEladasiArak extends BasePage {
     }
 
     //select
-    public SzerzodesekDetailsIngatlanokEsEladasiArak selectCheckboxFelvettIngatlan(String felvettIngatlan, String tablaIndex){
-        String tablazatElem = null;
-            try {
-                tablazatElem = waitUtil.waitAndGetText(By.xpath("//td["+tablaIndex+"][contains(.,'"+felvettIngatlan+"')]"));
-                if (tablazatElem != null && tablazatElem.contains(felvettIngatlan)) {
-                    waitUtil.waitAndClick(By.xpath("//tr[contains(.,'"+felvettIngatlan+"')]//input"));
-                }
-                else {
-                    waitUtil.waitAndClick(By.xpath("//button[@class='btn next']"));
-                }
-            } catch (Exception e) {
-            }
-            return this;
+    public SzerzodesekDetailsIngatlanokEsEladasiArak selectCheckboxFelvettIngatlan(String felvettIngatlanNeve){
+        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+felvettIngatlanNeve+"']/ancestor::tr//td//app-checkbox//div//label"));
+        return this;
     }
 
     //assert

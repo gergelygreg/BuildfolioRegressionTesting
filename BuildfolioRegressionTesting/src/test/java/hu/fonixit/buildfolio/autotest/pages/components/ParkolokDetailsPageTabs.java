@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ParkolokDetailsPageTabs extends BasePage {
-    private final By alapadatokTab = By.linkText("Alapadatok");
-    private final By parkolohelyekTab = By.linkText("Parkolóhelyek");
-    private final By ingatlanokTab = By.linkText("Ingatlanok");
+    private final By alapadatokTab = By.xpath("//a[normalize-space()='Alapadatok']");
+    private final By parkolohelyekTab = By.xpath("//a[normalize-space()='Parkolóhelyek']");
+    private final By ingatlanokTab = By.xpath("//a[contains(text(),'Ingatlanok')]");
 
     public ParkolokDetailsPageTabs(WebDriver driver){
         super(driver);

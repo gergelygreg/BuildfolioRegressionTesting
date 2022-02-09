@@ -6,13 +6,13 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 
 public class SzerzodesekDetailsSzerzodoPartnerek extends BasePage {
-    private final By hozzarendelesLinkBtn = By.xpath("//a[contains(., ' Hozzárendelés ')]");
     private final By eltavolitasBtn = By.xpath("//button[contains(.,'Eltávolítás')]");
     private final By megsemBtn = By.xpath("//a[.=' Mégsem ']");
     private final By hozzarendelesKijeloltBtn = By.xpath("//button[contains(.,'Hozzárendelés ')]");
     private final By szerkesztesBtn = By.xpath("(//button[@class='btn btn-simple ng-star-inserted'][normalize-space()='Szerkesztés'])[1]");
     private final By mentesIcon = By.xpath("(//button[@class='btn btn-primary mr-2 ng-star-inserted'])[1]");
     private final By jogkorDropDown = By.xpath("(//input[@role='combobox'])[1]");
+    private final By hozzarendelesBtn = By.xpath("//a[normalize-space()='Hozzárendelés']");
 
     public SzerzodesekDetailsSzerzodoPartnerek(WebDriver driver) {
         super(driver);
@@ -20,7 +20,7 @@ public class SzerzodesekDetailsSzerzodoPartnerek extends BasePage {
 
     //click
     public SzerzodesekDetailsSzerzodoPartnerek clickOnHozzarendBtn(){
-        waitUtil.waitAndClick(hozzarendelesLinkBtn);
+        waitUtil.waitAndClick(hozzarendelesBtn);
         return this;
     }
 
@@ -50,18 +50,8 @@ public class SzerzodesekDetailsSzerzodoPartnerek extends BasePage {
     }
 
     //select
-    public SzerzodesekDetailsSzerzodoPartnerek selectCheckboxFelvettPartner(String felvettPartner, String tablaIndex){
-        String tablazatElem = null;
-        try {
-            tablazatElem = waitUtil.waitAndGetText(By.xpath("//td["+tablaIndex+"][contains(.,'"+felvettPartner+"')]"));
-            if (tablazatElem != null && tablazatElem.contains(felvettPartner)) {
-                waitUtil.waitAndClick(By.xpath("//tr[contains(.,'"+felvettPartner+"')]//input"));
-            }
-            else {
-                waitUtil.waitAndClick(By.xpath("//button[@class='btn next']"));
-            }
-        } catch (Exception e) {
-        }
+    public SzerzodesekDetailsSzerzodoPartnerek selectCheckboxFelvettPartner(String felvettPartner){
+        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+felvettPartner+"']/ancestor::tr//td//app-checkbox//div//label"));
         return this;
     }
 
@@ -77,16 +67,7 @@ public class SzerzodesekDetailsSzerzodoPartnerek extends BasePage {
     }
 
 
-    public boolean partnerekSzovegMegjelenik(){
-        boolean ertek;
-        try{
-            waitUtil.waitForVisibility(By.xpath("//h3[contains(.,'Partnerek ')]"));
-            ertek = true;
-        }catch (ElementNotVisibleException e){
-            ertek = false;
-        }
-        return ertek;
-    }
+
 
     public boolean ingatlanMegjATablBan(String ingatlanNeve, String tablaoszlopIndex){
         return waitUtil.elementIsDisplayedInTable(ingatlanNeve,tablaoszlopIndex);

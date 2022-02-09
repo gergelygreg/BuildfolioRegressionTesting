@@ -61,19 +61,4 @@ public class FeladatkezeloUjMunkafolyamatInditasaPage extends BasePage {
         return this;
     }
 
-    //select
-    public FeladatkezeloUjMunkafolyamatInditasaPage selectCheckboxIngatlan(String ingatlanNeve, String tablaIndex){
-        String tablazatElem = null;
-        try {
-            tablazatElem = waitUtil.waitAndGetText(By.xpath("//td["+tablaIndex+"][contains(.,'"+ingatlanNeve+"')]"));
-            if (tablazatElem != null && tablazatElem.contains(ingatlanNeve)) {
-                waitUtil.waitAndClick(By.xpath("//tr[contains(.,'"+ingatlanNeve+"')]//input"));
-            }
-            else {
-                waitUtil.waitAndClick(By.xpath("//button[@class='btn next']"));
-            }
-        } catch (Exception e) {
-        }
-        return this;
-    }
 }

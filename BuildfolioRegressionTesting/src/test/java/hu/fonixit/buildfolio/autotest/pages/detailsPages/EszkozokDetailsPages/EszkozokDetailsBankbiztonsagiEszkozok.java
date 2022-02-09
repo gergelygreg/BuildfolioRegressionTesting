@@ -6,11 +6,11 @@ import org.openqa.selenium.WebDriver;
 
 public class EszkozokDetailsBankbiztonsagiEszkozok extends BasePage {
     //Új eszköz felvétele ablak
-    private final By megnevezesFld = By.xpath("//app-new-bank-technical-device-modal//app-text-input[@name='deviceName']//input");
-    private final By leltariSzamFld = By.xpath("//app-new-bank-technical-device-modal//app-text-input[@name='inventoryNumber']//input");
-    private final By eszkozcsoportDropDown = By.xpath(("//app-new-bank-technical-device-modal//app-buildfolio-select[@name='deviceGroupCode']//input"));
-    private final By tipusFld = By.xpath("//app-new-bank-technical-device-modal//app-text-input[@name='deviceType']//input");
-    private final By statuszDropDown = By.xpath("//app-new-bank-technical-device-modal//app-buildfolio-select[@name='stateCode']//input");
+    private final By megnevezesFld = By.xpath("//app-new-bank-security-device-modal//app-text-input[@name='deviceName']//input");
+    private final By leltariSzamFld = By.xpath("//app-new-bank-security-device-modal//app-text-input[@name='inventoryNumber']//input");
+    private final By eszkozcsoportDropDown = By.xpath(("//app-buildfolio-select[@name='deviceGroupCode']//input"));
+    private final By tipusFld = By.xpath("//app-new-bank-security-device-modal//app-text-input[@name='deviceType']//input");
+    private final By statuszDropDown = By.xpath("//app-new-bank-security-device-modal//app-buildfolio-select[@name='stateCode']//input");
     private final By felvetelBtn = By.xpath("//span[normalize-space()='Felvétel']");
     private final By megsemBtn = By.xpath("//button[normalize-space()='Mégsem']");
 

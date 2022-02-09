@@ -12,11 +12,11 @@ import java.util.List;
 public class ParkolokDetailsParkolohelyek extends BasePage {
     private final By ujParkolohelyFelveteleBtn = By.xpath("//button[.='Új parkolóhely felvétele']");
     private final By muveletekBtn = By.xpath("(//button[@type='button'])[3]");
-    private final By szerkesztesDropDownElem = By.xpath("//button[normalize-space()='Szerkesztés']");
+    private final By szerkesztesDropDownElem = By.xpath("//button[.='Szerkesztés']");
     private final By torlesDropDownElem = By.xpath("//button[normalize-space()='Törlés']");
 
     //Új parkolóhely felvétele ablak
-    private final By azonositoFld = By.xpath("//app-text-input//input[@placeholder='Nincs megadva']");
+    private final By azonositoFld = By.xpath("//input[@maxlength='50']");
     private final By parkolohelyTipusaDropDown = By.xpath("(//input[@role='combobox'])[3]");
     private final By felvetelBtn = By.xpath("//button[.=' Felvétel ']");
     private final By megsemBtn = By.xpath("//button[.=' Mégsem ']");
@@ -113,34 +113,18 @@ public class ParkolokDetailsParkolohelyek extends BasePage {
         return waitUtil.elementIsDisplayedInTable(parkhelyNeve, tablaIndex);
     }
 
-    public String parkolohelyekSzamaHeader(){
-        return waitUtil.waitAndGetText(By.xpath("h3[class='ng-tns-c156-25']"));
-    }
 
     public int parkolohelyekSzamaTablazat(){
-        List<WebElement>parkHely = null;
-        int sumParkHely = 0;
-        do{
-            parkHely.clear();
-            parkHely = driver.findElements(By.xpath("//tr"));
-        if(parkHely.size()==25) {
-            sumParkHely += parkHely.size();
-            waitUtil.waitAndClick(By.xpath("//button[@class='btn next']"));
-        }
-        else {
-            sumParkHely += parkHely.size();
-            return sumParkHely;
-        }
-        }while(parkHely.size()!=25);
-        return sumParkHely;
+       int parkhelySzama = driver.findElements(By.xpath("//tr")).size();
+       return parkhelySzama;
     }
 
     public String sikeresRogzMessage(){
         return waitUtil.waitAndGetText(By.xpath("//div[@role='alertdialog']"));
     }
 
-    public String felvettParkolohelyMegjAListaban(){
-        return waitUtil.waitAndGetText(By.xpath("//td"));
+    public boolean popUpMegjelenik(String popUpSzoveg){
+        return waitUtil.popupWindMegjelenik(popUpSzoveg);
     }
 
 

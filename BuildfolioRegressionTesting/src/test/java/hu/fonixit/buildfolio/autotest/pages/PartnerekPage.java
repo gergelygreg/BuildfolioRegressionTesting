@@ -14,7 +14,7 @@ public class PartnerekPage extends BasePage {
     private final By partnerNeveFld = By.xpath("(//input[@placeholder='Nincs megadva'])[1]");
     private final By telefonszFld = By.xpath("(//input[@placeholder='Nincs megadva'])[2]");
     private final By emailFld = By.xpath("(//input[@placeholder='Nincs megadva'])[3]");
-    private final By kozmuChb = By.xpath("//label[.=' Közműcég ']");
+    private final By kozmuChb = By.xpath("//label[contains(text(),'Közműcég')]");
     //lista
     private final By listaUtolsoPartnerNev = By.xpath("//tr[last()]//td[2]");
 
@@ -58,8 +58,8 @@ public class PartnerekPage extends BasePage {
         return this;
     }
 
-    public PartnerekPage clickOnListaElsoEleme(){
-        waitUtil.waitAndClick(By.xpath("//tr[1]"));
+    public PartnerekPage clickOnListaElsoEleme(String egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
         return this;
     }
 

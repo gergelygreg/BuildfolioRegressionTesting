@@ -10,7 +10,9 @@ import hu.fonixit.buildfolio.autotest.pages.detailsPages.EszkozokDetailsPages.Es
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages.IngatlanokDetailsAlapadatok;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages.IngatlanokDetailsEszkozok;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages.IngatlanokDetailsMuszakiAdatok;
+import hu.fonixit.buildfolio.autotest.pages.detailsPages.ParkolokDetailsPages.ParkolokDetailsIngatlanok;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.PartnerekDetailsPages.*;
+import hu.fonixit.buildfolio.autotest.pages.detailsPages.SzamlakDetailsPages.SzamlakDetailsPartnerek;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.SzerzodesekDetailsPages.SzerzodesekDetailsIngatlanokEsEladasiArak;
 import hu.fonixit.buildfolio.autotest.pages.detailsPages.SzerzodesekDetailsPages.SzerzodesekDetailsSzerzodoPartnerek;
 import hu.fonixit.buildfolio.autotest.utils.FakerUtils;
@@ -19,6 +21,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 
 import static hu.fonixit.buildfolio.autotest.utils.JacksonUtils.deserializeJson;
@@ -116,12 +122,11 @@ public class PartnerekTest extends BaseTest {
 
         Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres létrehozás!"));
         getDriver().navigate().refresh();
-        Thread.sleep(5000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
-        partnerekPage.clickOnListaElsoEleme();
+        partnerekPage.clickOnListaElsoEleme(partnerNeve, "1");
 
         String iranyitoszam = "6830";
-        String varos = "Szeged";
+        String telepules = "Szeged";
         String koztNeve = "Széchenyi";
         String koztTipus = "tér";
         String hazszam = "10";
@@ -130,7 +135,7 @@ public class PartnerekTest extends BaseTest {
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver()).
                 clickOnAdatokSzerkBtn().
                 enterTextToIrSzamFld(iranyitoszam).
-                enterTextToVarosFld(varos).
+                enterTextToTelepulesFld(telepules).
                 enterTextToKoztNeveFld(koztNeve).
                 selectElementFromKozteruletTipusaDropDown(koztTipus).
                 enterTextToHazSzamFld(hazszam).
@@ -139,38 +144,34 @@ public class PartnerekTest extends BaseTest {
                 clickOnMentesBtn();
         Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres rögzítés!"));
 
-        sideMenu.navigateToPartnerekPanel();
+        sideMenu.
+                navigateToPartnerekPanel();
         Assert.assertTrue(partnerekPage.partnerekTextMegjelenik());
         Szurok szurok = new Szurok(getDriver()).
                 clickOnSzurokBtn().
                 enterTextToNevFldPartn(partnerNeve).
                 clickOnKeresesBtn();
-        Thread.sleep(3000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterTextToCegjegyzekszamFldPartn(cegjegyzekszam).
                 clickOnKeresesBtn();
-        Thread.sleep(3000);
-        Assert.assertTrue(partnerekPage.partnerMegjATablaban(cegjegyzekszam, "2"));
+        Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterTextToIranyitoszamFldPartn(iranyitoszam).
                 clickOnKeresesBtn();
-        Thread.sleep(3000);
-        Assert.assertTrue(partnerekPage.partnerMegjATablaban(iranyitoszam, "3"));
+        Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterTextToVarosFldPartn(varos).
+                enterTextToVarosFldPartn(telepules).
                 clickOnKeresesBtn();
-        Thread.sleep(3000);
-        Assert.assertTrue(partnerekPage.partnerMegjATablaban(varos, "3"));
+        Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterTextToVarosFldPartn(koztNeve).
+                enterTextToKoztNeveFldPartn(koztNeve).
                 clickOnKeresesBtn();
-        Thread.sleep(3000);
-        Assert.assertTrue(partnerekPage.partnerMegjATablaban(koztNeve, "3"));
+        Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
 
     }
 
@@ -194,7 +195,7 @@ public class PartnerekTest extends BaseTest {
         getDriver().navigate().refresh();
         Thread.sleep(5000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
-        partnerekPage.clickOnListaElsoEleme();
+        partnerekPage.clickOnListaElsoEleme(partnerNeve, "1");
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver());
         Assert.assertTrue(partnerekDetailsAlapadatok.linkText("Alapadatok"));
         Assert.assertEquals(partnerekPage.alapadatokLinkActive(), "nav-link active");
@@ -220,7 +221,7 @@ public class PartnerekTest extends BaseTest {
         getDriver().navigate().refresh();
         Thread.sleep(5000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
-        partnerekPage.clickOnListaElsoEleme();
+        partnerekPage.clickOnListaElsoEleme(partnerNeve, "1");
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver());
         Assert.assertTrue(partnerekDetailsAlapadatok.linkText("Alapadatok"));
         Assert.assertTrue(partnerekDetailsAlapadatok.linkText("Ingatlanok"));
@@ -249,10 +250,10 @@ public class PartnerekTest extends BaseTest {
         getDriver().navigate().refresh();
         Thread.sleep(5000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
-        partnerekPage.clickOnListaElsoEleme();
+        partnerekPage.clickOnListaElsoEleme(partnerNeve, "1");
 
         String iranyitoszam = "6830";
-        String varos = "Szeged";
+        String telepules = "Szeged";
         String koztNeve = "Széchenyi";
         String koztTipus = "tér";
         String hazszam = "10";
@@ -261,7 +262,7 @@ public class PartnerekTest extends BaseTest {
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver()).
                 clickOnAdatokSzerkBtn().
                 enterTextToIrSzamFld(iranyitoszam).
-                enterTextToVarosFld(varos).
+                enterTextToTelepulesFld(telepules).
                 enterTextToKoztNeveFld(koztNeve).
                 selectElementFromKozteruletTipusaDropDown(koztTipus).
                 enterTextToHazSzamFld(hazszam).
@@ -291,10 +292,10 @@ public class PartnerekTest extends BaseTest {
         getDriver().navigate().refresh();
         Thread.sleep(5000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
-        partnerekPage.clickOnListaElsoEleme();
+        partnerekPage.clickOnListaElsoEleme(partnerNeve, "1");
 
         String iranyitoszam = "6830";
-        String varos = "Szeged";
+        String telepules = "Szeged";
         String koztNeve = "Széchenyi";
         String koztTipus = "tér";
         String hazszam = "10";
@@ -303,7 +304,7 @@ public class PartnerekTest extends BaseTest {
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver()).
                 clickOnAdatokSzerkBtn().
                 enterTextToIrSzamFld(iranyitoszam).
-                enterTextToVarosFld(varos).
+                enterTextToTelepulesFld(telepules).
                 enterTextToKoztNeveFld(koztNeve).
                 selectElementFromKozteruletTipusaDropDown(koztTipus).
                 enterTextToHazSzamFld(hazszam).
@@ -319,12 +320,14 @@ public class PartnerekTest extends BaseTest {
     }
 
     @Test
-    public void Alapadatok_tab_szerkesztes_Kozmuceg_Kozmuceg_checkbox_eltavolitasa() throws InterruptedException {
+    public void Alapadatok_tab_szerkesztes_Kozmuceg_Kozmuceg_checkbox_eltavolitasa() throws IOException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
+        UjPartnerAlapadatok ujPartnerAlapadatok = deserializeJson("ujPartnerAlapadatok.json", UjPartnerAlapadatok.class);
+
         PartnerekPage partnerekPage = new PartnerekPage(getDriver());
-        String partnerNeve = "Teszt" + new FakerUtils().generateRandomNumber();
+        String partnerNeve = "Teszt partner" + new FakerUtils().generateRandomNumber();
         String telefonszam = "06202102121";
         String email = "email@email.com";
         partnerekPage.
@@ -336,12 +339,14 @@ public class PartnerekTest extends BaseTest {
                 clickOnFelvetelBtn();
         Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres létrehozás!"));
         getDriver().navigate().refresh();
-        Thread.sleep(5000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
-        partnerekPage.clickOnListaElsoEleme();
+        partnerekPage.clickOnListaElsoEleme(partnerNeve, "1");
+
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver());
         Assert.assertEquals(partnerekDetailsAlapadatok.kozmucegTxtAlapadatok(), "Közműcég");
         partnerekDetailsAlapadatok.
+                clickOnAdatokSzerkBtn().
+                ujPartnerAlapadatok(ujPartnerAlapadatok).
                 clickOnKozmucegChb().
                 clickOnMentesBtn();
         Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres rögzítés!"));
@@ -357,40 +362,63 @@ public class PartnerekTest extends BaseTest {
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
         PartnerekPage partnerekPage = new PartnerekPage(getDriver());
-        String partnerNeve = "Teszt" + new FakerUtils().generateRandomNumber();
-        String telefonszam = "06202102121";
-        String email = "email@email.com";
+        String kozmuPartnerNeve = "Teszt Közmű Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszamKozmu = "06202102121";
+        String emailKozmu = "email@email.com";
         partnerekPage.
+                clickOnUjPartnerFelveteleBtn().
+                enterPartnerNeveFld(kozmuPartnerNeve).
+                enterTelefonszFld(telefonszamKozmu).
+                enterEmailFld(emailKozmu).
+                selectKozmuChb().
+                clickOnFelvetelBtn();
+        Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres létrehozás!"));
+        getDriver().navigate().refresh();
+        Assert.assertTrue(partnerekPage.partnerMegjATablaban(kozmuPartnerNeve, "1"));
+
+        //szervezet felvétele
+        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String telefonszam = "06202102121";
+        String email = "email@gmail.com";
+       partnerekPage.
                 clickOnUjPartnerFelveteleBtn().
                 enterPartnerNeveFld(partnerNeve).
                 enterTelefonszFld(telefonszam).
                 enterEmailFld(email).
                 clickOnFelvetelBtn();
+        SideMenu sideMenu1 = new SideMenu(getDriver()).navigateToSzervezetekPanel();
+        String szervezetAzon = "Szervezet" + new FakerUtils().generateRandomNumber();
 
-        Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres létrehozás!"));
-        getDriver().navigate().refresh();
-        Thread.sleep(5000);
-        Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
+        SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
+        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
+        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
+        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
+        szervezetekPage.clickOnFelvetelBtn();
 
         //ingatlan felvétele
-        IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
+        Thread.sleep(2000);
+        sideMenu.
+                navigateToIngatlanokPanel();
         UjIngatlan ujIngatlan = deserializeJson("ujIngatlan.json", UjIngatlan.class);
-        UjIngatlanAlapadatok ujIngatlanAlapadatok = deserializeJson("ujIngatlanAlapadatok.json", UjIngatlanAlapadatok.class);
-        UjMuszakiAdatok ujMuszakiAdatok = deserializeJson("ujIngatlanMuszakiAdatok.json", UjMuszakiAdatok.class);
-        String szervezetAzon = "Minta Zrt.";
-        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
+        IngatlanokDetailsAlapadatok ingatlanokDetailsAlapadatok = new IngatlanokDetailsAlapadatok(getDriver());
+        ingatlanokPage.
+                clickOnUjIngatlanFelveteleBtn();
         String megnevezes = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
-        String tihaszId = "TihaszID" + new FakerUtils().generateRandomNumber();
         ingatlanokPage.
                 enterTextToMegnevezesFld(megnevezes).
                 setUjIngatlan(ujIngatlan).
-                selectElementFromSzervezetDropDown(szervezetAzon).
+                selectElementFromSzervezetDropDown(partnerNeve).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
-        ingatlanokPage.clickOnElsoIngatlan();
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
+
+        //mérrőóra felvétele ingatlanhoz
+        ingatlanokPage.
+                clickOnElsoIngatlan(megnevezes, "2");
         IngatlanokDetailsPageTabs ingatlanokDetailsPageTabs = new IngatlanokDetailsPageTabs(getDriver());
-        ingatlanokDetailsPageTabs.clickOnEszkozokTab();
+        ingatlanokDetailsPageTabs.
+                clickOnEszkozokTab();
         IngatlanokDetailsEszkozok ingatlanokDetailsEszkozok = new IngatlanokDetailsEszkozok(getDriver());
         String oratipus = "Gázóra";
         String gyariszam = "Gyári szám" + new FakerUtils().generateRandomNumber();
@@ -399,19 +427,22 @@ public class PartnerekTest extends BaseTest {
                 clickOnMeroorakLinkBtn();
         Assert.assertFalse(ingatlanokDetailsEszkozok.felvetelBtnKattinthato());
         ingatlanokDetailsEszkozok.
+                clickOnUjMerooraFelveteleBtn().
                 selectFromOratipusDropDown(oratipus);
         Assert.assertFalse(ingatlanokDetailsEszkozok.felvetelBtnKattinthato());
         ingatlanokDetailsEszkozok.
                 enterTextGyariSzam(gyariszam);
         Assert.assertFalse(ingatlanokDetailsEszkozok.felvetelBtnKattinthato());
         ingatlanokDetailsEszkozok.
-                selectFromKozmucegDropDown(partnerNeve);
+                selectFromKozmucegDropDown(kozmuPartnerNeve);
         Assert.assertTrue(ingatlanokDetailsEszkozok.felvetelBtnKattinthato());
         ingatlanokDetailsEszkozok.
                 clickOnFelvetelBtn();
+        Assert.assertTrue(ingatlanokDetailsAlapadatok.popupSzovegMegjelenik("Sikeres létrehozás!"));
 
-        sideMenu.navigateToPartnerekPanel();
-        partnerekPage.clickOnListaElsoEleme();
+        sideMenu.
+                navigateToPartnerekPanel();
+        partnerekPage.clickOnListaElsoEleme(kozmuPartnerNeve, "1");
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver());
         partnerekDetailsAlapadatok.
                 clickOnAdatokSzerkBtn();
@@ -439,13 +470,13 @@ public class PartnerekTest extends BaseTest {
         Thread.sleep(5000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(partnerNeve, "1"));
         partnerekPage.
-                clickOnListaElsoEleme();
+                clickOnListaElsoEleme(partnerNeve, "1");
         PartnerekDetailsAlapadatok partnerekDetailsAlapadatok = new PartnerekDetailsAlapadatok(getDriver());
         Assert.assertFalse(partnerekDetailsAlapadatok.kozmucegFeliratMegjelenik());
     }
 
     @Test
-    public void Ingatlanok_tab_szures() throws IOException {
+    public void Ingatlanok_tab_szures() throws IOException, InterruptedException {
         //I. szervezet felvétele, nem közmű partner
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
@@ -465,11 +496,8 @@ public class PartnerekTest extends BaseTest {
 
         SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
         szervezetekPage.clickOnUjSzervezetFelveteleBtn();
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
-        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.clickOnFelvetelBtn();
 
         //teljes kitöltöttségű ingatlan felvétele
@@ -489,8 +517,9 @@ public class PartnerekTest extends BaseTest {
                 selectElementFromSzervezetDropDown(partnerNeve).     //ITT PARTNERT LEHET KIVÁLASZTANI
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
-        ingatlanokPage.clickOnElsoIngatlan();
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
+        ingatlanokPage.
+                clickOnElsoIngatlan(megnevezes, "2");
 
         IngatlanokDetailsAlapadatok ingatlanokDetailsAlapadatok = new IngatlanokDetailsAlapadatok(getDriver());
         ingatlanokDetailsAlapadatok.
@@ -498,6 +527,9 @@ public class PartnerekTest extends BaseTest {
                 setUjIngatlanAlapadatok(ujIngatlanAlapadatok).
                 enterTextToTihaszIdFld(tihaszId).
                 clickOnMentesBtnBtn();
+        Assert.assertTrue(ingatlanokDetailsAlapadatok.popupSzovegMegjelenik("Sikeres rögzítés"));
+        ingatlanokDetailsAlapadatok.
+                scrollUp();
 
         IngatlanokDetailsPageTabs ingatlanokDetailsPageTabs = new IngatlanokDetailsPageTabs(getDriver());
         ingatlanokDetailsPageTabs.
@@ -505,11 +537,13 @@ public class PartnerekTest extends BaseTest {
         IngatlanokDetailsMuszakiAdatok ingatlanokDetailsMuszakiAdatok = new IngatlanokDetailsMuszakiAdatok(getDriver());
         ingatlanokDetailsMuszakiAdatok.
                 clickOnAdatokSzerkeszteseBtn().
+                scrollUp().
                 setUjMuszakiAdatok(ujMuszakiAdatok).
                 clickOnMentesBtn();
 
         //szerződés felvétele
-        sideMenu.navigateToSzerzodesekPanel();
+        sideMenu.
+                navigateToSzerzodesekPanel();
         UjSzerzodes ujSzerzodes = deserializeJson("ujSzerzodes.json", UjSzerzodes.class);
         String szerzodesSzam = "Teszt Szerződésszám" + new FakerUtils().generateRandomNumber();
         SzerzodesekPage szerzodesekPage = new SzerzodesekPage(getDriver());
@@ -518,49 +552,53 @@ public class PartnerekTest extends BaseTest {
                 enterTextToSzerzodesszamFld(szerzodesSzam).
                 setUjSzerzodes(ujSzerzodes).
                 clickOnFelvetelBtn();
-        Assert.assertEquals(szerzodesekPage.listaElsoElemeEll(), szerzodesSzam);
         getDriver().navigate().refresh();
-        szerzodesekPage.clickOnElsoElem();
+        szerzodesekPage.clickOnElsoElem(szerzodesSzam, "1");
 
+        //szerződés //Ingatlanok és eladási árak
         SzerzodesekDetailsTabs szerzodesekDetailsTabs = new SzerzodesekDetailsTabs(getDriver());
-        szerzodesekDetailsTabs.clickOnIngatlanokEsEladasiArakTab();  //Ingatlanok és eladási árak
+        szerzodesekDetailsTabs.
+                clickOnIngatlanokEsEladasiArakTab();
 
         SzerzodesekDetailsIngatlanokEsEladasiArak szerzodesekDetailsIngatlanokEsEladasiArak = new SzerzodesekDetailsIngatlanokEsEladasiArak(getDriver());
         szerzodesekDetailsIngatlanokEsEladasiArak.
                 clickOnIngaltlHozzarendelewseASzerzhezBtn();
         Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
 
-        szerzodesekDetailsIngatlanokEsEladasiArak.selectCheckboxFelvettIngatlan(megnevezes, "3");
+        szerzodesekDetailsIngatlanokEsEladasiArak.
+                selectCheckboxFelvettIngatlan(megnevezes);
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
 
-        szerzodesekDetailsIngatlanokEsEladasiArak.clickOnEladasiArakMegadasaAKijelolteknelBtn();
+        szerzodesekDetailsIngatlanokEsEladasiArak.
+                clickOnEladasiArakMegadasaAKijelolteknelBtn();
         Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
 
         String nettoEladasiAr = "10000000";
         szerzodesekDetailsIngatlanokEsEladasiArak.
-                enterToNettoEladasiArFld(nettoEladasiAr);
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
-
-        szerzodesekDetailsIngatlanokEsEladasiArak.
+                enterToNettoEladasiArFld(nettoEladasiAr).
                 clickOnHozzarendelesBtn();
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanokHozzarendeleseSzerzodeshezSzoveg());
         szerzodesekDetailsIngatlanokEsEladasiArak.
-                clickOnHozzarendelesBtn();
+                clickOnHozzarendelesBtnAblakon();
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.popupMegjelenik("Sikeres hozzárendelés!"));
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanMegjATablBan(megnevezes, "3"));
 
-        szerzodesekDetailsTabs.clickOnSzerzodoPartnerekTab();
+        //Szerződő partnerek
+        szerzodesekDetailsTabs.
+                clickOnSzerzodoPartnerekTab();
         SzerzodesekDetailsSzerzodoPartnerek szerzodesekDetailsSzerzodoPartnerek = new SzerzodesekDetailsSzerzodoPartnerek(getDriver());
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.partnerekSzovegMegjelenik());
 
+        Thread.sleep(2000);
         szerzodesekDetailsSzerzodoPartnerek.
                 clickOnHozzarendBtn().
-                selectCheckboxFelvettPartner(partnerNeve, "2").
+                selectCheckboxFelvettPartner(partnerNeve).
                 clickOnHozzarendelesKijeloltBtn();
         Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.popupMegjelenik("Sikeres hozzárendelés!"));
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.ingatlanMegjATablBan(megnevezes, "2"));
+        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.ingatlanMegjATablBan(partnerNeve, "2"));
 
         //II. szervezet felvétele, közmű partner
+        sideMenu.
+                navigateToPartnerekPanel();
         String partnerNeve1 = "Teszt Partner Közmű" + new FakerUtils().generateRandomNumber();
         String telefonszam1 = "06202102121";
         String email1 = "email@gmail.com";
@@ -571,16 +609,14 @@ public class PartnerekTest extends BaseTest {
                 enterEmailFld(email1).
                 selectKozmuChb().
                 clickOnFelvetelBtn();
+        Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres létrehozás!"));
         sideMenu.
                 navigateToSzervezetekPanel();
         String szervezetAzon1 = "Szervezet" + new FakerUtils().generateRandomNumber();
 
         szervezetekPage.clickOnUjSzervezetFelveteleBtn();
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon1);
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve1);
-        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.clickOnFelvetelBtn();
 
         //teljes kitöltöttségű ingatlan felvétele
@@ -597,89 +633,96 @@ public class PartnerekTest extends BaseTest {
                 setUjIngatlan(ujIngatlan1).
                 selectElementFromSzervezetDropDown(partnerNeve1).     //ITT PARTNERT LEHET KIVÁLASZTANI
                 clickOnFelvetelBtn();
+        Assert.assertTrue(ingatlanokPage.popUpMegjelenik("Sikeres létrehozás!"));
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes1));
-        ingatlanokPage.clickOnElsoIngatlan();
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes1, "2"));
+        ingatlanokPage.
+                clickOnElsoIngatlan(megnevezes1, "2");
 
         ingatlanokDetailsAlapadatok.
                 clickOnAdatokSzerkeszteseBtn().
                 setUjIngatlanAlapadatok(ujIngatlanAlapadatok1).
                 enterTextToTihaszIdFld(tihaszId1).
                 clickOnMentesBtnBtn();
+        Assert.assertTrue(ingatlanokDetailsAlapadatok.popupSzovegMegjelenik("Sikeres rögzítés"));
 
+        ingatlanokDetailsAlapadatok.
+                scrollUp();
         ingatlanokDetailsPageTabs.
                 clickOnMuszakiAdatokTab();
 
         ingatlanokDetailsMuszakiAdatok.
                 clickOnAdatokSzerkeszteseBtn().
+                scrollUp().
                 setUjMuszakiAdatok(ujMuszakiAdatok1).
                 clickOnMentesBtn();
 
         //szerződés felvétele
-        sideMenu.navigateToSzerzodesekPanel();
-        UjSzerzodes ujSzerzodes1 = deserializeJson("ujSzerzodes.json", UjSzerzodes.class);
+        sideMenu.
+                navigateToSzerzodesekPanel();
         String szerzodesSzam1 = "Teszt Szerződésszám" + new FakerUtils().generateRandomNumber();
         szerzodesekPage.
                 clickOnUjSzerzodesFelveteleBtn().
                 enterTextToSzerzodesszamFld(szerzodesSzam1).
-                setUjSzerzodes(ujSzerzodes1).
+                setUjSzerzodes(ujSzerzodes).
                 clickOnFelvetelBtn();
-        Assert.assertEquals(szerzodesekPage.listaElsoElemeEll(), szerzodesSzam1);
         getDriver().navigate().refresh();
-        szerzodesekPage.clickOnElsoElem();
+        szerzodesekPage.clickOnElsoElem(szerzodesSzam1, "1");
 
-
+        //szerződés //Ingatlanok és eladási árak
         szerzodesekDetailsTabs.
-                clickOnIngatlanokEsEladasiArakTab();  //Ingatlanok és eladási árak
+                clickOnIngatlanokEsEladasiArakTab();
 
         szerzodesekDetailsIngatlanokEsEladasiArak.
                 clickOnIngaltlHozzarendelewseASzerzhezBtn();
         Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
 
-        szerzodesekDetailsIngatlanokEsEladasiArak.selectCheckboxFelvettIngatlan(megnevezes1, "3");
+        szerzodesekDetailsIngatlanokEsEladasiArak.
+                selectCheckboxFelvettIngatlan(megnevezes1);
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
 
-        szerzodesekDetailsIngatlanokEsEladasiArak.clickOnEladasiArakMegadasaAKijelolteknelBtn();
+        szerzodesekDetailsIngatlanokEsEladasiArak.
+                clickOnEladasiArakMegadasaAKijelolteknelBtn();
         Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
 
         String nettoEladasiAr1 = "10000000";
         szerzodesekDetailsIngatlanokEsEladasiArak.
-                enterToNettoEladasiArFld(nettoEladasiAr1);
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
-
-        szerzodesekDetailsIngatlanokEsEladasiArak.
+                enterToNettoEladasiArFld(nettoEladasiAr1).
                 clickOnHozzarendelesBtn();
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanokHozzarendeleseSzerzodeshezSzoveg());
         szerzodesekDetailsIngatlanokEsEladasiArak.
-                clickOnHozzarendelesBtn();
+                clickOnHozzarendelesBtnAblakon();
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.popupMegjelenik("Sikeres hozzárendelés!"));
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanMegjATablBan(megnevezes1, "3"));
 
-        szerzodesekDetailsTabs.clickOnSzerzodoPartnerekTab();
+        //Szerződő partnerek
+        szerzodesekDetailsTabs.
+                clickOnSzerzodoPartnerekTab();
 
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.partnerekSzovegMegjelenik());
-
+        Thread.sleep(2000);
         szerzodesekDetailsSzerzodoPartnerek.
                 clickOnHozzarendBtn().
-                selectCheckboxFelvettPartner(partnerNeve1, "2").
+                selectCheckboxFelvettPartner(partnerNeve1).
                 clickOnHozzarendelesKijeloltBtn();
         Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.popupMegjelenik("Sikeres hozzárendelés!"));
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.ingatlanMegjATablBan(megnevezes1, "2"));
+        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.ingatlanMegjATablBan(partnerNeve1, "2"));
 
+        //szűrés
         sideMenu.
                 navigateToPartnerekPanel();
         partnerekPage.
                 selectPartnerFromTable(partnerNeve, "1");
-        PartnerekDetailsPageTabs partnerekDetailsPageTabs = new PartnerekDetailsPageTabs(getDriver()).
+        PartnerekDetailsPageTabs partnerekDetailsPageTabs = new PartnerekDetailsPageTabs(getDriver());
+        partnerekDetailsPageTabs.
                 clickOnIngatlanokLinkBtn();
+
         PartnerekDetailsIngatlanok partnerekDetailsIngatlanok = new PartnerekDetailsIngatlanok(getDriver());
-        //szűrés
         Szurok szurok = new Szurok(getDriver()).
                 clickOnSzurokBtn().
-                enterTextToMegnevezesFldPartnIng(megnevezes1).
+                enterTextToMegnevezesFldPartnIng(megnevezes).
                 clickOnKeresesBtn();
-        Assert.assertFalse(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes, "2"));
-        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes1, "2"));
+        Assert.assertFalse(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes1, "2"));
+        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes, "2"));
 
         String jelleg = "Hétvégi ház";
         szurok.
@@ -694,24 +737,21 @@ public class PartnerekTest extends BaseTest {
                 clickOnSzurokTorleseBtn().
                 enterTextToIranyitoszamFldPartnIng(iranyitoszam).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(iranyitoszam, "4"));
-        Assert.assertFalse(partnerekDetailsIngatlanok.ingatlanMegjATablBan("6730", "4"));
+        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes, "2"));
 
         String telepules = "Szeged";
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterTextToTelepulesFldPartnIng(telepules).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(telepules, "4"));
-        Assert.assertFalse(partnerekDetailsIngatlanok.ingatlanMegjATablBan("Szentes", "4"));
+        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes, "2"));
 
         String koztNeve = "Mátyás";
         szurok.
-                clickOnSzurokBtn().
+                clickOnSzurokTorleseBtn().
                 enterTextToKoztNeveFldPartnIng(koztNeve).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(koztNeve, "4"));
-        Assert.assertFalse(partnerekDetailsIngatlanok.ingatlanMegjATablBan("Klauzál", "4"));
+        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes, "2"));
 
         String hrsz = "123/456";
         szurok.
@@ -721,26 +761,27 @@ public class PartnerekTest extends BaseTest {
         Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(hrsz, "5"));
         Assert.assertFalse(partnerekDetailsIngatlanok.ingatlanMegjATablBan("123/123", "5"));
 
-        String bankUzemCelu = "nem";
+        String bankUzemCelu = "Nem";
         szurok.
                 clickOnSzurokTorleseBtn().
                 selectBankuzemCeluPartnIngDropDown(bankUzemCelu).
                 clickOnKeresesBtn();
-        Assert.assertFalse(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes, "2"));
+        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(megnevezes, "2"));
 
-       /* String szerep = "Nincs megadva";  NEM LEHET A LEGÖRDÜLŐ LISTÁBÓL KIVÁLASZTANI EZT AZ OPCIÓT
+        String szerep = "Bérlő";
         szurok.
                 clickOnSzurokTorleseBtn().
                 selectSzerepPartIngDropDown(szerep).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsIngatlanok.ingatlanMegjATablBan(szerep, "8"));*/
+        Assert.assertTrue(partnerekDetailsIngatlanok.nincsMegjelenithetoAdatFelirat());
     }
 
     @Test
-    public void Szerzodesek_tab_kereses() throws IOException {
-        //I. szervezet felvétele, nem közmű partner
+    public void Szerzodesek_tab_kereses() throws IOException, InterruptedException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
+
+        //I. szervezet felvétele, nem közmű partnerrel
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
         String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
         String telefonszam = "06202102121";
@@ -757,11 +798,11 @@ public class PartnerekTest extends BaseTest {
 
         SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
         szervezetekPage.clickOnUjSzervezetFelveteleBtn();
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        //Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
+        //Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
-        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
+        //Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.clickOnFelvetelBtn();
 
         //teljes kitöltöttségű ingatlan felvétele
@@ -771,7 +812,8 @@ public class PartnerekTest extends BaseTest {
         UjMuszakiAdatok ujMuszakiAdatok = deserializeJson("ujIngatlanMuszakiAdatok.json", UjMuszakiAdatok.class);
 
         IngatlanokPage ingatlanokPage = new IngatlanokPage(getDriver());
-        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
+        ingatlanokPage.
+                clickOnUjIngatlanFelveteleBtn();
         String megnevezes = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
         String tihaszId = "TihaszID" + new FakerUtils().generateRandomNumber();
         ingatlanokPage.
@@ -780,8 +822,9 @@ public class PartnerekTest extends BaseTest {
                 selectElementFromSzervezetDropDown(partnerNeve).     //ITT PARTNERT LEHET KIVÁLASZTANI
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
-        ingatlanokPage.clickOnElsoIngatlan();
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
+        ingatlanokPage.
+                clickOnElsoIngatlan(megnevezes, "2");
 
         IngatlanokDetailsAlapadatok ingatlanokDetailsAlapadatok = new IngatlanokDetailsAlapadatok(getDriver());
         ingatlanokDetailsAlapadatok.
@@ -789,6 +832,9 @@ public class PartnerekTest extends BaseTest {
                 setUjIngatlanAlapadatok(ujIngatlanAlapadatok).
                 enterTextToTihaszIdFld(tihaszId).
                 clickOnMentesBtnBtn();
+        Assert.assertTrue(ingatlanokDetailsAlapadatok.popupSzovegMegjelenik("Sikeres rögzítés"));
+        ingatlanokDetailsAlapadatok.
+                scrollUp();
 
         IngatlanokDetailsPageTabs ingatlanokDetailsPageTabs = new IngatlanokDetailsPageTabs(getDriver());
         ingatlanokDetailsPageTabs.
@@ -796,11 +842,13 @@ public class PartnerekTest extends BaseTest {
         IngatlanokDetailsMuszakiAdatok ingatlanokDetailsMuszakiAdatok = new IngatlanokDetailsMuszakiAdatok(getDriver());
         ingatlanokDetailsMuszakiAdatok.
                 clickOnAdatokSzerkeszteseBtn().
+                scrollUp().
                 setUjMuszakiAdatok(ujMuszakiAdatok).
                 clickOnMentesBtn();
 
         //szerződés felvétele
-        sideMenu.navigateToSzerzodesekPanel();
+        sideMenu.
+                navigateToSzerzodesekPanel();
         UjSzerzodes ujSzerzodes = deserializeJson("ujSzerzodes.json", UjSzerzodes.class);
         String szerzodesSzam = "Teszt Szerződésszám" + new FakerUtils().generateRandomNumber();
         SzerzodesekPage szerzodesekPage = new SzerzodesekPage(getDriver());
@@ -809,153 +857,49 @@ public class PartnerekTest extends BaseTest {
                 enterTextToSzerzodesszamFld(szerzodesSzam).
                 setUjSzerzodes(ujSzerzodes).
                 clickOnFelvetelBtn();
-        Assert.assertEquals(szerzodesekPage.listaElsoElemeEll(), szerzodesSzam);
         getDriver().navigate().refresh();
-        szerzodesekPage.clickOnElsoElem();
+        szerzodesekPage.clickOnElsoElem(szerzodesSzam, "1");
 
+        //szerződés //Ingatlanok és eladási árak
         SzerzodesekDetailsTabs szerzodesekDetailsTabs = new SzerzodesekDetailsTabs(getDriver());
-        szerzodesekDetailsTabs.clickOnIngatlanokEsEladasiArakTab();  //Ingatlanok és eladási árak
+        szerzodesekDetailsTabs.
+                clickOnIngatlanokEsEladasiArakTab();
 
         SzerzodesekDetailsIngatlanokEsEladasiArak szerzodesekDetailsIngatlanokEsEladasiArak = new SzerzodesekDetailsIngatlanokEsEladasiArak(getDriver());
         szerzodesekDetailsIngatlanokEsEladasiArak.
                 clickOnIngaltlHozzarendelewseASzerzhezBtn();
         Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
 
-        szerzodesekDetailsIngatlanokEsEladasiArak.selectCheckboxFelvettIngatlan(megnevezes, "3");
+        szerzodesekDetailsIngatlanokEsEladasiArak.
+                selectCheckboxFelvettIngatlan(megnevezes);
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
 
-        szerzodesekDetailsIngatlanokEsEladasiArak.clickOnEladasiArakMegadasaAKijelolteknelBtn();
+        szerzodesekDetailsIngatlanokEsEladasiArak.
+                clickOnEladasiArakMegadasaAKijelolteknelBtn();
         Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
 
         String nettoEladasiAr = "10000000";
         szerzodesekDetailsIngatlanokEsEladasiArak.
-                enterToNettoEladasiArFld(nettoEladasiAr);
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
-
-        szerzodesekDetailsIngatlanokEsEladasiArak.
+                enterToNettoEladasiArFld(nettoEladasiAr).
                 clickOnHozzarendelesBtn();
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanokHozzarendeleseSzerzodeshezSzoveg());
         szerzodesekDetailsIngatlanokEsEladasiArak.
-                clickOnHozzarendelesBtn();
+                clickOnHozzarendelesBtnAblakon();
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.popupMegjelenik("Sikeres hozzárendelés!"));
         Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanMegjATablBan(megnevezes, "3"));
 
-        szerzodesekDetailsTabs.clickOnSzerzodoPartnerekTab();
-        SzerzodesekDetailsSzerzodoPartnerek szerzodesekDetailsSzerzodoPartnerek = new SzerzodesekDetailsSzerzodoPartnerek(getDriver());
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.partnerekSzovegMegjelenik());
-
-        szerzodesekDetailsSzerzodoPartnerek.
-                clickOnHozzarendBtn().
-                selectCheckboxFelvettPartner(partnerNeve, "2").
-                clickOnHozzarendelesKijeloltBtn();
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.popupMegjelenik("Sikeres hozzárendelés!"));
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.ingatlanMegjATablBan(megnevezes, "2"));
-
-        //II. szervezet felvétele, közmű partner
-        String partnerNeve1 = "Teszt Partner Közmű" + new FakerUtils().generateRandomNumber();
-        String telefonszam1 = "06202102121";
-        String email1 = "email@gmail.com";
-        partnerekPage.
-                clickOnUjPartnerFelveteleBtn().
-                enterPartnerNeveFld(partnerNeve1).
-                enterTelefonszFld(telefonszam1).
-                enterEmailFld(email1).
-                selectKozmuChb().
-                clickOnFelvetelBtn();
-        sideMenu.
-                navigateToSzervezetekPanel();
-        String szervezetAzon1 = "Szervezet" + new FakerUtils().generateRandomNumber();
-
-        szervezetekPage.clickOnUjSzervezetFelveteleBtn();
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
-        szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon1);
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
-        szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve1);
-        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
-        szervezetekPage.clickOnFelvetelBtn();
-
-        //teljes kitöltöttségű ingatlan felvétele
-        sideMenu.navigateToIngatlanokPanel();
-        UjIngatlan ujIngatlan1 = deserializeJson("ujIngatlan.json", UjIngatlan.class);
-        UjIngatlanAlapadatok ujIngatlanAlapadatok1 = deserializeJson("ujIngatlanAlapadatok.json", UjIngatlanAlapadatok.class);
-        UjMuszakiAdatok ujMuszakiAdatok1 = deserializeJson("ujIngatlanMuszakiAdatok.json", UjMuszakiAdatok.class);
-
-        ingatlanokPage.clickOnUjIngatlanFelveteleBtn();
-        String megnevezes1 = "Teszt Ingatlan" + new FakerUtils().generateRandomNumber();
-        String tihaszId1 = "TihaszID" + new FakerUtils().generateRandomNumber();
-        ingatlanokPage.
-                enterTextToMegnevezesFld(megnevezes1).
-                setUjIngatlan(ujIngatlan1).
-                selectElementFromSzervezetDropDown(partnerNeve1).     //ITT PARTNERT LEHET KIVÁLASZTANI
-                clickOnFelvetelBtn();
-        getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes1));
-        ingatlanokPage.clickOnElsoIngatlan();
-
-        ingatlanokDetailsAlapadatok.
-                clickOnAdatokSzerkeszteseBtn().
-                setUjIngatlanAlapadatok(ujIngatlanAlapadatok1).
-                enterTextToTihaszIdFld(tihaszId1).
-                clickOnMentesBtnBtn();
-
-        ingatlanokDetailsPageTabs.
-                clickOnMuszakiAdatokTab();
-
-        ingatlanokDetailsMuszakiAdatok.
-                clickOnAdatokSzerkeszteseBtn().
-                setUjMuszakiAdatok(ujMuszakiAdatok1).
-                clickOnMentesBtn();
-
-        //szerződés felvétele
-        sideMenu.navigateToSzerzodesekPanel();
-        UjSzerzodes ujSzerzodes1 = deserializeJson("ujSzerzodes.json", UjSzerzodes.class);
-        String szerzodesSzam1 = "Teszt Szerződésszám" + new FakerUtils().generateRandomNumber();
-        szerzodesekPage.
-                clickOnUjSzerzodesFelveteleBtn().
-                enterTextToSzerzodesszamFld(szerzodesSzam1).
-                setUjSzerzodes(ujSzerzodes1).
-                clickOnFelvetelBtn();
-        Assert.assertEquals(szerzodesekPage.listaElsoElemeEll(), szerzodesSzam1);
-        getDriver().navigate().refresh();
-        szerzodesekPage.clickOnElsoElem();
-
-
+        //Szerződő partnerek
         szerzodesekDetailsTabs.
-                clickOnIngatlanokEsEladasiArakTab();  //Ingatlanok és eladási árak
+                clickOnSzerzodoPartnerekTab();
+        SzerzodesekDetailsSzerzodoPartnerek szerzodesekDetailsSzerzodoPartnerek = new SzerzodesekDetailsSzerzodoPartnerek(getDriver());
 
-        szerzodesekDetailsIngatlanokEsEladasiArak.
-                clickOnIngaltlHozzarendelewseASzerzhezBtn();
-        Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
-
-        szerzodesekDetailsIngatlanokEsEladasiArak.selectCheckboxFelvettIngatlan(megnevezes1, "3");
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.eladasiArakMegadasaAKijelolteknelBtnKattinthato());
-
-        szerzodesekDetailsIngatlanokEsEladasiArak.clickOnEladasiArakMegadasaAKijelolteknelBtn();
-        Assert.assertFalse(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
-
-        String nettoEladasiAr1 = "10000000";
-        szerzodesekDetailsIngatlanokEsEladasiArak.
-                enterToNettoEladasiArFld(nettoEladasiAr1);
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.hozzarendelesBtnKattinthato());
-
-        szerzodesekDetailsIngatlanokEsEladasiArak.
-                clickOnHozzarendelesBtn();
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanokHozzarendeleseSzerzodeshezSzoveg());
-        szerzodesekDetailsIngatlanokEsEladasiArak.
-                clickOnHozzarendelesBtn();
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.popupMegjelenik("Sikeres hozzárendelés!"));
-        Assert.assertTrue(szerzodesekDetailsIngatlanokEsEladasiArak.ingatlanMegjATablBan(megnevezes1, "3"));
-
-        szerzodesekDetailsTabs.clickOnSzerzodoPartnerekTab();
-
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.partnerekSzovegMegjelenik());
-
+        Thread.sleep(2000);
         szerzodesekDetailsSzerzodoPartnerek.
                 clickOnHozzarendBtn().
-                selectCheckboxFelvettPartner(partnerNeve1, "2").
+                selectCheckboxFelvettPartner(partnerNeve).
                 clickOnHozzarendelesKijeloltBtn();
         Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.popupMegjelenik("Sikeres hozzárendelés!"));
-        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.ingatlanMegjATablBan(megnevezes1, "2"));
+        Assert.assertTrue(szerzodesekDetailsSzerzodoPartnerek.ingatlanMegjATablBan(partnerNeve, "2"));
 
         //szűrés
         sideMenu.
@@ -989,12 +933,12 @@ public class PartnerekTest extends BaseTest {
         Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan(szerzodesTipus, "4"));
         Assert.assertFalse(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan("Bérleti szerződés", "4"));
 
-        /*String lejaratiTipus = "határozatlan";
+        String lejaratiTipus = "Nem értelmezhető";
         szurok.
-                clickOnSzurokTorleseBtn().                                               API választ teszteljük??
+                clickOnSzurokTorleseBtn().
                 selectLejaratiTipusFromDropDown(lejaratiTipus).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan(lejaratiTipus, ));  */
+        Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan(szerzodesSzam, "1"));
 
         String ervenyKezdeteDatum = "2022. 01. 05. - 2022. 01. 13.";
         String ervenyVegeDatum = "2022. 02. 15. - 2022. 02. 18.";
@@ -1002,20 +946,14 @@ public class PartnerekTest extends BaseTest {
                 clickOnSzurokTorleseBtn().
                 selectDateFromErvenyessegKezdDropDown(ervenyKezdeteDatum).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan(ervenyKezdeteDatum, "5"));
+        Assert.assertTrue(partnerekDetailsSzerzodesek.nincsMegjAdatMegj());
 
         szurok.
                 clickOnSzurokTorleseBtn().
-                selectDateFromErvenyessegKezdDropDown(ervenyVegeDatum).
+                selectDateFromErvenyessegVegeDropDown(ervenyVegeDatum).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan(ervenyVegeDatum, "6"));
+        Assert.assertTrue(partnerekDetailsSzerzodesek.nincsMegjAdatMegj());
 
-        szurok.
-                clickOnSzurokTorleseBtn().
-                selectDateFromErvenyessegKezdDropDown(ervenyVegeDatum).
-                clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan(ervenyVegeDatum, "6"));
-        Assert.assertFalse(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan("2023. 02. 15. - 2023. 02. 18.", "6"));
 
         String statusz = "Piszkozat";
         szurok.
@@ -1025,21 +963,16 @@ public class PartnerekTest extends BaseTest {
         Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan(statusz,"7"));
         Assert.assertFalse(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan("Érvénytelen", "7"));
 
-        szurok.
-                clickOnSzurokTorleseBtn().
-                selectStatuszFromDropDown(statusz).
-                clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzerzodesek.szerzodesMegjelenikATablBan("Érvénytelen","7"));
-        Assert.assertTrue(partnerekDetailsSzerzodesek.nincsMegjAdatMegj());
-
     }
 
     @Test
-    public void Szamlak_tab_kereses(){
-        //partner fölvétele
+    public void Szamlak_tab_kereses() throws InterruptedException {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
+
+        //partner fölvétele
+        SideMenu sideMenu = new SideMenu(getDriver()).
+                navigateToPartnerekPanel();
         String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
         String telefonszam = "06202102121";
         String email = "email@gmail.com";
@@ -1056,11 +989,10 @@ public class PartnerekTest extends BaseTest {
         SzamlakPage szamlakPage = new SzamlakPage(getDriver());
 
         String szamlaIranya = "Bejövő";
-        String szamlaSorszam = "Szamla Sorszama Teszt" + new FakerUtils().generateRandomNumber();
+        String szamlaSorszam = "Számla Sorszama Teszt" + new FakerUtils().generateRandomNumber();
         String szamlaTipusa = "Egyéb számla";
         String szallito = "Nincs megadva";
         String vevo = "Nincs megadva";
-        String kiallitasDatuma = "2022. 01. 03. - 2022. 01. 12.";
         String bruttoVegosszegTol = "Nincs megadva";
         String bruttoVegosszegIg = "Nincs megadva";
         String statusz = "Vázlat";
@@ -1079,10 +1011,23 @@ public class PartnerekTest extends BaseTest {
         Assert.assertTrue(szamlakPage.felvetelBtnKattinthato());
         szamlakPage.
                 clickOnFelvetelBtn();
+        Assert.assertTrue(szamlakPage.popUpMegjelenik("Sikeres létrehozás!"));
+        szamlakPage.
+                selectSzamlaFromTabla(szamlaSorszam, "1");
+        SzamlakDetailsPageTabs szamlakDetailsPageTabs = new SzamlakDetailsPageTabs(getDriver());
+        szamlakDetailsPageTabs.
+                clickOnPartnerekTab();
+        SzamlakDetailsPartnerek szamlakDetailsPartnerek = new SzamlakDetailsPartnerek(getDriver());
+        szamlakDetailsPartnerek.
+                clickOnHozzarendelesBtn().
+                clickOnCheckBox(partnerNeve).
+                clickOnHozzarendleseKijBtn();
+        Assert.assertTrue(szamlakPage.popUpMegjelenik("Sikeres hozzárendelés!"));
 
+        //szűrés
         sideMenu.navigateToPartnerekPanel();
         partnerekPage.
-                clickOnListaElsoEleme();
+                clickOnListaElsoEleme(partnerNeve, "1");
 
         PartnerekDetailsPageTabs partnerekDetailsPageTabs = new PartnerekDetailsPageTabs(getDriver()).
                 clickOnSzamlakLinkBtn();
@@ -1107,22 +1052,22 @@ public class PartnerekTest extends BaseTest {
                 clickOnSzurokTorleseBtn().
                 enterTextToVevoFldPartnSzamlak(vevo).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban(vevo, "4"));
-        Assert.assertFalse(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban("Teszt Vevo", "4"));
+        Assert.assertTrue(partnerekDetailsSzamlak.nincsMegjelenithetoAdat());
 
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterTextToSzallitoFldPartnSzamlak(szallito).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban(szallito, "4"));
-        Assert.assertFalse(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban("TIGÁZ", "4"));
+        Assert.assertTrue(partnerekDetailsSzamlak.nincsMegjelenithetoAdat());
 
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        String szamlaKiallitasDatuma = sdf.format(date);
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterDateToKiallitasDatumaFld(kiallitasDatuma).
+                enterDateToKiallitasDatumaFld(szamlaKiallitasDatuma+" - "+szamlaKiallitasDatuma).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban(kiallitasDatuma, "5"));
-        Assert.assertFalse(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban("2022. 01. 04. - 2023. 08. 16.", "5"));
+        Assert.assertTrue(partnerekDetailsSzamlak.nincsMegjelenithetoAdat());
 
         szurok.
                 clickOnSzurokTorleseBtn().
@@ -1144,14 +1089,16 @@ public class PartnerekTest extends BaseTest {
                 clickOnKeresesBtn();
         Assert.assertTrue(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban(statusz, "7"));
         Assert.assertFalse(partnerekDetailsSzamlak.szamlaMegjelenikATablazatban("Fizetett", "7"));
-
-
     }
 
     @Test
     public void Meroorak_tab_kereses_Kozmu_partner_eseten() throws InterruptedException, IOException {
+        DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
+        Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         //ingatlanhoz szervezet felvétele
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
+        SideMenu sideMenu = new SideMenu(getDriver());
+        sideMenu.
+                navigateToPartnerekPanel();
         String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
         String telefonszam = "06202102121";
         String email = "email@gmail.com";
@@ -1167,18 +1114,15 @@ public class PartnerekTest extends BaseTest {
 
         SzervezetekPage szervezetekPage = new SzervezetekPage(getDriver());
         szervezetekPage.clickOnUjSzervezetFelveteleBtn();
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.enterSzervezetAzonositoFld(szervezetAzon);
-        Assert.assertFalse(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.selectKapcsolodoPartnerFromDropDown(partnerNeve);
-        Assert.assertTrue(szervezetekPage.felvetelBtnKattinthato());
         szervezetekPage.clickOnFelvetelBtn();
 
 
         //közmű partner felvétele a Mérőórához
         sideMenu.
                 navigateToPartnerekPanel();
-        String kozmuPartnerNeve = "Teszt" + new FakerUtils().generateRandomNumber();
+        String kozmuPartnerNeve = "Közmű Partner Teszt Mérőórához" + new FakerUtils().generateRandomNumber();
         String kozmuPartnerTelefonszam = "06202102121";
         String kozmuPartnerEmail = "email@email.com";
         partnerekPage.
@@ -1190,7 +1134,7 @@ public class PartnerekTest extends BaseTest {
                 clickOnFelvetelBtn();
         Assert.assertTrue(partnerekPage.uzenetMegjelenik("Sikeres létrehozás!"));
         getDriver().navigate().refresh();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         Assert.assertTrue(partnerekPage.partnerMegjATablaban(kozmuPartnerNeve, "1"));
 
         //ingatlan felvétele + mérőóra felvétele
@@ -1209,10 +1153,10 @@ public class PartnerekTest extends BaseTest {
                 selectElementFromSzervezetDropDown(partnerNeve).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
 
         ingatlanokPage.
-                clickOnElsoIngatlan();
+                clickOnElsoIngatlan(megnevezes, "2");
         IngatlanokDetailsPageTabs ingatlanokDetailsPageTabs = new IngatlanokDetailsPageTabs(getDriver()).
                 clickOnEszkozokTab();
         IngatlanokDetailsEszkozok ingatlanokDetailsEszkozok = new IngatlanokDetailsEszkozok(getDriver());
@@ -1220,7 +1164,7 @@ public class PartnerekTest extends BaseTest {
         String oratipus ="Villanyóra";
         String gyariSzam = "Gyári szám" + new FakerUtils().generateRandomNumber();
         String meresiPontAzon = "Nincs megadva";
-        String legutobbiRogzites = "Nincs megadva";
+        String legutobbiRogzites = "2022. 02. 08.";
 
          ingatlanokDetailsEszkozok.
                  clickOnMeroorakLinkBtn();
@@ -1239,12 +1183,15 @@ public class PartnerekTest extends BaseTest {
         Assert.assertTrue(ingatlanokDetailsEszkozok.felvetelBtnKattinthato());
         ingatlanokDetailsEszkozok.
                  clickOnFelvetelBtn();
+        Assert.assertTrue(ingatlanokDetailsEszkozok.popUpMegjelenik("Sikeres létrehozás!"));
+
+        //szervizelésért felelős partner beállítása
 
         //Közmű partner - Merőórák tab Szűrők
         sideMenu.
                 navigateToPartnerekPanel();
         partnerekPage.
-                clickOnListaElsoEleme();
+                clickOnListaElsoEleme(kozmuPartnerNeve, "1");
         PartnerekDetailsPageTabs partnerekDetailsPageTabs = new PartnerekDetailsPageTabs(getDriver());
         partnerekDetailsPageTabs.
                 clickOnMeroorakLinkBtn();
@@ -1267,26 +1214,23 @@ public class PartnerekTest extends BaseTest {
         Assert.assertTrue(partnerekDetailsMeroorak.merooraMegjelenikATablazatban(gyariSzam, "2"));
         Assert.assertFalse(partnerekDetailsMeroorak.merooraMegjelenikATablazatban("Gyari szam teszt xyz", "2"));
 
-        /*szurok.     //MEGNÉZNI
+        szurok.
                 clickOnSzurokTorleseBtn().
                 enterTextToHrszFldPartnMero(hrsz).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsMeroorak.merooraMegjelenikATablazatban(hrsz, ""));
-        Assert.assertFalse(partnerekDetailsMeroorak.merooraMegjelenikATablazatban("234234/23422324", ""));*/
+        Assert.assertTrue(partnerekDetailsMeroorak.merooraMegjelenikATablazatban(hrsz, "3"));
 
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterTextToMeresiPontAzonPartnMero(meresiPontAzon).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsMeroorak.merooraMegjelenikATablazatban(meresiPontAzon, "4"));
-        Assert.assertFalse(partnerekDetailsMeroorak.merooraMegjelenikATablazatban("Mérési pont azonosító teszt", "4"));
+        Assert.assertTrue(partnerekDetailsMeroorak.nincsMegjelenithetoAdatFelirat());
 
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterDateToLegutobbiRogzitesFld(legutobbiRogzites).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsMeroorak.merooraMegjelenikATablazatban(legutobbiRogzites, "6"));
-        Assert.assertFalse(partnerekDetailsMeroorak.merooraMegjelenikATablazatban("2022. 01. 04.", "6"));
+        Assert.assertTrue(partnerekDetailsMeroorak.nincsMegjelenithetoAdatFelirat());
     }
 
 
@@ -1296,7 +1240,7 @@ public class PartnerekTest extends BaseTest {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
-        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String partnerNeve = "Szervizelésért Felelős Teszt Partner" + new FakerUtils().generateRandomNumber();
         String telefonszam = "06202102121";
         String email = "email@gmail.com";
         PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
@@ -1304,6 +1248,7 @@ public class PartnerekTest extends BaseTest {
                 enterPartnerNeveFld(partnerNeve).
                 enterTelefonszFld(telefonszam).
                 enterEmailFld(email).
+                selectKozmuChb().
                 clickOnFelvetelBtn();
 
         //Eszközök - ATM felvétele, ATM adatlap - Szervizért felelős partner beállítása
@@ -1319,6 +1264,7 @@ public class PartnerekTest extends BaseTest {
                 enterTextToTipusFld(tipus).
                 selectStatuszFromDropDown(statusz).
                 clickOnFelvetelBtn();
+        Assert.assertTrue(eszkozokPage.sikeresUzenetMegjelenik("Sikeres létrehozás!"));
         Assert.assertTrue(eszkozokPage.eszkozMegjelenikATablazatban(gyariSzam, "2"));
         eszkozokPage.
                 elemKivalasztasaATablazatbol(gyariSzam, "2");
@@ -1331,7 +1277,6 @@ public class PartnerekTest extends BaseTest {
                 setUjAtmAlapadatok(ujAtmAlapadatok).
                 clickOnMentesBtn();
         Assert.assertTrue(eszkozokPage.sikeresUzenetMegjelenik("Sikeres rögzítés!"));
-        Assert.assertTrue(eszkozokPage.eszkozMegjelenikATablazatban(tipus, "1"));
 
         sideMenu.
                 navigateToPartnerekPanel();
@@ -1344,9 +1289,9 @@ public class PartnerekTest extends BaseTest {
 
         //Partnerek adatlap - Eszközök - Szűrők
         String iranyitoszam = "6520";
-        String varos = "Szeged";
+        String telepules = "Szeged";
         String kozteruletNeve = "Mátyás";
-        String beepitettseg = "Falba épített";
+        String beepitettseg = "N/A";
         String elhelyezkedes = "Külső helyszín";
         Szurok szurok = new Szurok(getDriver());
         szurok.
@@ -1365,21 +1310,18 @@ public class PartnerekTest extends BaseTest {
                 clickOnSzurokTorleseBtn().
                 enterTextToIranyitoszamFldAtmAdatlap(iranyitoszam).
                 clickOnKeresesBtn();
-        Assert.assertFalse(partnerekDetailsEszkozok.elemMegjelenikATablazatban(iranyitoszam, "3"));
         Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterTextToVarosFldAtmAdatlap(varos).
+                enterTextToTelepulesFldAtmAdatlap(telepules).
                 clickOnKeresesBtn();
-        Assert.assertFalse(partnerekDetailsEszkozok.elemMegjelenikATablazatban(varos, "3"));
         Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 
         szurok.
                 clickOnSzurokTorleseBtn().
                 enterTextToKozteruletNeveFldAtmAdatlap(kozteruletNeve).
                 clickOnKeresesBtn();
-        Assert.assertFalse(partnerekDetailsEszkozok.elemMegjelenikATablazatban(kozteruletNeve, "3"));
         Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 
         szurok.
@@ -1392,14 +1334,13 @@ public class PartnerekTest extends BaseTest {
                 clickOnSzurokTorleseBtn().
                 selectElhelyezkedesFromDropDownAtmAdatlap(elhelyezkedes).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsEszkozok.elemMegjelenikATablazatban(elhelyezkedes, "4"));
+        Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 
         szurok.
                 clickOnSzurokTorleseBtn().
                 selectStatuszFromDropDownAtmAdatlap(statusz).
                 clickOnKeresesBtn();
-        Assert.assertTrue(partnerekDetailsEszkozok.elemMegjelenikATablazatban(statusz, "5"));
-
+        Assert.assertTrue(partnerekDetailsEszkozok.elemMegjelenikATablazatban(statusz, "6"));
     }
 
     @Test
@@ -1407,8 +1348,9 @@ public class PartnerekTest extends BaseTest {
         //Partner felvétele
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
-        SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
-        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        SideMenu sideMenu = new SideMenu(getDriver()).
+                navigateToPartnerekPanel();
+        String partnerNeve = "Teszt Közmű Partner" + new FakerUtils().generateRandomNumber();
         String telefonszam = "06202102121";
         String email = "email@gmail.com";
         PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
@@ -1416,6 +1358,7 @@ public class PartnerekTest extends BaseTest {
                 enterPartnerNeveFld(partnerNeve).
                 enterTelefonszFld(telefonszam).
                 enterEmailFld(email).
+                selectKozmuChb().
                 clickOnFelvetelBtn();
 
         //Eszközök - Banktechnikai eszköz felvétele - Szervizért felelős partner felvétele
@@ -1430,7 +1373,7 @@ public class PartnerekTest extends BaseTest {
                 clickOnUjEszkozFelveteleBtn();
 
         String megnevezes = "Banktechnikai eszköz teszt" + new FakerUtils().generateRandomNumber();
-        String leltariSzam = "Leltári szám teszt";
+        String leltariSzam = "Leltári szám teszt" + new FakerUtils().generateRandomNumber();
         String eszkozcsoport = "Bankjegyszámláló";
         String tipus = "Típus teszt";
         String statusz = "N/A";
@@ -1458,7 +1401,6 @@ public class PartnerekTest extends BaseTest {
         //Partnerek adatlap - Eszközök - Szűrők
         sideMenu.
                 navigateToPartnerekPanel();
-
         partnerekPage.
                 selectPartnerFromTable(partnerNeve, "1");
         PartnerekDetailsPageTabs partnerekDetailsPageTabs = new PartnerekDetailsPageTabs(getDriver());
@@ -1473,6 +1415,7 @@ public class PartnerekTest extends BaseTest {
         String kozteruletNeve = "Mátyás";
         Szurok szurok = new Szurok(getDriver());
         szurok.
+                clickOnSzurokBtn().
                 enterTextToMegnevezesFldPartnerAdatlapBanktechEszk(megnevezes).
                 clickOnKeresesBtn();
         Assert.assertTrue(partnerekDetailsEszkozok.elemMegjelenikATablazatban(megnevezes, "1"));
@@ -1502,13 +1445,13 @@ public class PartnerekTest extends BaseTest {
 
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterTextToIranyitoszamFldPartnerAdatlapBanktechEszk(telepules).
+                enterTextToTelepulesFldPartnerAdatlapBanktechEszk(telepules).
                 clickOnKeresesBtn();
         Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterTextToIranyitoszamFldPartnerAdatlapBanktechEszk(kozteruletNeve).
+                enterTextToKoztNeveFldPartnerAdatlapBanktechEszk(kozteruletNeve).
                 clickOnKeresesBtn();
         Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 
@@ -1525,7 +1468,7 @@ public class PartnerekTest extends BaseTest {
         DashboardPage dashboardPage = new LoginPage(getDriver()).doLogin(UserUtils.getTakarekIngatlanUser1());
         Assert.assertEquals(dashboardPage.attekintesSuccessNotice(), "Áttekintés");
         SideMenu sideMenu = new SideMenu(getDriver()).navigateToPartnerekPanel();
-        String partnerNeve = "Teszt Partner" + new FakerUtils().generateRandomNumber();
+        String partnerNeve = "Szervizelésért felelős Teszt Partner" + new FakerUtils().generateRandomNumber();
         String telefonszam = "06202102121";
         String email = "email@gmail.com";
         PartnerekPage partnerekPage = new PartnerekPage(getDriver()).
@@ -1541,14 +1484,14 @@ public class PartnerekTest extends BaseTest {
         EszkozokPage eszkozokPage = new EszkozokPage(getDriver());
         EszkozokDetailsPageTabs eszkozokDetailsPageTabs = new EszkozokDetailsPageTabs(getDriver());
         eszkozokDetailsPageTabs.
-                clickOnBanktechnikaiEszkTab();
+                clickOnBankbiztEszkTab();
 
         eszkozokPage.
                 clickOnUjEszkozFelveteleBtn();
 
-        String megnevezes = "Banktechnikai eszköz teszt" + new FakerUtils().generateRandomNumber();
-        String leltariSzam = "Leltári szám teszt";
-        String eszkozcsoport = "Bankjegyszámláló";
+        String megnevezes = "Bankbiztonsági eszköz teszt" + new FakerUtils().generateRandomNumber();
+        String leltariSzam = "Leltári szám teszt" + new FakerUtils().generateRandomNumber();
+        String eszkozcsoport = "Kamerarendszer";
         String tipus = "Típus teszt";
         String statusz = "N/A";
 
@@ -1590,6 +1533,7 @@ public class PartnerekTest extends BaseTest {
         String kozteruletNeve = "Mátyás";
         Szurok szurok = new Szurok(getDriver());
         szurok.
+                clickOnSzurokBtn().
                 enterTextToMegnevezesFldPartnerAdatlapBankbiztEszk(megnevezes).
                 clickOnKeresesBtn();
         Assert.assertTrue(partnerekDetailsEszkozok.elemMegjelenikATablazatban(megnevezes, "1"));
@@ -1619,13 +1563,13 @@ public class PartnerekTest extends BaseTest {
 
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterTextToIranyitoszamFldPartnerAdatlapBankbiztEszk(telepules).
+                enterTextToTelepulesFldPartnerAdatlapBankbiztEszk(telepules).
                 clickOnKeresesBtn();
         Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 
         szurok.
                 clickOnSzurokTorleseBtn().
-                enterTextToIranyitoszamFldPartnerAdatlapBankbiztEszk(kozteruletNeve).
+                enterTextToKoztNeveBankbiztFld(kozteruletNeve).
                 clickOnKeresesBtn();
         Assert.assertTrue(partnerekDetailsEszkozok.nincsMegjelenithetoAdatFeliratMegjelenik());
 

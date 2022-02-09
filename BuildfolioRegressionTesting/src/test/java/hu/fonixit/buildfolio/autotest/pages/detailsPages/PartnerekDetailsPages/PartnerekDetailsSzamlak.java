@@ -12,4 +12,8 @@ public class PartnerekDetailsSzamlak extends BasePage {
     public boolean szamlaMegjelenikATablazatban(String elemNeve, String oszlopIndex){
        return waitUtil.elementIsDisplayedInTable(elemNeve, oszlopIndex);
     }
+
+    public boolean nincsMegjelenithetoAdat(){
+        return waitUtil.nincsMegjAdatFeliratMegj();
+    }
 }

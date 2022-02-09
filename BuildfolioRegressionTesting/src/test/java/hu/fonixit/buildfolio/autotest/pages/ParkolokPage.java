@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ParkolokPage extends BasePage {
-    private final By ujParkoloFelveteleBtn = By.xpath("(//button[normalize-space()='Új parkoló felvétele'])[1]");
+    private final By ujParkoloFelveteleBtn = By.xpath("//button[@id='lot-create-lot-button']");
     private final By parkolokSzoveg = By.cssSelector("h3[class='ng-tns-c156-1']");
     //Új parkoló felvétele ablak unique fld-s
     private final By parkoloMegnFld = By.xpath("//app-text-input[@name='parkingLotName']//input[@placeholder='Nincs megadva']");
@@ -52,17 +52,9 @@ public class ParkolokPage extends BasePage {
         return this;
     }
 
-    public boolean felvetelBtnNemKattinthato() {
-        Boolean eredm = false;
-        WebElement elem = waitUtil.waitWebElement(By.xpath("//span[normalize-space()='Felvétel']"));
-        try {
-            String attributeName = elem.getAttribute("disabled");
-            if(attributeName != null){
-                eredm = true;
-        }
-    }
-        catch (Exception e){}
-        return eredm;
+    public boolean felvetelBtnKattinthato() {
+        WebElement e = waitUtil.waitWebElement(By.xpath("//button[@id='lot-modal-save-button']"));
+        return e.isEnabled();
     }
 
     public  ParkolokPage clickOnUjParkoloFelveteleBtn(){
@@ -124,8 +116,8 @@ public class ParkolokPage extends BasePage {
         return this;
     }
 
-    public String felvettParkoloMegjAListaban(){
-        return waitUtil.waitAndGetText(By.xpath("//tr[1]//td[1]"));
+    public boolean felvettParkoloMegjAListaban(String egyediAzon, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzon, oszlopIndex);
     }
 
 
@@ -141,12 +133,16 @@ public class ParkolokPage extends BasePage {
                     enterHrsz(ujParkolo.getHrsz());
         }
 
-    public ParkolokPage clickOnListaElsoParkolo(){
-        waitUtil.waitAndClick(By.xpath("//tr[1]//td[1]"));
+    public ParkolokPage selectParkoloFromTable(String egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
         return this;
     }
 
   //assertions
+    public boolean popUpSzovegMegj(String popUpSzovege){
+        return waitUtil.popupWindMegjelenik(popUpSzovege);
+    }
+
   public boolean azonositoElemMegjelenik(String azon){
        return waitUtil.elementIsDisplayed(By.xpath("//td[1][contains(text(), '"+azon+"')]"));
   }

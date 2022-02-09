@@ -2,7 +2,9 @@ package hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages
 
 import hu.fonixit.buildfolio.autotest.base.BasePage;
 import hu.fonixit.buildfolio.autotest.objects.UjIngatlanAlapadatok;
+import hu.fonixit.buildfolio.autotest.pages.FeladatkezeloUjMunkafolyamatInditasaPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -91,7 +93,7 @@ public class IngatlanokDetailsAlapadatok extends BasePage {
     }
 
     public IngatlanokDetailsAlapadatok enterTextToTelekAlapTerFld(String telekAlapter){
-        waitUtil.waitAndSendkeys(tihaszIdFld, telekAlapter);
+        waitUtil.waitAndSendkeys(telekAlapteruleteFld, telekAlapter);
         return this;
     }
 
@@ -116,7 +118,7 @@ public class IngatlanokDetailsAlapadatok extends BasePage {
     }
 
     public IngatlanokDetailsAlapadatok enterTextToKulcsorzoFld(String kulcsorzo){
-        waitUtil.waitAndSendkeys(tihaszIdFld, kulcsorzo);
+        waitUtil.waitAndSendkeys(kulcsorzoFld, kulcsorzo);
         return this;
     }
     public IngatlanokDetailsAlapadatok enterTextToKulcsorzoTelSzamaFld(String kulcsorzoTelSzama){
@@ -139,6 +141,12 @@ public class IngatlanokDetailsAlapadatok extends BasePage {
                 enterTextToKulcsorzoTelSzamaFld(ujIngatlanAlapadatok.getKulcsorzoTelefonszama());
     }
 
+    //scroll up
+    public IngatlanokDetailsAlapadatok scrollUp() throws InterruptedException {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, -document.body.scrollHeight)");
+        return this;
+    }
+
     //assert
     public boolean ingatlanAdatlaponAllunk(String ingatlanNeve){
         boolean ertek;
@@ -151,8 +159,8 @@ public class IngatlanokDetailsAlapadatok extends BasePage {
         return ertek;
     }
 
-    public boolean popupInaktivalasMegj(){
-        return waitUtil.popupWindMegjelenik("Sikeres inaktiválás");
+    public boolean popupSzovegMegjelenik(String popUpSzoveg){
+        return waitUtil.popupWindMegjelenik(popUpSzoveg);
     }
 
 }

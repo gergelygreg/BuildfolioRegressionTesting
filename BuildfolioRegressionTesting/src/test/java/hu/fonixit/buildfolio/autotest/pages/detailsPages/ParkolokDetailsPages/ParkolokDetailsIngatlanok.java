@@ -6,9 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ParkolokDetailsIngatlanok extends BasePage {
-    private final By hozzarendelesBtn = By.xpath("//a[contains(.,' Hozzárendelés ')]");
-    private final By eltavolitasBtn = By.xpath("//button[contains(.,'Eltávolítás ')]");
-    private final By megsemBtn = By.xpath("//a[.= ' Mégsem ']");
+    private final By hozzarendelesBtn = By.xpath("//a[normalize-space()='Hozzárendelés']");
+    private final By hozzarendKijBtn = By.xpath("//button[contains(.,'Hozzárendelés')]");
+    private final By eltavolitasBtn = By.xpath("//button[contains(.,'Eltávolítás')]");
+    private final By megsemBtn = By.xpath("//button[normalize-space()='Mégsem']");
     //Eltavolítás megerősítés
     private final By torlesBtn = By.xpath("//button[.='Törlés']");
 
@@ -18,18 +19,23 @@ public class ParkolokDetailsIngatlanok extends BasePage {
 
 
     //click
-    public ParkolokDetailsIngatlanok clickOntorlesBtn(){
+    public ParkolokDetailsIngatlanok clickOnHozzarendelesKijBtn(){
+        waitUtil.waitAndClick(hozzarendKijBtn);
+        return this;
+    }
+
+    public ParkolokDetailsIngatlanok clickOnTorlesBtn(){
         waitUtil.waitAndClick(torlesBtn);
         return this;
     }
 
-    public ParkolokDetailsIngatlanok clickOnListaElsoElem(){
-        waitUtil.waitAndClick(By.xpath("//tr[1]"));
+    public ParkolokDetailsIngatlanok selectElementFromTable(String egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
         return this;
     }
 
-    public ParkolokDetailsIngatlanok clickOnCheckbox(String checkboxIngatlanNeve){
-        waitUtil.waitAndClick(By.xpath("//tr//td[contains(.,' "+checkboxIngatlanNeve+"')]/preceding-sibling::td//input"));
+    public ParkolokDetailsIngatlanok clickOnCheckbox(String egyediAzonosito){
+        waitUtil.waitAndClick(By.xpath("//tr//td[contains(.,'"+egyediAzonosito+"')]/preceding-sibling::td//label"));
         return this;
     }
 
@@ -49,6 +55,10 @@ public class ParkolokDetailsIngatlanok extends BasePage {
     }
 
     //assertion
+    public boolean elemMegjelenikATablazatban(String egyediAzon, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzon, oszlopIndex);
+    }
+
     public String ingatlanokFelirat(String felirat){
         return waitUtil.waitAndGetText(By.xpath("//h3[contains(.,'"+felirat+"')]"));
     }

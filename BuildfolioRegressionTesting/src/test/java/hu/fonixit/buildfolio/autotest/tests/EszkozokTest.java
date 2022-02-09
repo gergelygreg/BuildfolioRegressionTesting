@@ -260,7 +260,7 @@ public class EszkozokTest extends BaseTest {
                 selectElementFromSzervezetDropDown(partnerNeve).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
 
         //ATM fölvétele
         //Szervizelesért felelős partner megadása
@@ -379,7 +379,7 @@ public class EszkozokTest extends BaseTest {
                 selectElementFromSzervezetDropDown(partnerNeve).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
 
         //ATM fölvétele
         //Szervizelesért felelős partner megadása
@@ -497,7 +497,7 @@ public class EszkozokTest extends BaseTest {
                 selectElementFromSzervezetDropDown(partnerNeve).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
 
         //ATM fölvétele
         //Szervizelesért felelős partner megadása
@@ -754,7 +754,7 @@ public class EszkozokTest extends BaseTest {
                 selectElementFromSzervezetDropDown(partnerNeve).
                 clickOnFelvetelBtn();
         getDriver().navigate().refresh();
-        Assert.assertTrue(ingatlanokPage.ingatlanMegjelATablaban(megnevezes));
+        Assert.assertTrue(ingatlanokPage.ingatlanMegjATabl(megnevezes, "2"));
 
         //ATM fölvétele
         //Szervizelesért felelős partner megadása

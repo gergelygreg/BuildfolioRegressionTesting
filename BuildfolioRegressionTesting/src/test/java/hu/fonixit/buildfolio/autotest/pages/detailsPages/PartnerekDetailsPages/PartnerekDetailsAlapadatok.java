@@ -1,6 +1,7 @@
 package hu.fonixit.buildfolio.autotest.pages.detailsPages.PartnerekDetailsPages;
 
 import hu.fonixit.buildfolio.autotest.base.BasePage;
+import hu.fonixit.buildfolio.autotest.objects.UjPartnerAlapadatok;
 import hu.fonixit.buildfolio.autotest.pages.IngatlanokPage;
 import hu.fonixit.buildfolio.autotest.pages.PartnerekPage;
 import org.openqa.selenium.By;
@@ -15,7 +16,7 @@ public class PartnerekDetailsAlapadatok extends BasePage {
     private final By megsemBtn = By.xpath("//button[.=' Mégsem ']");
     //mezők
     private final By irSzamFld = By.xpath("(//app-text-input[@name='postCode'])[1]//input");
-    private final By varosFld = By.xpath("(//app-text-input[@name='city'])[1]//input");
+    private final By telepulesFld = By.xpath("//app-detail-section[@header='partners.details.data.titles.address']//app-text-input[@name='city']//input[@placeholder='Nincs megadva']");
     private final By kozterulNeveFld = By.xpath("(//app-text-input[@name='publicPlace'])[1]//input");
     private final By koztTipDropDown = By.xpath("(//input[@role='combobox'])[2]");
     private final By hazszamFld = By.xpath("(//app-text-input[@name='houseNumber'])[1]//input");
@@ -31,8 +32,8 @@ public class PartnerekDetailsAlapadatok extends BasePage {
         return this;
     }
 
-    public PartnerekDetailsAlapadatok enterTextToVarosFld(String varos){
-        waitUtil.waitAndSendkeys(varosFld, varos);
+    public PartnerekDetailsAlapadatok enterTextToTelepulesFld(String telepules){
+        waitUtil.waitAndSendkeys(telepulesFld, telepules);
         return this;
     }
 
@@ -76,7 +77,7 @@ public class PartnerekDetailsAlapadatok extends BasePage {
     }
 
     public PartnerekDetailsAlapadatok clickOnKozmucegChb(){
-        waitUtil.waitAndClick(By.xpath("//input[@id='publicUtility']"));
+        waitUtil.waitAndClick(By.xpath("//label[contains(text(),'Közműcég')]"));
         return this;
     }
 
@@ -134,6 +135,15 @@ public class PartnerekDetailsAlapadatok extends BasePage {
             ertek = false;
         }
         return ertek;
+    }
+
+    //set
+    public PartnerekDetailsAlapadatok ujPartnerAlapadatok(UjPartnerAlapadatok ujPartnerAlapadatok){
+        return enterTextToIrSzamFld(ujPartnerAlapadatok.getIranyitoszam()).
+                enterTextToTelepulesFld(ujPartnerAlapadatok.getTelepules()).
+                enterTextToKoztNeveFld(ujPartnerAlapadatok.getKozteruletNeve()).
+                selectElementFromKozteruletTipusaDropDown(ujPartnerAlapadatok.getKozteruletTipusa()).
+                enterTextToHazSzamFld(ujPartnerAlapadatok.getHazszam());
     }
 
 }

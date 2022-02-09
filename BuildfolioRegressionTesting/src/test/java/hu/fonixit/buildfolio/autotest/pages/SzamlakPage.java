@@ -53,6 +53,11 @@ public class SzamlakPage extends BasePage {
         return this;
     }
 
+    public SzamlakPage selectSzamlaFromTabla(String egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
+        return this;
+    }
+
     //assert
     public boolean ujSzamlaFelveteleBtnKattinthato(){
        return waitUtil.elementIsDisplayed(ujSzamlaFelveteleBtn);
@@ -60,5 +65,9 @@ public class SzamlakPage extends BasePage {
 
     public boolean felvetelBtnKattinthato(){
         return waitUtil.elementIsClickable(felvetelBtn);
+    }
+
+    public boolean popUpMegjelenik(String popUpSzoveg){
+        return waitUtil.popupWindMegjelenik(popUpSzoveg);
     }
 }

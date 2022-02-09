@@ -10,8 +10,12 @@ public class PartnerekDetailsIngatlanok extends BasePage {
     }
 
     //assertion
-
     public boolean ingatlanMegjATablBan(String elemNeve, String tablaoszlopIndex){
         return waitUtil.elementIsDisplayedInTable(elemNeve,tablaoszlopIndex);
+    }
+
+    //nincs megjeleníthető adat
+    public boolean nincsMegjelenithetoAdatFelirat(){
+        return waitUtil.nincsMegjAdatFeliratMegj();
     }
 }

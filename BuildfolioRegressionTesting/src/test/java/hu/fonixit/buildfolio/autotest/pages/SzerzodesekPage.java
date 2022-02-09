@@ -23,8 +23,8 @@ public class SzerzodesekPage extends BasePage {
     }
 
     //click
-    public SzerzodesekPage clickOnElsoElem(){
-        waitUtil.waitAndClick(By.xpath("//tr[1]"));
+    public SzerzodesekPage clickOnElsoElem(String  egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
         return this;
     }
 

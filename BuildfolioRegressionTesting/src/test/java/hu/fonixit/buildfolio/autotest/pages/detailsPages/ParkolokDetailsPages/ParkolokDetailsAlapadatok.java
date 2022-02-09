@@ -13,12 +13,11 @@ import java.util.List;
 public class ParkolokDetailsAlapadatok extends BasePage {
     //FINDING INPUT FIELDS WITH LABEL. //input[@placeholder='Nincs megadva']/preceding-sibling::label[contains(.,'Őrzési/beléptetési mód')]
     //gomok
-    private final By adatokSzerkeszteseBtn = By.xpath("//button[contains(.,'Adatok szerkesztése')]");
+    private final By adatokSzerkeszteseBtn = By.xpath("//button[normalize-space()='Adatok szerkesztése']");
     private final By mentesBtn = By.xpath("//button[contains(.,'Mentés')]");
     private final By megsemBtn = By.xpath("//button[contains(.,'Mégsem')]");
     private final By orzeseBetelepitesiModFld = By.xpath("(//input[@placeholder='Nincs megadva'])[1]");
     private final By nyitvaTartasFld = By.xpath("//app-text-input[@name='openingHours']//input[@placeholder='Nincs megadva']");
-    private final By popUpToltseKiAKotMezoket = By.xpath("//div[@role='alertdialog']");
     private final By parkoloMegnevezeseFld = By.xpath("//input[@formcontrolname='parkingLotName']");
     private final By tipusDropDown = By.xpath("(//input[@role='combobox'])[1]");
     private final By teruletFld = By.xpath("//app-text-input[@name='area']//input");
@@ -174,13 +173,8 @@ public class ParkolokDetailsAlapadatok extends BasePage {
     }
 
 
-    public boolean popUpMegjelenik(){
-        return waitUtil.elementIsDisplayed(popUpToltseKiAKotMezoket);
-    }
-
-    public String popUpSzoveg(){
-        String alertText = waitUtil.waitAndGetText(popUpToltseKiAKotMezoket);
-        return alertText;
+    public boolean popUpSzovegMegjelenik(String popUpSzoveg){
+        return waitUtil.popupWindMegjelenik(popUpSzoveg);
     }
 
     public String parkolohelyekSzamaHeaderben(){

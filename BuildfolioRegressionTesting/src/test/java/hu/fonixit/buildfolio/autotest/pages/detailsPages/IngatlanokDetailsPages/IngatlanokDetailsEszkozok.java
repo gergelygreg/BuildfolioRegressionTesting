@@ -15,7 +15,7 @@ public class IngatlanokDetailsEszkozok extends BasePage {
     private final By ujMerooraFelvBtn = By.xpath("//button[.=' Új mérőóra felvétele ']");
     //új mérőóra felvétele ablak
     private final By oratipusDropDown = By.xpath("//div//label[.='Óratípus *']/following-sibling::app-buildfolio-select//input");
-    private final By gyariszam = By.xpath("//label[.='Gyári szám']/following-sibling::input");
+    private final By gyariszam = By.xpath("//app-new-meter-equipment-modal//app-text-input[@name='meterFactoryNumber']//input");
     private final By kozmucegDropDown = By.xpath("//div//label[.='Közműcég *']/following-sibling::app-public-utility-autocomplete//input");
     private final By felvetleBtn = By.xpath("//button[contains(.,'Felvétel')]");
     private final By megsemBtn = By.xpath("//button[.='Mégsem']");

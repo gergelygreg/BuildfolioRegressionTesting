@@ -26,7 +26,7 @@ public class Szurok extends BasePage {
     private final By iranyitoszamFld = By.xpath("//input[@placeholder='Irányítószám']");
     private final By varosFld = By.xpath("//input[@placeholder='Város']");
     private final By koztNeveFld = By.xpath("//input[@placeholder='Közterület neve']");
-    private final By hrszFld = By.xpath("//input[@placeholder='Helyrajzi szám']");
+    private final By hrszFld = By.xpath("//input[@placeholder='HRSZ']");
     //Parkolók-parkolóhelyek
     private final By azonositoFldParkolohely = By.xpath("//input[@placeholder='Azonosító']");
     private final By parkolohelyTipusaDropDown = By.xpath("//div[.='Parkolóhely típusa']//input");
@@ -43,12 +43,11 @@ public class Szurok extends BasePage {
     private final By nevFldPartn = By.xpath("//input[@placeholder='Név']");
     private final By cegjegyzekSzamFldPartn = By.xpath("//input[@placeholder='Cégjegyzékszám']");
     private final By iranyitoszamFldPartn = By.xpath("//input[@placeholder='Irányítószám']");
-    private final By varosFldPartn = By.xpath("//input[@placeholder='Város']");
+    private final By telepulesFldPartn = By.xpath("//input[@placeholder='Település']");
     private final By kozteruletneveFldPartn = By.xpath("//input[@placeholder='Közterület neve']");
     //Partner adatlap - Szerződések
     private final By szerzodesszamFld = By.xpath("//input[@placeholder='Szerződésszám']");
     private final By partnerFld = By.xpath("//input[@placeholder='Partner']");
-    private final By tipusDropDown1 = By.xpath("//app-buildfolio-select[@name='contractType']//input");
     private final By lejaratiTipusDropDown = By.xpath("//app-buildfolio-select[@name='expirationTypeCode']//input");
     private final By ervenyKezdeteDate = By.xpath("//app-datepicker-range[@name='validityStartFrom']//input");
     private final By ervenyVegeDate = By.xpath("//app-datepicker-range[@name='validityEndFrom']//input");
@@ -63,7 +62,7 @@ public class Szurok extends BasePage {
     private final By bankuzemCeluPartnIngDropDown = By.xpath("//app-buildfolio-select[@name='usedAsBank']//input");
     private final By szerepDropDownPartnIng = By.xpath("//app-buildfolio-select[@name='roleCode']//input");
     //Partner adatlap - Partnerek
-    private final By sorszamFldPartnSzamlak = By.xpath("//input[@placeholder='Név']");
+    private final By sorszamFldPartnSzamlak = By.xpath("//input[@placeholder='Sorszám']");
     private final By tipusDropDownPartnSzamlak = By.xpath("//app-buildfolio-select[@name='invoiceTypeCode']//input");
     private final By vevoFldPartnSzamlak = By.xpath("//input[@placeholder='Vevő']");
     private final By szallitoFldPartnSzamlak = By.xpath("//input[@placeholder='Szállító']");
@@ -80,7 +79,7 @@ public class Szurok extends BasePage {
     private final By tipusFldAtmAdatlap = By.xpath("//input[@placeholder='Típus']");
     private final By gyariSzamFldAtmAdatlap = By.xpath("//input[@placeholder='Gyári szám']");
     private final By iranyitoszamFldAtmAdatlap = By.xpath("//input[@placeholder='Irányítószám']");
-    private final By varosFldAtmAdatlap = By.xpath("//input[@placeholder='Város']");
+    private final By telepulesFldAtmAdatlap = By.xpath("//input[@placeholder='Település']");
     private final By kozteruletNeveFldAtmAdatlap = By.xpath("//input[@placeholder='Közterület neve']");
     private final By beepitettsegDropDownAtmAdatlap = By.xpath("//app-buildfolio-select[@name='atmIntegrationCode']//input");
     private final By elhelyezkedesDropDownAtmAdatlap = By.xpath("//app-buildfolio-select[@name='locationCode']//input");
@@ -91,7 +90,8 @@ public class Szurok extends BasePage {
     private final By tipusFldBanktechEszk = By.xpath("//input[@placeholder='Típus']");
     private final By eszkozcsoportDropDownBanktechEszk = By.xpath("//app-buildfolio-select[.='Eszközcsoport']//input");
     private final By iranyitoszamFldBanktechEszk = By.xpath("//input[@placeholder='Irányítószám']");
-    private final By varosFldBanktechEszk = By.xpath("//input[@placeholder='Város']");
+    private final By telepulesFldBankTechEszkFld = By.xpath("//input[@placeholder='Település']");
+    private final By koztNeveBanktechEszkFld = By.xpath("//input[@placeholder='Közterület neve']");
     private final By kozteruletNeveFldBanktechEszk = By.xpath("//input[@placeholder='Közterület neve']");
     private final By statuszDropDownBanktechEszk = By.xpath("//app-buildfolio-select[.='Státusz']//input");
     //Eszközök - ATM adatlap - Igények
@@ -105,7 +105,7 @@ public class Szurok extends BasePage {
     private final By tipusFldBankbiztEszk = By.xpath("//input[@placeholder='Típus']");
     private final By eszkozcsoportDropDownBankbiztEszk = By.xpath("//app-buildfolio-select[.='Eszközcsoport']//input");
     private final By iranyitoszamFldBankbiztEszk = By.xpath("//input[@placeholder='Irányítószám']");
-    private final By varosFldBankbiztEszk = By.xpath("//input[@placeholder='Város']");
+    private final By telepulesFldBankbiztEszk = By.xpath("//input[@placeholder='Település']");
     private final By kozteruletNeveFldBankbiztEszk = By.xpath("//input[@placeholder='Közterület neve']");
     private final By statuszDropDownBankbiztEszk = By.xpath("//app-buildfolio-select[.='Státusz']//input");
 
@@ -228,7 +228,8 @@ public class Szurok extends BasePage {
     }
 
     public Szurok selectTipusFromDropDown(String tipus){
-        waitUtil.waitAndSendkeys(By.xpath("(//input[@role='combobox'])[1]"), tipus);
+        waitUtil.waitAndClick(By.xpath("//app-buildfolio-select[@name='contractType']//input"));
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+tipus+"']"));
         return this;
     }
 
@@ -285,8 +286,8 @@ public class Szurok extends BasePage {
         return this;
     }
 
-    public Szurok enterTextToVarosFldPartn(String varos){
-        waitUtil.waitAndSendkeys(varosFldPartn, varos);
+    public Szurok enterTextToVarosFldPartn(String telepules){
+        waitUtil.waitAndSendkeys(telepulesFldPartn, telepules);
         return this;
     }
 
@@ -302,7 +303,7 @@ public class Szurok extends BasePage {
     }
 
     public Szurok enterTextToPartnerFld(String partner){
-        waitUtil.waitAndSendkeys(szerzodesszamFld, partner);
+        waitUtil.waitAndSendkeys(partnerFld, partner);
         return this;
     }
 
@@ -362,19 +363,19 @@ public class Szurok extends BasePage {
     }
 
     public Szurok selectSzerepPartIngDropDown(String szerep){
-        waitUtil.waitForVisibility(szerepDropDownPartnIng);
-        waitUtil.waitAndClick(By.xpath("//div[@title='"+szerep+"'])"));
+        waitUtil.waitAndClick(szerepDropDownPartnIng);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+szerep+"']"));
         return this;
     }
 
     public Szurok selectJellegPartIngFromDropDown(String jelleg){
         waitUtil.waitAndClick(jellegDropDownPartnIng);
-        waitUtil.waitAndClick(By.xpath("//div[@title='"+jelleg+"'])"));
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+jelleg+"']"));
         return this;
     }
     public Szurok selectBankuzemCeluPartnIngDropDown(String bankuzemCelu){
         waitUtil.waitAndClick(bankuzemCeluPartnIngDropDown);
-        waitUtil.waitAndClick(By.xpath("//div[@title='"+bankuzemCelu+"'])"));
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+bankuzemCelu+"']"));
         return this;
     }
 
@@ -416,7 +417,8 @@ public class Szurok extends BasePage {
     }
 
     public Szurok selectStatuszFromStatuszDropDownPartnSzamlak(String statusz){
-        waitUtil.waitAndSendkeys(statuszDropDownPartnSzamlak, statusz);
+        waitUtil.waitAndClick(statuszDropDownPartnSzamlak);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
         return this;
     }
 
@@ -464,8 +466,8 @@ public class Szurok extends BasePage {
         return this;
     }
 
-    public Szurok enterTextToVarosFldAtmAdatlap(String varos){
-        waitUtil.waitAndSendkeys(varosFldAtmAdatlap, varos);
+    public Szurok enterTextToTelepulesFldAtmAdatlap(String telepules){
+        waitUtil.waitAndSendkeys(telepulesFldAtmAdatlap, telepules);
         return this;
     }
 
@@ -520,10 +522,6 @@ public class Szurok extends BasePage {
         return this;
     }
 
-    public Szurok enterTextToVarosFldBanktechEszk(String varos){
-        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
-        return this;
-    }
 
     public Szurok enterTextKozteruletNeveFldBanktechEszk(String koztNeve){
         waitUtil.waitAndSendkeys(kozteruletNeveFldBanktechEszk, koztNeve);
@@ -564,10 +562,6 @@ public class Szurok extends BasePage {
         return this;
     }
 
-    public Szurok enterTextToVarosFldBankbiztEszk(String varos){
-        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
-        return this;
-    }
 
     public Szurok enterTextKozteruletNeveFldBankbiztEszk(String koztNeve){
         waitUtil.waitAndSendkeys(kozteruletNeveFldBanktechEszk, koztNeve);
@@ -594,11 +588,6 @@ public class Szurok extends BasePage {
 
     public Szurok enterTextToIranyitoszamFldPartnerAdatlapAtm(String iranyitoszam){
         waitUtil.waitAndSendkeys(iranyitoszamFldAtmAdatlap, iranyitoszam);
-        return this;
-    }
-
-    public Szurok enterTextToVarosFldPartnerAdatlapAtm(String varos){
-        waitUtil.waitAndSendkeys(varosFldAtmAdatlap, varos);
         return this;
     }
 
@@ -653,11 +642,6 @@ public class Szurok extends BasePage {
         return this;
     }
 
-    public Szurok enterTextToVarosFldPartnerAdatlapBanktechEszk(String varos){
-        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
-        return this;
-    }
-
     public Szurok enterTextKozteruletNeveFldPartnerAdatlapBanktechEszk(String koztNeve){
         waitUtil.waitAndSendkeys(kozteruletNeveFldBanktechEszk, koztNeve);
         return this;
@@ -688,17 +672,17 @@ public class Szurok extends BasePage {
 
     public Szurok selectFromEszkozcsoportDropDownPartnerAdatlapBankbiztEszk(String eszkozcsoport){
         waitUtil.waitAndClick(eszkozcsoportDropDownBanktechEszk);
-        waitUtil.waitAndClick(By.xpath("//div[@title='Bankjegyszámláló']"));
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+eszkozcsoport+"']"));
         return this;
     }
 
     public Szurok enterTextToIranyitoszamFldPartnerAdatlapBankbiztEszk(String iranyitoszam){
-        waitUtil.waitAndSendkeys(iranyitoszamFldBanktechEszk, iranyitoszam);
+        waitUtil.waitAndSendkeys(iranyitoszamFldBankbiztEszk, iranyitoszam);
         return this;
     }
 
-    public Szurok enterTextToVarosFldPartnerAdatlapBankbiztEszk(String varos){
-        waitUtil.waitAndSendkeys(varosFldBanktechEszk, varos);
+    public Szurok enterTextToTelepulesFldPartnerAdatlapBankbiztEszk(String telepules){
+        waitUtil.waitAndSendkeys(telepulesFldBankbiztEszk, telepules);
         return this;
     }
 
@@ -708,7 +692,7 @@ public class Szurok extends BasePage {
     }
 
     public Szurok selectFromStatuszDropDownPartnerAdatlapBankbiztEszk(String statusz){
-        waitUtil.waitAndClick(statuszDropDownBanktechEszk);
+        waitUtil.waitAndClick(statuszDropDownBankbiztEszk);
         waitUtil.waitAndClick(By.xpath("//div[@title='"+statusz+"']"));
         return this;
     }
@@ -741,10 +725,6 @@ public class Szurok extends BasePage {
         return this;
     }
 
-    public Szurok enterTextToTipusBankbiztEszkozFld(String tipus){
-        waitUtil.waitAndSendkeys(tipusFldBankbiztEszk, tipus);
-        return this;
-    }
 
     public Szurok selectEszkozcsoportBankbiztEszkozFromDropDown(String eszkozcsoport){
         waitUtil.waitAndClick(eszkozcsoportDropDownBankbiztEszk);
@@ -752,15 +732,6 @@ public class Szurok extends BasePage {
         return this;
     }
 
-    public Szurok enterTextToIranyitoszamBanbiztEszkFld(String iranyitoszam){
-        waitUtil.waitAndSendkeys(iranyitoszamFldBankbiztEszk, iranyitoszam);
-        return this;
-    }
-
-    public Szurok enterTextToVarosBanbiztEszkFld(String varos){
-        waitUtil.waitAndSendkeys(varosFldBankbiztEszk, varos);
-        return this;
-    }
 
     public Szurok enterTextToKoztNeveBankbiztFld(String koztNeve){
         waitUtil.waitAndSendkeys(kozteruletNeveFldBankbiztEszk, koztNeve);
@@ -772,4 +743,13 @@ public class Szurok extends BasePage {
         return this;
     }
 
+    public Szurok enterTextToTelepulesFldPartnerAdatlapBanktechEszk(String telepules){
+        waitUtil.waitAndSendkeys(telepulesFldBankTechEszkFld, telepules);
+        return this;
+    }
+
+    public Szurok enterTextToKoztNeveFldPartnerAdatlapBanktechEszk(String kozteruletNeve){
+        waitUtil.waitAndSendkeys(koztNeveBanktechEszkFld, kozteruletNeve);
+        return this;
+    }
 }

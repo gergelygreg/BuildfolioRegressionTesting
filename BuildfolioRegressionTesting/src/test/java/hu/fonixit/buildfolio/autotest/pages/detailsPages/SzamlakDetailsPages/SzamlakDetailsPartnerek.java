@@ -17,7 +17,7 @@ public class SzamlakDetailsPartnerek extends BasePage {
 
     //click
     public SzamlakDetailsPartnerek clickOnCheckBox(String partnerNeve){
-        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+partnerNeve+"']/parent::tr//td//app-checkbox//div//input"));
+        waitUtil.waitAndClick(By.xpath("//td[normalize-space()='"+partnerNeve+"']/parent::tr//td//app-checkbox//div//label"));
         return this;
     }
 

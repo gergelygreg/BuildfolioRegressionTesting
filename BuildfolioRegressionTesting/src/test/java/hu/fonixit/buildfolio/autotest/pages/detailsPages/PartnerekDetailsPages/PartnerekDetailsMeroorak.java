@@ -12,4 +12,8 @@ public class PartnerekDetailsMeroorak extends BasePage {
     public boolean merooraMegjelenikATablazatban(String elemNeve, String oszlopindex){
         return waitUtil.elementIsDisplayedInTable(elemNeve, oszlopindex);
     }
+
+    public boolean nincsMegjelenithetoAdatFelirat(){
+        return waitUtil.nincsMegjAdatFeliratMegj();
+    }
 }

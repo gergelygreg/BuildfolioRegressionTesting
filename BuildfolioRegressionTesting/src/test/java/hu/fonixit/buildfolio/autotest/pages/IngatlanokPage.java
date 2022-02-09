@@ -32,8 +32,8 @@ public class IngatlanokPage extends BasePage {
     }
 
     //assert
-    public String ingatlanMegjATabl(String ingatlanNeve){
-        return waitUtil.waitAndGetText(By.xpath("//td[2]"));
+    public boolean ingatlanMegjATabl(String egyediAzon, String oszlopIndex){
+        return waitUtil.elementIsDisplayedInTable(egyediAzon, oszlopIndex);
     }
 
     //enterText
@@ -80,8 +80,8 @@ public class IngatlanokPage extends BasePage {
     //click
 
     //lista első ingatlanja
-    public IngatlanokPage clickOnElsoIngatlan(){
-        waitUtil.waitAndClick(By.xpath("//tr[1]//td[2]"));
+    public IngatlanokPage clickOnElsoIngatlan(String egyediAzon, String oszlopIndex){
+        waitUtil.selectElementFromTableOszlopKivalasztasaval(egyediAzon, oszlopIndex);
         return this;
     }
     //
@@ -189,8 +189,8 @@ public class IngatlanokPage extends BasePage {
     }
 
     //assertion
-    public boolean ingatlanMegjelATablaban(String elemNeve){
-        return waitUtil.elementIsDisplayedInTable(elemNeve, "2");
+    public boolean popUpMegjelenik(String popUpSzovege){
+        return waitUtil.popupWindMegjelenik(popUpSzovege);
     }
 
 }

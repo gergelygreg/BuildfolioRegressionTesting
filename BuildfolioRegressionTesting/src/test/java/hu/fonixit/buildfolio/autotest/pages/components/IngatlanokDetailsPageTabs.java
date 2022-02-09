@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class IngatlanokDetailsPageTabs extends BasePage {
     //fülek
-    private final By alapadatokTab = By.xpath("//a[.='Alapadatok']");
+    private final By alapadatokTab = By.xpath("//a[contains(text(),'Műszaki adatok')]");
     private final By parkolasTab = By.xpath("//a[.='Parkolás']");
     private final By muszakiAdatokTab = By.xpath("//a[.='Műszaki adatok']");
     private final By tulajdoniLapTab = By.xpath("//a[.='Tulahdoni lap']");

@@ -3,6 +3,7 @@ package hu.fonixit.buildfolio.autotest.pages.detailsPages.IngatlanokDetailsPages
 import hu.fonixit.buildfolio.autotest.base.BasePage;
 import hu.fonixit.buildfolio.autotest.objects.UjMuszakiAdatok;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -11,9 +12,9 @@ public class IngatlanokDetailsMuszakiAdatok extends BasePage {
     private final By mentesBtn = By.xpath("//span[normalize-space()='Mentés']");
     private final By megsemBtn = By.xpath("//button[normalize-space()='Mégsem']");
 
-    private final By epitesEveDropDown = By.xpath("(//input[@role='combobox'])[1]");
-    private final By utolsoFelujEveDropDown = By.xpath("(//span[@class='ng-arrow'])[2]");
-    private final By kozmuvesitettsegFld = By.xpath("//app-text-input[@name='publicUtilities']//input[@placeholder='Nincs megadva']");
+    private final By epitesEveDropDown = By.xpath("//app-buildfolio-select[@name='buildingYear']//input");
+    private final By utolsoFelujEveDropDown = By.xpath("//app-buildfolio-select[@name='lastRenovationYear']//input");
+    private final By kozmuvesitettsegFld = By.xpath("//app-text-input[@name='publicUtilities']//input");
 
 
 
@@ -38,26 +39,19 @@ public class IngatlanokDetailsMuszakiAdatok extends BasePage {
         return this;
     }
 
-    public IngatlanokDetailsMuszakiAdatok clickOnEpitesEveDropDown(){
-        waitUtil.waitAndClick(epitesEveDropDown);
-        return this;
-    }
-
-    public IngatlanokDetailsMuszakiAdatok clickOnUtolsoFelujEveDropDown(){
-        waitUtil.waitAndClick(utolsoFelujEveDropDown);
-        return this;
-    }
 
     //select
     public IngatlanokDetailsMuszakiAdatok selectElementFromEpitesEveDropDown(String epitesEve){
-        waitUtil.waitAndSendkeys(By.xpath("(//input[@role='combobox'])[1]"), epitesEve);
+        waitUtil.waitAndClick(epitesEveDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+epitesEve+"']"));
         return this;
     }
 
 
 
     public IngatlanokDetailsMuszakiAdatok selectElementFromUtolsoFelujEveDropDown(String utolsoFelujEve){
-        waitUtil.waitAndSendkeys(By.xpath("(//input[@role='combobox'])[2]"), utolsoFelujEve);
+        waitUtil.waitAndClick(utolsoFelujEveDropDown);
+        waitUtil.waitAndClick(By.xpath("//div[@title='"+utolsoFelujEve+"']"));
         return this;
     }
 
@@ -73,6 +67,12 @@ public class IngatlanokDetailsMuszakiAdatok extends BasePage {
         return selectElementFromEpitesEveDropDown(ujMuszakiAdatok.getEpitesEve()).
                 selectElementFromUtolsoFelujEveDropDown(ujMuszakiAdatok.getUtolsoFelujitasEve()).
                 enterTextToKozmuvesitettseg(ujMuszakiAdatok.getKozmuvesitettseg());
+    }
+
+    //scrollUp
+    public IngatlanokDetailsMuszakiAdatok scrollUp(){
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, -document.body.scrollHeight)");
+        return this;
     }
 
 
